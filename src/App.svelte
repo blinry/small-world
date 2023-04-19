@@ -15,7 +15,7 @@
 
 <main>
 {#each world as entity}
-    <div class="entity" style="left: {entity.x}px; top: {entity.y}px">{entity.name}</div>
+    <div class="entity" style="left: {entity.x}px; top: {entity.y}px">{entity.getLabel()}</div>
 {/each}
 </main>
 
