@@ -1,45 +1,26 @@
 <script>
-  import svelteLogo from './assets/svelte.svg'
-  import Counter from './lib/Counter.svelte'
+    import { buildWorld } from './world.js'
+
+    //let scale = 1e6 // 1 million people per game-person
+    //let scale = 1e7 // 10 million people per game-person
+    //let scale = 1e8 // 100 million people per game-person
+    let scale = 8e9 / 100 // 100-people village
+
+    let world = []
+    ;(async () => {
+        world = await buildWorld(scale)
+        console.log(world)
+    })()
 </script>
 
 <main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank" rel="noreferrer"> 
-      <img src="/vite.svg" class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer"> 
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
-
-  <div class="card">
-    <Counter />
-  </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
+{#each world as entity}
+    <div class="entity" style="left: {entity.x}px; top: {entity.y}px">{entity.name}</div>
+{/each}
 </main>
 
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
-  }
+.entity {
+    position: absolute;
+}
 </style>
