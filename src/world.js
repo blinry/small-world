@@ -6,8 +6,8 @@ let povertyCSV = "/data/poverty.csv"
 const HUMANS = 8e9
 const CHICKENS = 33e9 // just a guess, no Internet...
 
-let entity = "Germany"
-let year = "2018"
+let entity = "Somalia"
+let year = "2017"
 
 class Entity {
     constructor() {
@@ -153,6 +153,9 @@ async function generateAgeProperty() {
     let currentData = results.data.filter(
         (row) => row[entityField] == entity && row[yearField] == year
     )
+    if(currentData.length <= 0){
+        console.error("No data age for", entity, year)
+    }
     let property = {}
     let totalHumans = Number(currentData[0][4]) + Number(currentData[0][5]) + Number(currentData[0][6]) + Number(currentData[0][7]) + Number(currentData[0][8])
     for (let category of categories) {
@@ -192,7 +195,9 @@ async function generatePovertyProperty() {
     let data = results.data.filter(
         (row) => row[entityField] == entity && row[yearField] == year
     )
-    console.log("data", data, entity, year)
+    if(data.length <= 0){
+        console.error("No data poverty for", entity, year)
+    }
     data = data[0]
     let property = {}
     let total = 0
