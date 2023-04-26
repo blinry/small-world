@@ -3,6 +3,12 @@ import Papa from "papaparse"
 let ageCSV = "/data/age.csv"
 let povertyCSV = "/data/poverty.csv"
 
+const HUMANS = 8e9
+const CHICKENS = 33e9 // just a guess, no Internet...
+
+let entity = "Germany"
+let year = "2018"
+
 class Entity {
     constructor() {
         let width = 800
@@ -33,7 +39,10 @@ class Person extends Entity {
                     } else {
                         label += "👦"
                     }
-                } else if (this.properties.age == "15-24" || this.properties.age == "25-64") {
+                } else if (
+                    this.properties.age == "15-24" ||
+                    this.properties.age == "25-64"
+                ) {
                     if (this.properties.sex == "xx") {
                         label += "👩"
                     } else {
@@ -60,8 +69,7 @@ class Person extends Entity {
     }
 }
 
-const HUMANS = 8e9
-const CHICKENS = 33e9 // just a guess, no Internet...
+
 
 const humanProperties = {
     sex: {
@@ -99,7 +107,7 @@ function parseCSV(url) {
             download: true,
             complete: (results) => {
                 resolve(results)
-            }
+            },
         })
     })
 }
@@ -143,14 +151,13 @@ async function generateAgeProperty() {
         },
     ]
     let currentData = results.data.filter(
-        (row) =>
-            row[entityField] == "World" && row[yearField] == "2023"
+        (row) => row[entityField] == entity && row[yearField] == year
     )
     let property = {}
+    let totalHumans = Number(currentData[0][4]) + Number(currentData[0][5]) + Number(currentData[0][6]) + Number(currentData[0][7]) + Number(currentData[0][8])
     for (let category of categories) {
         property[category.emoji] = {
-            fraction:
-                Number(currentData[0][category.field]) / HUMANS,
+            fraction: Number(currentData[0][category.field]) / totalHumans,
         }
     }
 
@@ -162,9 +169,6 @@ async function generatePovertyProperty() {
 
     let header = results.data.shift()
     console.log(header)
-
-    let entity = "World"
-    let year = "2019"
 
     let entityField = 0
     let yearField = 1
@@ -188,18 +192,19 @@ async function generatePovertyProperty() {
     let data = results.data.filter(
         (row) => row[entityField] == entity && row[yearField] == year
     )
+    console.log("data", data, entity, year)
     data = data[0]
     let property = {}
     let total = 0
     for (let category of categories) {
         let value = Number(data[category.field])
         property[category.income] = {
-            fraction: (value - total)/100,
+            fraction: (value - total) / 100,
         }
         total = value
     }
     property["not poor"] = {
-        fraction: 1 - total/100,
+        fraction: 1 - total / 100,
     }
 
     return property
