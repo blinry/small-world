@@ -25,15 +25,15 @@ class Person extends Entity {
         let label = ""
         if (this.properties.sex) {
             if (this.properties.age) {
-                if (this.properties.age < 5) {
+                if (this.properties.age == "<5") {
                     label += "👶"
-                } else if (this.properties.age < 15) {
+                } else if (this.properties.age == "5-14") {
                     if (this.properties.sex == "xx") {
                         label += "👧"
                     } else {
                         label += "👦"
                     }
-                } else if (this.properties.age < 65) {
+                } else if (this.properties.age == "15-24" || this.properties.age == "25-64") {
                     if (this.properties.sex == "xx") {
                         label += "👩"
                     } else {
@@ -67,35 +67,28 @@ const humanProperties = {
     sex: {
         xx: {
             fraction: 0.5,
-            emoji: "👦",
         },
         xy: {
             fraction: 0.5,
-            emoji: "👧",
         },
     },
     //canRead: {
     //    yes: {
     //        fraction: 0.8,
-    //        emoji: "📖",
     //    },
     //    no: {
     //        fraction: 0.2,
-    //        emoji: "",
     //    },
     //},
     //income: {
     //    "very rich": {
     //        fraction: 0.01,
-    //        emoji: "💰"
     //    },
     //    "in between": {
     //        fraction: 0.79,
-    //        emoji: "🪙"
     //    },
     //    "very poor": {
     //        fraction: 0.2,
-    //        emoji: ""
     //    }
     //}
 }
@@ -158,9 +151,6 @@ async function generateAgeProperty() {
         property[category.emoji] = {
             fraction:
                 Number(currentData[0][category.field]) / HUMANS,
-            emoji: category.emoji,
-            upper: category.upper,
-            lower: category.lower,
         }
     }
 
@@ -182,17 +172,17 @@ async function generatePovertyProperty() {
         {
             field: 7,
             label: "below poverty line",
-            income: 2.15, // in 2017 prices
+            income: "$2.15", // in 2017 prices
         },
         {
             field: 8,
             label: "lower-middle income poverty line",
-            income: 3.65,
+            income: "$3.65",
         },
         {
             field: 9,
             label: "upper-middle income poverty line",
-            income: 6.85,
+            income: "$6.85",
         },
     ]
     let data = results.data.filter(
@@ -203,15 +193,13 @@ async function generatePovertyProperty() {
     let total = 0
     for (let category of categories) {
         let value = Number(data[category.field])
-        property[category.income.toString()] = {
+        property[category.income] = {
             fraction: (value - total)/100,
-            emoji: category.income.toString(),
         }
         total = value
     }
     property["not poor"] = {
         fraction: 1 - total/100,
-        emoji: "do we need this?"
     }
 
     return property
@@ -235,13 +223,6 @@ export function buildWorld(scale) {
                     let attributes = options[option]
                     progress += attributes.fraction
                     if (progress >= value) {
-                        if (property == "age") {
-                            option =
-                                Math.random() *
-                                    (attributes.upper -
-                                        attributes.lower) +
-                                attributes.lower
-                        }
                         console.log(property, option)
                         p.setProperty(property, option)
                         break
