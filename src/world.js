@@ -6,8 +6,6 @@ let povertyCSV = "/data/poverty.csv"
 const HUMANS = 8e9
 const CHICKENS = 33e9 // just a guess, no Internet...
 
-let entity = "World"
-
 class Entity {
     constructor() {
         let width = 1200
@@ -109,7 +107,7 @@ function parseCSV(url) {
     })
 }
 
-async function generateAgeProperty(year) {
+async function generateAgeProperty(year, entity) {
     let results = await parseCSV(ageCSV)
 
     let header = results.data.shift()
@@ -169,11 +167,10 @@ async function generateAgeProperty(year) {
     return property
 }
 
-async function generatePovertyProperty(year) {
+async function generatePovertyProperty(year, entity) {
     let results = await parseCSV(povertyCSV)
 
     let header = results.data.shift()
-    console.log(header)
 
     let entityField = 0
     let yearField = 1
@@ -218,11 +215,14 @@ async function generatePovertyProperty(year) {
 }
 
 // If scale is one million, one million people in the real world will be represented by one person in the game world.
-export function buildWorld(scale, year) {
+export function buildWorld(scale, year, entity) {
     return new Promise(async (resolve, reject) => {
         try {
-            humanProperties["age"] = await generateAgeProperty(year)
-            humanProperties["poverty"] = await generatePovertyProperty(year)
+            humanProperties["age"] = await generateAgeProperty(year, entity)
+            humanProperties["poverty"] = await generatePovertyProperty(
+                year,
+                entity
+            )
         } catch (e) {
             console.error(e)
             reject(e)
@@ -252,4 +252,19 @@ export function buildWorld(scale, year) {
         //}
         resolve(world)
     })
+}
+
+export async function entityList() {
+    let results = await parseCSV(povertyCSV)
+
+    // Remove header.
+    results.data.shift()
+
+    let entities = new Set()
+    for (let row of results.data) {
+        if (row[0] !== "") {
+            entities.add(row[0])
+        }
+    }
+    return [...entities]
 }
