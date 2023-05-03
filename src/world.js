@@ -100,7 +100,6 @@ let cachedData = {}
 function parseCSV(url) {
     return new Promise((resolve, reject) => {
         if (cachedData[url]) {
-            console.log("Using cached data for " + url)
             resolve(cachedData[url])
         } else {
             Papa.parse(url, {
@@ -226,13 +225,20 @@ export function buildWorld(scale, year, entity) {
     return new Promise(async (resolve, reject) => {
         try {
             humanProperties["age"] = await generateAgeProperty(year, entity)
+        } catch (e) {
+            console.error(e)
+            reject(e)
+        }
+
+        delete humanProperties["poverty"]
+        try {
             humanProperties["poverty"] = await generatePovertyProperty(
                 year,
                 entity
             )
         } catch (e) {
             console.error(e)
-            reject(e)
+            // This is not such a problem, keep going.
         }
 
         const world = []

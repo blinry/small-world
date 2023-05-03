@@ -29,8 +29,8 @@
 </script>
 
 <main>
-    <input type="range" min="1950" max="2022" step="1" bind:value={year} /> {year}<br>
-    <input type="range" min="1" max="1000" step="1" bind:value={numberOfPeople} /> {numberOfPeople}<br>
+    <input type="range" min="1950" max="2100" step="1" bind:value={year} /> {year}<br>
+    <input type="range" min="1" max="1000" step="1" bind:value={numberOfPeople} /> {numberOfPeople} <button on:click={() => {numberOfPeople = 100}}>Reset to 100</button><br>
     <select bind:value={entity}>
         {#each entities as e}
             <option value={e}>{e}</option>
