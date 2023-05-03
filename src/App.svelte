@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte'
-    import { buildWorld, entityList } from './world.js'
+    import { buildWorld, entityList, HUMANS } from './world.js'
 
     let year = 2017
     let entity = "World"
@@ -11,18 +11,13 @@
         console.log(entities)
     })
 
-    //let scale = 1e6 // 1 million people per game-person
-    //let scale = 1e7 // 10 million people per game-person
-    let scale = 1e8 // 100 million people per game-person
-    //let scale = 8e9 / 100 // 100-people village
+    let numberOfPeople = 100
+
+    $: scale = HUMANS/numberOfPeople
 
     $: {
-        console.log("rebuilding for entity " + entity)
-        rebuild()
-    }
-
-    function rebuild() {
         console.log("rebuilding with year " + year + " and entity " + entity)
+
         buildWorld(scale, year, entity).then((newWorld) => {
             world = newWorld
         }).catch((err) => {
@@ -31,11 +26,11 @@
     }
 
     let world = []
-    rebuild()
 </script>
 
 <main>
-    <input type="range" min="1950" max="2022" step="1" on:change={rebuild} bind:value={year} /> {year}
+    <input type="range" min="1950" max="2022" step="1" bind:value={year} /> {year}<br>
+    <input type="range" min="1" max="1000" step="1" bind:value={numberOfPeople} /> {numberOfPeople}<br>
     <select bind:value={entity}>
         {#each entities as e}
             <option value={e}>{e}</option>

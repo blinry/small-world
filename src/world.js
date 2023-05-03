@@ -3,7 +3,7 @@ import Papa from "papaparse"
 let ageCSV = "/data/age.csv"
 let povertyCSV = "/data/poverty.csv"
 
-const HUMANS = 8e9
+export const HUMANS = 8e9
 const CHICKENS = 33e9 // just a guess, no Internet...
 
 class Entity {
@@ -96,14 +96,21 @@ const humanProperties = {
     //}
 }
 
+let cachedData = {}
 function parseCSV(url) {
     return new Promise((resolve, reject) => {
-        Papa.parse(url, {
-            download: true,
-            complete: (results) => {
-                resolve(results)
-            },
-        })
+        if (cachedData[url]) {
+            console.log("Using cached data for " + url)
+            resolve(cachedData[url])
+        } else {
+            Papa.parse(url, {
+                download: true,
+                complete: (results) => {
+                    cachedData[url] = results
+                    resolve(results)
+                },
+            })
+        }
     })
 }
 
