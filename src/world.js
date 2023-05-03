@@ -113,6 +113,26 @@ function parseCSV(url) {
     })
 }
 
+async function getTotalHumans(entity, year) {
+    let results = await parseCSV(ageCSV)
+    let entityField = 0
+    let yearField = 1
+
+    let currentData = results.data.filter(
+        (row) => row[entityField] == entity && Number(row[yearField]) == year
+    )
+    if (currentData.length <= 0) {
+        throw `No age data for ${entity} in ${year}.`
+    }
+    return (
+        Number(currentData[0][4]) +
+        Number(currentData[0][5]) +
+        Number(currentData[0][6]) +
+        Number(currentData[0][7]) +
+        Number(currentData[0][8])
+    )
+}
+
 async function generateAgeProperty(year, entity) {
     let results = await parseCSV(ageCSV)
 
@@ -242,7 +262,9 @@ export function buildWorld(scale, year, entity) {
         }
 
         const world = []
-        for (let i = 0; i < HUMANS / scale; i++) {
+        let totalHumans = await getTotalHumans(entity, year)
+        console.log(totalHumans)
+        for (let i = 0; i < totalHumans / scale; i++) {
             let p = new Person()
             for (let property in humanProperties) {
                 let options = humanProperties[property]
