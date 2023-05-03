@@ -8,7 +8,7 @@ const CHICKENS = 33e9 // just a guess, no Internet...
 
 class Entity {
     constructor() {
-        let width = 1200
+        let width = 500
         this.x = Math.random() * width
         this.y = Math.random() * width
     }
@@ -94,6 +94,12 @@ const humanProperties = {
     //        fraction: 0.2,
     //    }
     //}
+}
+
+export async function onDataReady(hook) {
+    await parseCSV(ageCSV)
+    await parseCSV(povertyCSV)
+    hook()
 }
 
 let cachedData = {}

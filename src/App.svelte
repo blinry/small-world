@@ -1,28 +1,37 @@
 <script>
     import { onMount } from 'svelte'
-    import { buildWorld, entityList, HUMANS } from './world.js'
+    import { buildWorld, entityList, HUMANS, onDataReady } from './world.js'
+
+    let initialized = false
 
     let year = 2017
-    let entity = "World"
 
-    let entities = []
+    let entities = ["World"]
+    let entity = "World"
+    let displayedEntities = ["United States", "China", "India", "Germany", "Japan"]
+
     onMount(async () => {
-        entities = await entityList()
-        console.log(entities)
+        onDataReady(async () => {
+            initialized = true
+            entities = await entityList()
+        })
     })
 
     let numberOfPeople = 100
 
     $: scale = HUMANS/numberOfPeople
 
+    let worlds = {}
     $: {
-        console.log("rebuilding with year " + year + " and entity " + entity)
-
-        buildWorld(scale, year, entity).then((newWorld) => {
-            world = newWorld
-        }).catch((err) => {
-            world = []
-        })
+        if (initialized) {
+            for(let entity of displayedEntities) {
+                buildWorld(scale, year, entity).then((newWorld) => {
+                    worlds[entity] = newWorld
+                }).catch((err) => {
+                    worlds[entity] = []
+                })
+            }
+        }
     }
 
     let world = []
@@ -36,18 +45,31 @@
             <option value={e}>{e}</option>
         {/each}
     </select>
-    <div id="world">
-        {#each world as entity}
-            <div class="entity" style="left: {entity.x}px; top: {entity.y}px">{entity.getLabel()}</div>
+    <div id="countries">
+        {#each Object.entries(worlds) as [entity, world]}
+            <div class="country">
+                <h2>{entity}</h2>
+                <div class="world">
+                    {#each world as e}
+                        <div class="entity" style="left: {e.x}px; top: {e.y}px">{e.getLabel()}</div>
+                    {/each}
+                </div>
+            </div>
         {/each}
     </div>
 </main>
 
 <style>
-#world {
+#countries {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 1rem;
+}
+.world {
     position: relative;
-    width: 100%;
-    height: 90vh;
+    width: 500px;
+    height: 500px;
     background: lightblue;
 }
 .entity {
