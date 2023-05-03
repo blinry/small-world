@@ -7,7 +7,6 @@ const HUMANS = 8e9
 const CHICKENS = 33e9 // just a guess, no Internet...
 
 let entity = "World"
-let year = "2017"
 
 class Entity {
     constructor() {
@@ -110,7 +109,7 @@ function parseCSV(url) {
     })
 }
 
-async function generateAgeProperty() {
+async function generateAgeProperty(year) {
     let results = await parseCSV(ageCSV)
 
     let header = results.data.shift()
@@ -149,10 +148,10 @@ async function generateAgeProperty() {
         },
     ]
     let currentData = results.data.filter(
-        (row) => row[entityField] == entity && row[yearField] == year
+        (row) => row[entityField] == entity && Number(row[yearField]) == year
     )
     if (currentData.length <= 0) {
-        console.error("No data age for", entity, year)
+        throw `No age data for ${entity} in ${year}.`
     }
     let property = {}
     let totalHumans =
@@ -170,7 +169,7 @@ async function generateAgeProperty() {
     return property
 }
 
-async function generatePovertyProperty() {
+async function generatePovertyProperty(year) {
     let results = await parseCSV(povertyCSV)
 
     let header = results.data.shift()
@@ -196,10 +195,10 @@ async function generatePovertyProperty() {
         },
     ]
     let data = results.data.filter(
-        (row) => row[entityField] == entity && row[yearField] == year
+        (row) => row[entityField] == entity && Number(row[yearField]) == year
     )
     if (data.length <= 0) {
-        console.error("No data poverty for", entity, year)
+        throw `No poverty data for ${entity} in ${year}.`
     }
     data = data[0]
     let property = {}
@@ -219,11 +218,15 @@ async function generatePovertyProperty() {
 }
 
 // If scale is one million, one million people in the real world will be represented by one person in the game world.
-export function buildWorld(scale) {
+export function buildWorld(scale, year) {
     return new Promise(async (resolve, reject) => {
-        humanProperties["age"] = await generateAgeProperty()
-        humanProperties["poverty"] = await generatePovertyProperty()
-        console.log(humanProperties)
+        try {
+            humanProperties["age"] = await generateAgeProperty(year)
+            humanProperties["poverty"] = await generatePovertyProperty(year)
+        } catch (e) {
+            console.error(e)
+            reject(e)
+        }
 
         const world = []
         for (let i = 0; i < HUMANS / scale; i++) {
@@ -236,7 +239,6 @@ export function buildWorld(scale) {
                     let attributes = options[option]
                     progress += attributes.fraction
                     if (progress >= value) {
-                        console.log(property, option)
                         p.setProperty(property, option)
                         break
                     }
