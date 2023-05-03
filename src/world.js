@@ -66,7 +66,7 @@ class Person extends Entity {
     }
 }
 
-const humanProperties = {
+const defaultHumanProperties = {
     sex: {
         xx: {
             fraction: 0.5,
@@ -249,6 +249,8 @@ async function generatePovertyProperty(year, entity) {
 // If scale is one million, one million people in the real world will be represented by one person in the game world.
 export function buildWorld(scale, year, entity) {
     return new Promise(async (resolve, reject) => {
+        let humanProperties = structuredClone(defaultHumanProperties)
+
         try {
             humanProperties["age"] = await generateAgeProperty(year, entity)
         } catch (e) {
@@ -256,7 +258,6 @@ export function buildWorld(scale, year, entity) {
             reject(e)
         }
 
-        delete humanProperties["poverty"]
         try {
             humanProperties["poverty"] = await generatePovertyProperty(
                 year,
@@ -266,6 +267,9 @@ export function buildWorld(scale, year, entity) {
             console.error(e)
             // This is not such a problem, keep going.
         }
+
+        console.log(entity)
+        console.log(humanProperties)
 
         const world = []
         let totalHumans = await getTotalHumans(entity, year)
