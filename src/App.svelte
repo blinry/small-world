@@ -8,7 +8,8 @@
 
     let entities = ["World"]
     let entity = "World"
-    let displayedEntities = ["United States", "China", "India", "Germany", "Japan"]
+    //let displayedEntities = ["United States", "China", "India", "Germany", "Japan"]
+    $: displayedEntities = entities
 
     onMount(async () => {
         onDataReady(async () => {

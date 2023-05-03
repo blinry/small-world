@@ -3,6 +3,21 @@ import Papa from "papaparse"
 let ageCSV = "/data/age.csv"
 let povertyCSV = "/data/poverty.csv"
 
+let propertyDefinitions = {
+    urban: (row) => {
+        return {
+            "🏙️": Number(row[2]) / (Number(row[2]) + Number(row[3])),
+            "🌾": Number(row[3]) / (Number(row[2]) + Number(row[3])),
+        }
+    },
+    energyAccess: (row) => {
+        return {
+            "⚡": Number(row[2]) / (Number(row[2]) + Number(row[3])),
+            "🪫": Number(row[3]) / (Number(row[2]) + Number(row[3])),
+        }
+    },
+}
+
 export const HUMANS = 8e9
 const CHICKENS = 33e9 // just a guess, no Internet...
 
@@ -55,13 +70,12 @@ class Person extends Entity {
             }
         }
 
-        if (this.properties.canRead == "yes") {
-            label += "📖"
+        for (let [propertyName, emoji] of Object.entries(this.properties)) {
+            if (propertyName !== "age" && propertyName !== "sex") {
+                label += emoji
+            }
         }
 
-        if (this.properties.poverty) {
-            label += this.properties.poverty
-        }
         return label
     }
 }
@@ -99,6 +113,12 @@ const defaultHumanProperties = {
 export async function onDataReady(hook) {
     await parseCSV(ageCSV)
     await parseCSV(povertyCSV)
+    await Promise.all(
+        Object.keys(propertyDefinitions).map(async (propertyName) =>
+            parseCSV(`/data/${propertyName}.csv`)
+        )
+    )
+
     hook()
 }
 
@@ -137,6 +157,27 @@ async function getTotalHumans(entity, year) {
         Number(currentData[0][7]) +
         Number(currentData[0][8])
     )
+}
+
+async function generateGenericProperty(year, entity, propertyName) {
+    let results = await parseCSV(`/data/${propertyName}.csv`)
+
+    let header = results.data.shift()
+    let entityField = 0
+    let yearField = 1
+
+    let currentData = results.data.filter(
+        (row) => row[entityField] == entity && Number(row[yearField]) == year
+    )
+    if (currentData.length <= 0) {
+        throw `No ${propertyName} data for ${entity} in ${year}.`
+    }
+    let property = {}
+    let options = propertyDefinitions[propertyName](currentData[0])
+    for (let [option, fraction] of Object.entries(options)) {
+        property[option] = {fraction: fraction}
+    }
+    return property
 }
 
 async function generateAgeProperty(year, entity) {
@@ -268,13 +309,26 @@ export function buildWorld(scale, year, entity) {
             // This is not such a problem, keep going.
         }
 
+        for (let propertyName of Object.keys(propertyDefinitions)) {
+            try {
+                humanProperties[propertyName] = await generateGenericProperty(
+                    year,
+                    entity,
+                    propertyName
+                )
+            } catch (e) {
+                console.error(e)
+            }
+        }
+
         console.log(entity)
         console.log(humanProperties)
 
         const world = []
         let totalHumans = await getTotalHumans(entity, year)
         console.log(totalHumans)
-        for (let i = 0; i < totalHumans / scale; i++) {
+        let displayedHumans = Math.round(totalHumans / scale)
+        for (let i = 0; i < displayedHumans; i++) {
             let p = new Person()
             for (let property in humanProperties) {
                 let options = humanProperties[property]
