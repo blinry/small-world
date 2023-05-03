@@ -6,12 +6,12 @@ let povertyCSV = "/data/poverty.csv"
 const HUMANS = 8e9
 const CHICKENS = 33e9 // just a guess, no Internet...
 
-let entity = "Somalia"
+let entity = "World"
 let year = "2017"
 
 class Entity {
     constructor() {
-        let width = 800
+        let width = 1200
         this.x = Math.random() * width
         this.y = Math.random() * width
     }
@@ -68,8 +68,6 @@ class Person extends Entity {
         return label
     }
 }
-
-
 
 const humanProperties = {
     sex: {
@@ -153,11 +151,16 @@ async function generateAgeProperty() {
     let currentData = results.data.filter(
         (row) => row[entityField] == entity && row[yearField] == year
     )
-    if(currentData.length <= 0){
+    if (currentData.length <= 0) {
         console.error("No data age for", entity, year)
     }
     let property = {}
-    let totalHumans = Number(currentData[0][4]) + Number(currentData[0][5]) + Number(currentData[0][6]) + Number(currentData[0][7]) + Number(currentData[0][8])
+    let totalHumans =
+        Number(currentData[0][4]) +
+        Number(currentData[0][5]) +
+        Number(currentData[0][6]) +
+        Number(currentData[0][7]) +
+        Number(currentData[0][8])
     for (let category of categories) {
         property[category.emoji] = {
             fraction: Number(currentData[0][category.field]) / totalHumans,
@@ -195,7 +198,7 @@ async function generatePovertyProperty() {
     let data = results.data.filter(
         (row) => row[entityField] == entity && row[yearField] == year
     )
-    if(data.length <= 0){
+    if (data.length <= 0) {
         console.error("No data poverty for", entity, year)
     }
     data = data[0]
