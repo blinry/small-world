@@ -1,6 +1,6 @@
 <script>
     import { onMount } from 'svelte'
-    import { buildWorld, entityList, HUMANS, onDataReady } from './world.js'
+    import { buildGroupWorld, buildWorld, entityList, HUMANS, onDataReady } from './world.js'
 
     let initialized = false
 
@@ -8,8 +8,8 @@
 
     let entities = ["World"]
     let entity = "World"
-    //let displayedEntities = ["United States", "China", "India", "Germany", "Japan"]
-    $: displayedEntities = entities
+    let displayedEntities = ["Europe", "Oceania", "North America", "Asia", "South America", "Africa"]
+    //$: displayedEntities = entities
 
     onMount(async () => {
         onDataReady(async () => {
@@ -22,11 +22,13 @@
 
     $: scale = HUMANS/numberOfPeople
 
+
+
     let worlds = {}
     $: {
         if (initialized) {
             for(let entity of displayedEntities) {
-                buildWorld(scale, year, entity).then((newWorld) => {
+                buildGroupWorld(scale, year, entity).then((newWorld) => {
                     worlds[entity] = newWorld
                 }).catch((err) => {
                     worlds[entity] = []

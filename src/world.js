@@ -1,5 +1,6 @@
 import Papa from "papaparse"
 
+let countriesContinentsCSV = "/data/countriesContinents.csv"
 let ageCSV = "/data/age.csv"
 let povertyCSV = "/data/poverty.csv"
 
@@ -111,6 +112,7 @@ const defaultHumanProperties = {
 }
 
 export async function onDataReady(hook) {
+    await parseCSV(countriesContinentsCSV)
     await parseCSV(ageCSV)
     await parseCSV(povertyCSV)
     await Promise.all(
@@ -148,7 +150,7 @@ async function getTotalHumans(entity, year) {
         (row) => row[entityField] == entity && Number(row[yearField]) == year
     )
     if (currentData.length <= 0) {
-        throw `No age data for ${entity} in ${year}.`
+        throw `getTotalHumans: No age data for ${entity} in ${year}.`
     }
     return (
         Number(currentData[0][4]) +
@@ -287,6 +289,27 @@ async function generatePovertyProperty(year, entity) {
     return property
 }
 
+export async function buildGroupWorld(scale, year, entity) {
+    let countriesContinents = await parseCSV(countriesContinentsCSV)
+    let countryList = countriesContinents.data
+        .filter((row) => row[2] == entity)
+        .map((row) => row[0])
+
+    let worldPromises = []
+    for (let country of countryList) {
+        worldPromises.push(buildWorld(scale, year, country))
+    }
+
+    let results = await Promise.allSettled(worldPromises)
+    results = results
+        .filter((res) => res.status == "fulfilled")
+        .map((res) => res.value)
+
+    let flattenedResult = []
+    flattenedResult = flattenedResult.concat(...results)
+    return flattenedResult
+}
+
 // If scale is one million, one million people in the real world will be represented by one person in the game world.
 export function buildWorld(scale, year, entity) {
     return new Promise(async (resolve, reject) => {
@@ -297,6 +320,7 @@ export function buildWorld(scale, year, entity) {
         } catch (e) {
             console.error(e)
             reject(e)
+            return
         }
 
         try {
@@ -321,12 +345,12 @@ export function buildWorld(scale, year, entity) {
             }
         }
 
-        console.log(entity)
-        console.log(humanProperties)
+        //console.log(entity)
+        //console.log(humanProperties)
 
         const world = []
         let totalHumans = await getTotalHumans(entity, year)
-        console.log(totalHumans)
+        //console.log(totalHumans)
         let displayedHumans = Math.round(totalHumans / scale)
         for (let i = 0; i < displayedHumans; i++) {
             let p = new Person()
