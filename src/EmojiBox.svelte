@@ -1,20 +1,21 @@
 <script>
-    import {scale} from "./stores.js"
+    import {defaultScale} from "./stores.js"
 
     let limit = 2000
 
     export let count = 0
-    $: scaledCount = count / $scale
+    $: scaledCount = count / $defaultScale
     export let emoji = "❓"
 
     const pixelsPerEntity = 80 ** 2
-    let width
+    let clientWidth
+    $: width = Math.min(clientWidth, scaledCount * 100, 1200)
     let height
     $: {
         if (scaledCount > limit) {
             height = 50
         } else {
-            height = (pixelsPerEntity * scaledCount) / width
+            height = Math.max(100, (pixelsPerEntity * scaledCount) / width)
         }
     }
     let padding = 20
@@ -33,11 +34,7 @@
     }
 </script>
 
-<div
-    id="box"
-    bind:clientWidth={width}
-    style="width: {width}px; height: {height}px;"
->
+<div id="box" bind:clientWidth style="width: {width}px; height: {height}px;">
     {#if scaledCount > limit}
         (A lot of {emoji}s, which I won't render, because it would crash your
         browser.)

@@ -7,6 +7,10 @@ body {
     font-size: 1.1rem;
 }
 
+h1 {
+    font-size: 3rem;
+}
+
 input {
     margin-bottom: 1rem;
     width: 30rem;
