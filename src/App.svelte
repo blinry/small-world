@@ -1,7 +1,7 @@
 <script>
+    import Number from "./Number.svelte"
     import EmojiBox from "./EmojiBox.svelte"
-
-    let factor = 100_000_000
+    import {scale} from "./stores.js"
 
     const values = {
         humans: 8e9,
@@ -19,76 +19,76 @@
         surfaceOfEarth: 510e6, // km^2 https://en.wikipedia.org/wiki/Earth
     }
 
-    let scaled = {}
-    $: {
-        for (const [key, value] of Object.entries(values)) {
-            scaled[key] = value / factor
-        }
-    }
-
-    $: format = (value) => {
-        let scaledValue = value / 1
-        let zeroesAfterDecimal = Math.floor(Math.log10(scaledValue))
-        let precision = Math.max(0, -zeroesAfterDecimal)
-        let result = scaledValue.toFixed(precision)
-        return `<b style="font-size: 120%">${result}</b>`
+    function number() {
+        return ""
     }
 </script>
 
-<input type="range" min="1" max="8000000000" step="1" bind:value={factor} />
-{factor}
-<button
-    on:click={() => {
-        factor = 100_000_000
-    }}>Reset to 100 million</button
-><br />
+<input
+    type="range"
+    min="1"
+    max="8e9"
+    value={$scale}
+    on:input={(e) => scale.update(() => e.target.value)}
+/>
+<button on:click={() => scale.update(() => 1e8)}>Reset to 100 million</button>
+
+{$scale}
 
 <p>
-    Welcome to our small world! The surface of Earth is {@html format(
-        scaled.surfaceOfEarth
-    )} km² (an area of {@html format(Math.sqrt(scaled.surfaceOfEarth))}^2 km).
+    Welcome to our small world! The surface of Earth is <Number
+        value={values.surfaceOfEarth}
+        unit="km²"
+    /> (a square with edge lengths of <Number
+        value={Math.sqrt(values.surfaceOfEarth)}
+        unit="km"
+    />).
 </p>
 
 <p>
-    There are {@html format(scaled.humans)} people on Earth. {@html format(
-        scaled.humansBornPerYear
-    )} are born every year, and {@html format(scaled.humansDiePerYear)} die.
+    There are <Number value={values.humans} /> people on Earth. <Number
+        value={values.humansBornPerYear}
+    /> are born every year, and <Number value={values.humansDiePerYear} /> die.
 </p>
 
-<EmojiBox count={scaled.humans} emoji="🧑" />
+<EmojiBox count={values.humans} emoji="🧑" />
 
 <p>
-    {@html format(scaled.depression)} people suffer from depression. {@html format(
-        scaled.overweight
-    )} are overweight.
+    <Number value={values.depression} /> people suffer from depression. <Number
+        value={values.overweight}
+    /> are overweight.
 </p>
 
-<EmojiBox count={scaled.depression} emoji="😔" />
+<EmojiBox count={values.depression} emoji="😔" />
 
-<EmojiBox count={scaled.overweight} emoji="🤰" />
+<EmojiBox count={values.overweight} emoji="🤰" />
 
 <p>
-    There are {@html format(scaled.bikes)} bikes, and {@html format(
-        scaled.cars
-    )} cars.
+    There are <Number value={values.bikes} /> bikes, and <Number
+        value={values.cars}
+    /> cars.
 </p>
 
-<EmojiBox count={scaled.bikes} emoji="🚲" />
+<EmojiBox count={values.bikes} emoji="🚲" />
 
-<EmojiBox count={scaled.cars} emoji="🚗" />
+<EmojiBox count={values.cars} emoji="🚗" />
 
 <p>
-    There are {@html format(scaled.chickens)} chickens. {@html format(
-        scaled.chickensKilledPerYear
-    )} are killed every year ({@html format(scaled.chickensKilledPerYear / 365)}
-    per day).
+    There are <Number value={values.chickens} /> chickens. <Number
+        value={values.chickensKilledPerYear}
+    /> are killed every year (<Number
+        value={values.chickensKilledPerYear / 365}
+    /> per day).
 </p>
 
-<EmojiBox count={scaled.chickens} emoji="🐔" />
+<EmojiBox count={values.chickens} emoji="🐔" />
 
 <p>
-    There are {@html format(scaled.farms)} farms. {@html format(
-        scaled.cropland
-    )} km² of land is used for crops, and {@html format(scaled.livestockland)} km²
-    is used for livestock.
+    There are <Number value={values.farms} /> farms. <Number
+        value={values.cropland}
+        unit="km²"
+    /> of land is used for crops, and <Number
+        value={values.livestockland}
+        unit="km²"
+    /> is used for livestock.
 </p>

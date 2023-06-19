@@ -1,17 +1,20 @@
 <script>
+    import {scale} from "./stores.js"
+
     let limit = 2000
 
     export let count = 0
+    $: scaledCount = count / $scale
     export let emoji = "❓"
 
     const pixelsPerEntity = 80 ** 2
     let width
     let height
     $: {
-        if (count > limit) {
+        if (scaledCount > limit) {
             height = 50
         } else {
-            height = (pixelsPerEntity * count) / width
+            height = (pixelsPerEntity * scaledCount) / width
         }
     }
     let padding = 20
@@ -19,8 +22,8 @@
     let instances
     $: {
         instances = []
-        if (count >= 1 && count <= limit) {
-            for (let i = 0; i < count; i++) {
+        if (scaledCount >= 1 && scaledCount <= limit) {
+            for (let i = 0; i < scaledCount; i++) {
                 instances.push({
                     x: padding + Math.random() * (width - padding * 2),
                     y: padding + Math.random() * (height - padding * 2),
@@ -35,7 +38,7 @@
     bind:clientWidth={width}
     style="width: {width}px; height: {height}px;"
 >
-    {#if count > limit}
+    {#if scaledCount > limit}
         (A lot of {emoji}s, which I won't render, because it would crash your
         browser.)
     {:else}
