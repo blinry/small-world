@@ -1,81 +1,94 @@
 <script>
-    import { onMount } from 'svelte'
-    import { buildGroupWorld, buildWorld, entityList, HUMANS, onDataReady } from './world.js'
+    import EmojiBox from "./EmojiBox.svelte"
 
-    let initialized = false
+    let factor = 100_000_000
 
-    let year = 2017
+    const values = {
+        humans: 8e9,
+        humansBornPerYear: 140e6,
+        humansDiePerYear: 60e6,
+        depression: 264e6,
+        overweight: 1.9e9,
+        bikes: 1e9,
+        cars: 1.5e9,
+        chickens: 21e9,
+        chickensKilledPerYear: 37e9,
+        farms: 570e6,
+        cropland: 11e6, // km^2 https://ourworldindata.org/land-use
+        livestockland: 37e6, // km^2 https://ourworldindata.org/land-use
+        surfaceOfEarth: 510e6, // km^2 https://en.wikipedia.org/wiki/Earth
+    }
 
-    let entities = ["World"]
-    let entity = "World"
-    let displayedEntities = ["Europe", "Oceania", "North America", "Asia", "South America", "Africa"]
-    //$: displayedEntities = entities
-
-    onMount(async () => {
-        onDataReady(async () => {
-            initialized = true
-            entities = await entityList()
-        })
-    })
-
-    let numberOfPeople = 100
-
-    $: scale = HUMANS/numberOfPeople
-
-
-
-    let worlds = {}
+    let scaled = {}
     $: {
-        if (initialized) {
-            for(let entity of displayedEntities) {
-                buildGroupWorld(scale, year, entity).then((newWorld) => {
-                    worlds[entity] = newWorld
-                }).catch((err) => {
-                    worlds[entity] = []
-                })
-            }
+        for (const [key, value] of Object.entries(values)) {
+            scaled[key] = value / factor
         }
     }
 
-    let world = []
+    $: format = (value) => {
+        let scaledValue = value / 1
+        let zeroesAfterDecimal = Math.floor(Math.log10(scaledValue))
+        let precision = Math.max(0, -zeroesAfterDecimal)
+        let result = scaledValue.toFixed(precision)
+        return `<b style="font-size: 120%">${result}</b>`
+    }
 </script>
 
-<main>
-    <input type="range" min="1950" max="2100" step="1" bind:value={year} /> {year}<br>
-    <input type="range" min="1" max="1000" step="1" bind:value={numberOfPeople} /> {numberOfPeople} <button on:click={() => {numberOfPeople = 100}}>Reset to 100</button><br>
-    <select bind:value={entity}>
-        {#each entities as e}
-            <option value={e}>{e}</option>
-        {/each}
-    </select>
-    <div id="countries">
-        {#each Object.entries(worlds) as [entity, world]}
-            <div class="country">
-                <h2>{entity}</h2>
-                <div class="world">
-                    {#each world as e}
-                        <div class="entity" style="left: {e.x}px; top: {e.y}px">{e.getLabel()}</div>
-                    {/each}
-                </div>
-            </div>
-        {/each}
-    </div>
-</main>
+<input type="range" min="1" max="8000000000" step="1" bind:value={factor} />
+{factor}
+<button
+    on:click={() => {
+        factor = 100_000_000
+    }}>Reset to 100 million</button
+><br />
 
-<style>
-#countries {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 1rem;
-}
-.world {
-    position: relative;
-    width: 500px;
-    height: 500px;
-    background: lightblue;
-}
-.entity {
-    position: absolute;
-}
-</style>
+<p>
+    Welcome to our small world! The surface of Earth is {@html format(
+        scaled.surfaceOfEarth
+    )} km² (an area of {@html format(Math.sqrt(scaled.surfaceOfEarth))}^2 km).
+</p>
+
+<p>
+    There are {@html format(scaled.humans)} people on Earth. {@html format(
+        scaled.humansBornPerYear
+    )} are born every year, and {@html format(scaled.humansDiePerYear)} die.
+</p>
+
+<EmojiBox count={scaled.humans} emoji="🧑" />
+
+<p>
+    {@html format(scaled.depression)} people suffer from depression. {@html format(
+        scaled.overweight
+    )} are overweight.
+</p>
+
+<EmojiBox count={scaled.depression} emoji="😔" />
+
+<EmojiBox count={scaled.overweight} emoji="🤰" />
+
+<p>
+    There are {@html format(scaled.bikes)} bikes, and {@html format(
+        scaled.cars
+    )} cars.
+</p>
+
+<EmojiBox count={scaled.bikes} emoji="🚲" />
+
+<EmojiBox count={scaled.cars} emoji="🚗" />
+
+<p>
+    There are {@html format(scaled.chickens)} chickens. {@html format(
+        scaled.chickensKilledPerYear
+    )} are killed every year ({@html format(scaled.chickensKilledPerYear / 365)}
+    per day).
+</p>
+
+<EmojiBox count={scaled.chickens} emoji="🐔" />
+
+<p>
+    There are {@html format(scaled.farms)} farms. {@html format(
+        scaled.cropland
+    )} km² of land is used for crops, and {@html format(scaled.livestockland)} km²
+    is used for livestock.
+</p>
