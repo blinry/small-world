@@ -47,12 +47,11 @@
         millionaires: 56e6,
         starsInMilkyWay: 250e9,
         galaxiesInUniverse: 7e9,
-        co2CarPerKM:0.2, //kg https://www.quarks.de/umwelt/klimawandel/co2-rechner-fuer-auto-flugzeug-und-co/
-        co2PerBitcoinTransaction:398.86, //kg https://digiconomist.net/bitcoin-energy-consumption
+        co2CarPerKM: 0.2, //kg https://www.quarks.de/umwelt/klimawandel/co2-rechner-fuer-auto-flugzeug-und-co/
+        co2PerBitcoinTransaction: 398.86, //kg https://digiconomist.net/bitcoin-energy-consumption
         kWhPerBoilingLiter: 184, //Wh https://discovergy.com/blog/energiesparen-haushalt
         smartphoneBatteryCapacity: 4.5, //Ah https://www.androidauthority.com/smartphone-battery-size-poll-results-1221015/
         marsBarWh: 300, //Wh https://talybontenergy.co.uk/education/a-cubs-guide-to-energy-in-mars-bars/
-
     }
 
     function number() {
@@ -122,8 +121,10 @@
     barEmoji="💵"
     unit="$"
     distribution={(percentile) =>
-        Math.round(Math.pow(136.535, percentile) * 30)}
+        Math.round((1.207 / (1 - percentile) + 4.285) * 30)}
 />
+<!--distribution={(percentile) =>
+        Math.round(Math.pow(136.535, percentile) * 30)}-->
 
 <p><Number value={values.humansEurope} /> of these people live in Europe.</p>
 <EmojiBox count={values.humansEurope} emoji="🇪🇺" />
@@ -260,11 +261,13 @@
 </p>
 <p>
     This is about the same amount for each person as a <Number
-        value={ values.co2EmissionsPerYear / 365 / values.humans * 1000 / values.co2CarPerKM}
+        value={((values.co2EmissionsPerYear / 365 / values.humans) * 1000) /
+            values.co2CarPerKM}
         unit="km"
         scale={1}
     /> car ride or <Number
-        value={ values.co2EmissionsPerYear / 365 / values.humans * 1000 / values.co2PerBitcoinTransaction}
+        value={((values.co2EmissionsPerYear / 365 / values.humans) * 1000) /
+            values.co2PerBitcoinTransaction}
         unit=""
         scale={1}
     /> Bitcoin transactions
@@ -274,12 +277,27 @@
 
 <p>
     The world is consuming <Number value={values.energyPerYear} unit="kWh" /> of
-    energy per year, which is <Number value={values.energyPerYear / 365} unit="kWh" /> per
-    day, or <Number value={values.energyPerYear / 365 / values.humans * 1000} unit="Wh" scale={1}/> per person per
-    day.
+    energy per year, which is <Number
+        value={values.energyPerYear / 365}
+        unit="kWh"
+    /> per day, or <Number
+        value={(values.energyPerYear / 365 / values.humans) * 1000}
+        unit="Wh"
+        scale={1}
+    /> per person per day.
 </p>
 <p>
-    This daily use per person is equivalent to charging <Number value={  ( values.energyPerYear / 365 / values.humans * 1000 ) / ( values.smartphoneBatteryCapacity * 5 ) } unit="" scale={1}/> smartphones or boiling <Number value={  ( values.energyPerYear / 365 / values.humans * 1000 ) / ( values.kWhPerBoilingLiter ) } unit="l" scale={1}/>
+    This daily use per person is equivalent to charging <Number
+        value={((values.energyPerYear / 365 / values.humans) * 1000) /
+            (values.smartphoneBatteryCapacity * 5)}
+        unit=""
+        scale={1}
+    /> smartphones or boiling <Number
+        value={((values.energyPerYear / 365 / values.humans) * 1000) /
+            values.kWhPerBoilingLiter}
+        unit="l"
+        scale={1}
+    />
     of water.
 </p>
 
