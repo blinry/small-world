@@ -4,7 +4,17 @@
     let limit = 2000
 
     export let count = 0
-    $: scaledCount = count / $defaultScale
+    export let scale
+    let scaledCount
+    let zeroesAfterDecimal
+    let precision
+    $: {
+        scaledCount = scale ? count / scale  : count / $defaultScale
+        zeroesAfterDecimal = Math.floor(Math.log10(scaledCount))
+        precision = Math.max(0, -zeroesAfterDecimal)
+        scaledCount = scaledCount.toFixed(precision)
+    }
+
     export let emoji = "❓"
     export let distribution = undefined
 

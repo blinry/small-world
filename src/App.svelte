@@ -300,6 +300,10 @@
     />
     of water.
 </p>
+<p>
+    <EmojiBox count={( values.energyPerYear / 365 / values.humans * 1000 ) / ( values.smartphoneBatteryCapacity * 5 )} emoji="📱" scale={1} />
+    <EmojiBox count={( values.energyPerYear / 365 / values.humans * 1000 ) / ( values.kWhPerBoilingLiter )} emoji="🫖" scale={1} />
+</p>
 
 <h2>Money</h2>
 
