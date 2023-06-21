@@ -1,6 +1,7 @@
 <script>
     import Number from "./Number.svelte"
     import EmojiBox from "./EmojiBox.svelte"
+    import EmojiGraph from "./EmojiGraph.svelte"
     import {defaultScale} from "./stores.js"
 
     const values = {
@@ -106,6 +107,17 @@
 </p>
 
 <EmojiBox count={values.humans} emoji="🧑" />
+
+<p>This is how much our people earn per month:</p>
+
+<EmojiGraph
+    count={values.humans}
+    emoji="🧑"
+    barEmoji="💵"
+    unit="$"
+    distribution={(percentile) =>
+        Math.round(Math.pow(136.535, percentile) * 30)}
+/>
 
 <p><Number value={values.humansEurope} /> of these people live in Europe.</p>
 <EmojiBox count={values.humansEurope} emoji="🇪🇺" />
