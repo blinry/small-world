@@ -11,6 +11,10 @@ h1 {
     font-size: 3rem;
 }
 
+h2 {
+    font-size: 2rem;
+}
+
 input {
     margin-bottom: 1rem;
     width: 30rem;

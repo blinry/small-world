@@ -22,6 +22,9 @@
         if (scaledValue < 0.1 && unit === "km") {
             scaledValue = scaledValue * 1000
             scaledUnit = "m"
+        } else if (scaledValue < 0.1 && unit === "tons") {
+            scaledValue = scaledValue * 1000
+            scaledUnit = "kg"
         } else if (scaledValue < 0.01 && unit === "km²") {
             scaledValue = scaledValue * 1000 * 1000
             scaledUnit = "m²"
@@ -35,10 +38,6 @@
             result = scaledValue.toFixed(precision)
         }
 
-        if (result.endsWith("000")) {
-            result = result.slice(0, -3) + "k"
-        }
-
         if (scaledUnit) {
             result += ` ${scaledUnit}`
         }
@@ -50,7 +49,7 @@
     }
 </script>
 
-<span title="Actually: {actualResult}">{result}</span>
+<span title="Well, actually: {actualResult}">{result}</span>
 
 <style>
     span {
