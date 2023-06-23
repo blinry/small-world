@@ -9,7 +9,7 @@
     let zeroesAfterDecimal
     let precision
     $: {
-        scaledCount = scale ? count / scale  : count / $defaultScale
+        scaledCount = scale ? count / scale : count / $defaultScale
         zeroesAfterDecimal = Math.floor(Math.log10(scaledCount))
         precision = Math.max(0, -zeroesAfterDecimal)
         scaledCount = scaledCount.toFixed(precision)
@@ -43,6 +43,11 @@
                 if (distribution) {
                     newInstance.value = distribution((i + 0.5) / scaledCount)
                 }
+                if (typeof emoji === "function") {
+                    newInstance.emoji = emoji(newInstance.value)
+                } else {
+                    newInstance.emoji = emoji
+                }
                 instances.push(newInstance)
             }
         }
@@ -59,12 +64,12 @@
                 style="position: absolute; left: {instance.x}px; top: {instance.y}px;"
                 class="emoji"
             >
-                {emoji}
+                {instance.emoji}
                 {#if instance.value}
                     <div
                         style="position: absolute; top: 100%; left: 50%; transform: translate(-50%, 0);"
                     >
-                        {instance.value}
+                        {Math.round(instance.value)}
                     </div>
                 {/if}
             </div>

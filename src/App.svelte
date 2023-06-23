@@ -235,6 +235,34 @@
     distribution={(percentile) => Math.round((1.207 / (1 - percentile)) * 30)}
 />
 
+<p>This is how old they are:</p>
+
+<EmojiBox
+    count={values.humans.value}
+    emoji={(age) => {
+        if (age < 3) {
+            return "👶"
+        } else if (age < 18) {
+            return "🧒"
+        } else if (age < 65) {
+            return "🧑"
+        } else {
+            return "👴"
+        }
+    }}
+    distribution={(x) => 23 * (1.8 * x + 0.03 * (10 / (1.1 - x))) - 4}
+/>
+
+<!--
+<EmojiGraph
+    count={values.humans.value}
+    emoji="🧑"
+    barEmoji="🎂"
+    unit="years"
+    distribution={(x) => 23 * (1.8 * x + 0.03 * (10 / (1.1 - x))) - 4}
+/>
+-->
+
 <p><Number {...values.humansEurope} /> of these people live in Europe.</p>
 <EmojiBox count={values.humansEurope.value} emoji="🇪🇺" />
 

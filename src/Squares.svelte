@@ -2,7 +2,7 @@
     export let values
     // values = [{earth:{value: 1, color: "red"}}]
 
-    let maxArea = 200 ** 2 // px
+    let maxArea = 300 ** 2 // px
 
     $: {
         let max = 0

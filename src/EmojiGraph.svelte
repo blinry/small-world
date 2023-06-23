@@ -57,7 +57,12 @@
         browser.)
     {:else}
         {#each instances as instance}
-            <div>{emoji} {instance.value}{unit} {instance.bar}</div>
+            <div>
+                {emoji}
+                {Math.round(instance.value)}
+                {unit}
+                {instance.bar}
+            </div>
         {/each}
     {/if}
 </div>
