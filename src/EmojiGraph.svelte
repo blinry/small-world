@@ -5,7 +5,7 @@
     let maxBarCount = 50
 
     export let count = 0
-    $: scaledCount = count / $defaultScale
+    $: scaledCount = Math.round(count / $defaultScale)
     export let emoji = "❓"
     export let barEmoji = "❓"
     export let distribution
@@ -37,6 +37,7 @@
             let max = 0
             for (let instance of instances) {
                 if (instance.value > max) {
+                    console.log(instance.value)
                     max = instance.value
                 }
             }

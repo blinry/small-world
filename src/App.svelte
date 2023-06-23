@@ -1,11 +1,74 @@
 <script>
     import Number from "./Number.svelte"
+    import UnscaledNumber from "./UnscaledNumber.svelte"
     import EmojiBox from "./EmojiBox.svelte"
     import EmojiGraph from "./EmojiGraph.svelte"
+    import Squares from "./Squares.svelte"
     import {defaultScale} from "./stores.js"
 
     const values = {
-        humans: 8e9,
+        humans: {
+            value: 8.05e9,
+            year: 2023,
+            source: "https://ourworldindata.org/grapher/population-by-age-group-with-projections",
+        },
+        surfaceOfEarth: {
+            value: 510e6,
+            unit: "km²",
+        },
+        oceanSurface: {
+            value: 361e6,
+            unit: "km²",
+            source: "https://ourworldindata.org/land-use",
+        },
+        habitableSurface: {
+            value: 106e6,
+            unit: "km²",
+            source: "https://ourworldindata.org/land-use",
+        },
+        forestSurface: {
+            value: 40e6,
+            unit: "km²",
+            source: "https://ourworldindata.org/land-use",
+        },
+        builtupSurface: {
+            value: 1.5e6,
+            unit: "km²",
+            source: "https://ourworldindata.org/land-use",
+        },
+        freshwaterSurface: {
+            value: 1.5e6,
+            unit: "km²",
+            source: "https://ourworldindata.org/land-use",
+        },
+        glaciersSurface: {
+            value: 15e6,
+            unit: "km²",
+            source: "https://ourworldindata.org/land-use",
+        },
+        croplandSurface: {
+            value: 11e6,
+            unit: "km²",
+            source: "https://ourworldindata.org/land-use",
+        },
+        barrenSurface: {
+            value: 28e6,
+            unit: "km²",
+            source: "https://ourworldindata.org/land-use",
+        },
+        shrubSurface: {
+            value: 17e6,
+            unit: "km²",
+            source: "https://ourworldindata.org/land-use",
+        },
+        livestockSurface: {
+            value: 37e6,
+            unit: "km²",
+            source: "https://ourworldindata.org/land-use",
+        },
+    }
+
+    const values2 = {
         humansBornPerYear: 140e6,
         humansDiePerYear: 60e6,
         humansEurope: 750e6,
@@ -35,11 +98,7 @@
         chickensKilledPerYear: 73e9,
         otherAnimals: 1e9,
         farms: 570e6,
-        cropland: 11e6,
-        livestockland: 37e6,
-        surfaceOfEarth: 510e6, // km^2
         surfaceOfCentralPark: 3.41,
-        oceanSurface: 361e6,
         co2EmissionsPerYear: 36e9, // tons
         energyPerYear: 2373e9, // kWh
         allMoney: 48.9e12, // USD (M1 supply) https://www.gobankingrates.com/money/economy/how-much-money-is-in-the-world/
@@ -54,8 +113,10 @@
         marsBarWh: 300, //Wh https://talybontenergy.co.uk/education/a-cubs-guide-to-energy-in-mars-bars/
     }
 
-    function number() {
-        return ""
+    for (const [key, value] of Object.entries(values2)) {
+        values[key] = {
+            value,
+        }
     }
 </script>
 
@@ -83,246 +144,298 @@
 <h2>Planet</h2>
 
 <p>
-    The surface of our small world is <Number
-        value={values.surfaceOfEarth}
-        unit="km²"
-    /> (a square with edge lengths of <Number
-        value={Math.sqrt(values.surfaceOfEarth)}
+    The surface of our small world is <Number {...values.surfaceOfEarth} /> (a square
+    with edge lengths of <Number
+        value={Math.sqrt(values.surfaceOfEarth.value)}
         unit="km"
     />, or <Number
-        value={values.surfaceOfEarth /
-            $defaultScale /
-            values.surfaceOfCentralPark}
-        scale={1}
+        value={values.surfaceOfEarth.value / values.surfaceOfCentralPark.value}
     /> times the area of Central Park in New York City). <Number
-        value={values.oceanSurface}
-        unit="km²"
+        {...values.oceanSurface}
     /> of that is ocean.
 </p>
+
+<Squares
+    values={{
+        habitable: {
+            value: values.habitableSurface.value,
+            color: "green",
+        },
+        ocean: {
+            value: values.oceanSurface.value,
+            color: "blue",
+        },
+    }}
+/>
+
+<p>
+    Of the <Number {...values.habitableSurface} /> of habitable land, <Number
+        {...values.forestSurface}
+    /> is forest, <Number {...values.glaciersSurface} /> is covered by glaciers,
+    and <Number {...values.builtupSurface} /> is urban and built-up land.
+</p>
+
+<Squares
+    values={{
+        forest: {
+            value: values.forestSurface.value,
+            color: "darkgreen",
+        },
+        glaciers: {
+            value: values.glaciersSurface.value,
+            color: "lightgray",
+        },
+        urban: {
+            value: values.builtupSurface.value,
+            color: "gray",
+        },
+        freshwater: {
+            value: values.freshwaterSurface.value,
+            color: "lightblue",
+        },
+        shrubland: {
+            value: values.shrubSurface.value,
+            color: "yellowgreen",
+        },
+        livestock: {
+            value: values.livestockSurface.value,
+            color: "brown",
+        },
+        barren: {
+            value: values.barrenSurface.value,
+            color: "beige",
+        },
+        cropland: {
+            value: values.croplandSurface.value,
+            color: "yellow",
+        },
+    }}
+/>
 
 <h2>Demographics</h2>
 
 <p>
-    There are <Number value={values.humans} /> people on Earth. (<Number
-        value={values.humansEverLived}
+    There are <Number {...values.humans} /> people on Earth. (<Number
+        {...values.humansEverLived}
     /> have ever lived.)
-    <Number value={values.humansBornPerYear} /> are born every year, and <Number
-        value={values.humansDiePerYear}
+    <Number {...values.humansBornPerYear} /> are born every year, and <Number
+        {...values.humansDiePerYear}
     /> die.
 </p>
 
-<EmojiBox count={values.humans} emoji="🧑" />
+<EmojiBox count={values.humans.value} emoji="🧑" />
 
 <p>This is how much our people earn per month:</p>
 
 <EmojiGraph
-    count={values.humans}
+    count={values.humans.value}
     emoji="🧑"
     barEmoji="💵"
     unit="$"
-    distribution={(percentile) =>
-        Math.round((1.207 / (1 - percentile) + 4.285) * 30)}
+    distribution={(percentile) => Math.round((1.207 / (1 - percentile)) * 30)}
 />
-<!--distribution={(percentile) =>
-        Math.round(Math.pow(136.535, percentile) * 30)}-->
 
-<p><Number value={values.humansEurope} /> of these people live in Europe.</p>
-<EmojiBox count={values.humansEurope} emoji="🇪🇺" />
+<p><Number {...values.humansEurope} /> of these people live in Europe.</p>
+<EmojiBox count={values.humansEurope.value} emoji="🇪🇺" />
 
-<p><Number value={values.humansAfrica} /> live in Africa.</p>
-<EmojiBox count={values.humansAfrica} emoji="🌍" />
+<p><Number {...values.humansAfrica} /> live in Africa.</p>
+<EmojiBox count={values.humansAfrica.value} emoji="🌍" />
 
 <p>
-    <Number value={values.humansAsia} /> live in Asia (including <Number
-        value={values.humansChina}
-    /> in China and <Number value={values.humansIndia} /> in India).
+    <Number {...values.humansAsia} /> live in Asia (including <Number
+        {...values.humansChina}
+    /> in China and <Number {...values.humansIndia} /> in India).
 </p>
-<EmojiBox count={values.humansAsia} emoji="🌏" />
+<EmojiBox count={values.humansAsia.value} emoji="🌏" />
 
-<p><Number value={values.humansNorthAmerica} /> live in North America.</p>
-<EmojiBox count={values.humansNorthAmerica} emoji="🌎" />
+<p><Number {...values.humansNorthAmerica} /> live in North America.</p>
+<EmojiBox count={values.humansNorthAmerica.value} emoji="🌎" />
 
-<p><Number value={values.humansSouthAmerica} /> live in South America.</p>
-<EmojiBox count={values.humansSouthAmerica} emoji="🌎" />
+<p><Number {...values.humansSouthAmerica} /> live in South America.</p>
+<EmojiBox count={values.humansSouthAmerica.value} emoji="🌎" />
 
-<p>And <Number value={values.humansAntarctica} /> live in Antarctica.</p>
+<p>And <Number {...values.humansAntarctica} /> live in Antarctica.</p>
 
 <p>
-    <Number value={values.depression} /> of these people suffer from depression.
+    <Number {...values.depression} /> of these people suffer from depression.
 </p>
 
-<EmojiBox count={values.depression} emoji="😔" />
+<EmojiBox count={values.depression.value} emoji="😔" />
 
 <p>
-    <Number value={values.humansKilledByBlackDeath} /> people died from the Black
-    Death in the 14th century.
+    <Number {...values.humansKilledByBlackDeath} /> people died from the Black Death
+    in the 14th century.
 </p>
 
-<EmojiBox count={values.humansKilledByBlackDeath} emoji="☠️" />
+<EmojiBox count={values.humansKilledByBlackDeath.value} emoji="☠️" />
 
 <p>
-    <Number value={values.overweight} /> are overweight.
+    <Number {...values.overweight} /> are overweight.
 </p>
 
-<EmojiBox count={values.overweight} emoji="🤰" />
+<EmojiBox count={values.overweight.value} emoji="🤰" />
 
 <p>
-    And <Number value={values.extremePoverty} /> live in extreme poverty, on less
-    than $1.90 per day, or the equivalent amount after converting currencies and
-    adjusting for price differences between countries.
+    And <Number {...values.extremePoverty} /> live in extreme poverty, on less than
+    $1.90 per day, or the equivalent amount after converting currencies and adjusting
+    for price differences between countries.
 </p>
-<EmojiBox count={values.extremePoverty} emoji="🥺" />
+<EmojiBox count={values.extremePoverty.value} emoji="🥺" />
 
-<p><Number value={values.cannotRead} /> people cannot read.</p>
-<EmojiBox count={values.cannotRead} />
+<p><Number {...values.cannotRead} /> people cannot read.</p>
+<EmojiBox count={values.cannotRead.value} />
 
-<p><Number value={values.christians} /> are Christians.</p>
-<EmojiBox count={values.christians} emoji="✝️" />
+<p><Number {...values.christians} /> are Christians.</p>
+<EmojiBox count={values.christians.value} emoji="✝️" />
 
-<p><Number value={values.muslims} /> are Muslims.</p>
-<EmojiBox count={values.muslims} emoji="☪️" />
+<p><Number {...values.muslims} /> are Muslims.</p>
+<EmojiBox count={values.muslims.value} emoji="☪️" />
 
-<p><Number value={values.atheists} /> are non-religious.</p>
-<EmojiBox count={values.atheists} emoji="🕊️" />
+<p><Number {...values.atheists} /> are non-religious.</p>
+<EmojiBox count={values.atheists.value} emoji="🕊️" />
 
-<p><Number value={values.hindus} /> are Hindus.</p>
-<EmojiBox count={values.hindus} emoji="🕉️" />
+<p><Number {...values.hindus} /> are Hindus.</p>
+<EmojiBox count={values.hindus.value} emoji="🕉️" />
 
-<p><Number value={values.buddhists} /> are Buddhists.</p>
-<EmojiBox count={values.buddhists} emoji="☸️" />
+<p><Number {...values.buddhists} /> are Buddhists.</p>
+<EmojiBox count={values.buddhists.value} emoji="☸️" />
 
 <p>
-    <Number value={values.chineseTraditionalReligions} /> follow Chinese traditional
+    <Number {...values.chineseTraditionalReligions} /> follow Chinese traditional
     religions.
 </p>
-<EmojiBox count={values.chineseTraditionalReligions} emoji="🈷️" />
+<EmojiBox count={values.chineseTraditionalReligions.value} emoji="🈷️" />
 
 <h2>Transport</h2>
 
 <p>
-    There are <Number value={values.bikes} /> bikes in the world, and <Number
-        value={values.cars}
+    There are <Number {...values.bikes} /> bikes in the world, and <Number
+        {...values.cars}
     /> cars.
 </p>
 
-<EmojiBox count={values.bikes} emoji="🚲" />
+<EmojiBox count={values.bikes.value} emoji="🚲" />
 
-<EmojiBox count={values.cars} emoji="🚗" />
+<EmojiBox count={values.cars.value} emoji="🚗" />
 
 <p>
-    There are <Number value={values.flightsPerYear} /> flights per year. (Actually,
-    <Number value={values.flightsPerYear / 365 / 60 / 60} scale={1} /> per minute.)
+    There are <Number {...values.flightsPerYear} /> flights per year. (Actually,
+    <UnscaledNumber value={values.flightsPerYear.value / 365 / 60 / 60} /> per minute.)
 </p>
 
 <h2>Animals</h2>
 
 <p>
-    There are approximately <Number value={values.otherAnimals} /> each of cattle,
-    sheep, goats, and pigs alive right now.
+    There are approximately <Number {...values.otherAnimals} /> each of cattle, sheep,
+    goats, and pigs alive right now.
 </p>
 <p>
-    <EmojiBox count={values.otherAnimals} emoji="🐄" />
-    <EmojiBox count={values.otherAnimals} emoji="🐑" />
-    <EmojiBox count={values.otherAnimals} emoji="🐐" />
-    <EmojiBox count={values.otherAnimals} emoji="🐖" />
+    <EmojiBox count={values.otherAnimals.value} emoji="🐄" />
+    <EmojiBox count={values.otherAnimals.value} emoji="🐑" />
+    <EmojiBox count={values.otherAnimals.value} emoji="🐐" />
+    <EmojiBox count={values.otherAnimals.value} emoji="🐖" />
 </p>
 <p>
-    There are <Number value={values.chickens} /> chickens alive right now. <Number
-        value={values.chickensKilledPerYear}
+    There are <Number {...values.chickens} /> chickens alive right now. <Number
+        {...values.chickensKilledPerYear}
     /> are killed every year (<Number
-        value={values.chickensKilledPerYear / 365}
-    /> per day).
+        value={values.chickensKilledPerYear.value / 365}
+    />
+    per day).
 </p>
 
-<EmojiBox count={values.chickens} emoji="🐔" />
+<EmojiBox count={values.chickens.value} emoji="🐔" />
 
 <p>
-    There are <Number value={values.farms} /> farms. <Number
-        value={values.cropland}
-        unit="km²"
-    /> of land is used for crops, and <Number
-        value={values.livestockland}
-        unit="km²"
-    /> is used for livestock.
+    There are <Number {...values.farms} /> farms. <Number
+        {...values.croplandSurface}
+    /> of land is used for crops, and <Number {...values.livestockSurface} /> is
+    used for livestock.
 </p>
 
 <h2>Greenhouse gases</h2>
 
 <p>
-    We are producing <Number value={values.co2EmissionsPerYear} unit="tons" /> of
-    CO₂ per year, which is <Number
-        value={values.co2EmissionsPerYear / 365}
+    We are producing <Number {...values.co2EmissionsPerYear} unit="tons" /> of CO₂
+    per year, which is <Number
+        {...values.co2EmissionsPerYear}
+        factor={1 / 365}
         unit="tons"
-    /> per day, or <Number
-        value={values.co2EmissionsPerYear / 365 / values.humans}
+    /> per day, or <UnscaledNumber
+        value={values.co2EmissionsPerYear.value / values.humans.value}
+        factor={1 / 365}
         unit="tons"
-        scale={1}
     /> per person per day.
 </p>
 <p>
-    This is about the same amount for each person as a <Number
-        value={((values.co2EmissionsPerYear / 365 / values.humans) * 1000) /
-            values.co2CarPerKM}
+    This is about the same amount for each person as a <UnscaledNumber
+        value={((values.co2EmissionsPerYear.value / 365 / values.humans.value) *
+            1000) /
+            values.co2CarPerKM.value}
         unit="km"
-        scale={1}
-    /> car ride or <Number
-        value={((values.co2EmissionsPerYear / 365 / values.humans) * 1000) /
-            values.co2PerBitcoinTransaction}
-        unit=""
-        scale={1}
+    /> car ride or <UnscaledNumber
+        value={((values.co2EmissionsPerYear.value / 365 / values.humans.value) *
+            1000) /
+            values.co2PerBitcoinTransaction.value}
     /> Bitcoin transactions
 </p>
 
 <h2>Energy</h2>
 
 <p>
-    The world is consuming <Number value={values.energyPerYear} unit="kWh" /> of
-    energy per year, which is <Number
-        value={values.energyPerYear / 365}
+    The world is consuming <Number {...values.energyPerYear} unit="kWh" /> of energy
+    per year, which is <Number
+        {...values.energyPerYear}
+        factor={1 / 365}
         unit="kWh"
-    /> per day, or <Number
-        value={(values.energyPerYear / 365 / values.humans) * 1000}
+    /> per day, or <UnscaledNumber
+        value={(values.energyPerYear.value / 365 / values.humans.value) * 1000}
         unit="Wh"
-        scale={1}
     /> per person per day.
 </p>
 <p>
-    This daily use per person is equivalent to charging <Number
-        value={((values.energyPerYear / 365 / values.humans) * 1000) /
-            (values.smartphoneBatteryCapacity * 5)}
-        unit=""
-        scale={1}
-    /> smartphones or boiling <Number
-        value={((values.energyPerYear / 365 / values.humans) * 1000) /
-            values.kWhPerBoilingLiter}
-        unit="l"
-        scale={1}
+    This daily use per person is equivalent to charging <UnscaledNumber
+        value={((values.energyPerYear.value / 365 / values.humans.value) *
+            1000) /
+            (values.smartphoneBatteryCapacity.value * 5)}
+    /> smartphones or boiling <UnscaledNumber
+        value={((values.energyPerYear.value / 365 / values.humans.value) *
+            1000) /
+            values.kWhPerBoilingLiter.value}
+        unit="L"
     />
     of water.
 </p>
 <p>
-    <EmojiBox count={( values.energyPerYear / 365 / values.humans * 1000 ) / ( values.smartphoneBatteryCapacity * 5 )} emoji="📱" scale={1} />
-    <EmojiBox count={( values.energyPerYear / 365 / values.humans * 1000 ) / ( values.kWhPerBoilingLiter )} emoji="🫖" scale={1} />
+    <EmojiBox
+        count={((values.energyPerYear.value / 365 / values.humans.value) *
+            1000) /
+            (values.smartphoneBatteryCapacity.value * 5)}
+        emoji="📱"
+        scale={1}
+    />
+    <EmojiBox
+        count={((values.energyPerYear.value / 365 / values.humans.value) *
+            1000) /
+            values.kWhPerBoilingLiter.value}
+        emoji="🫖"
+        scale={1}
+    />
 </p>
 
 <h2>Money</h2>
 
 <p>
-    There is <Number value={values.allMoney} unit="USD" /> in the world (money in
-    circulation, plus in checks and demand deposits). <Number
-        value={values.jeffBezos}
+    There is <Number {...values.allMoney} unit="USD" /> in the world (money in circulation,
+    plus in checks and demand deposits). Jeff Bezos has a net worth of <Number
+        {...values.jeffBezos}
         unit="USD"
-    /> of that belongs to the richest person. There are <Number
-        value={values.millionaires}
-    /> "centionaires" (people with a net worth of at least <Number
-        value={1e6}
-        unit="USD"
-    />).
+    />
 </p>
 
 <h2>The Universe</h2>
 
 <p>
-    The Milky Way contains <Number value={values.starsInMilkyWay} /> stars, and the
-    entire universe contains <Number value={values.galaxiesInUniverse} /> galaxies.
+    The Milky Way contains <Number {...values.starsInMilkyWay} /> stars, and the
+    entire universe contains <Number {...values.galaxiesInUniverse} /> galaxies.
 </p>

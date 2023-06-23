@@ -1,59 +1,27 @@
 <script>
+    import UnscaledNumber from "./UnscaledNumber.svelte"
     import {defaultScale} from "./stores.js"
 
-    export let value = 0
+    export let value
     export let unit
-    export let scale
-    $: usedScale = scale || $defaultScale
+    export let factor
+    export let source
+    export let year
 
     let scaledValue
-    let scaledUnit
-    let result
-    let actualResult
     $: {
         if (unit === "km") {
             // Special case: We want areas to scale proportionally, so their edge lenghts scale with the square root of the scale.
-            scaledValue = value / Math.sqrt(usedScale)
+            scaledValue = value / Math.sqrt($defaultScale)
         } else {
-            scaledValue = value / usedScale
-        }
-
-        scaledUnit = unit
-        if (scaledValue < 0.1 && unit === "km") {
-            scaledValue = scaledValue * 1000
-            scaledUnit = "m"
-        } else if (scaledValue < 0.1 && unit === "tons") {
-            scaledValue = scaledValue * 1000
-            scaledUnit = "kg"
-        } else if (scaledValue < 0.01 && unit === "km²") {
-            scaledValue = scaledValue * 1000 * 1000
-            scaledUnit = "m²"
-        }
-
-        if (scaledValue == 0) {
-            result = "0"
-        } else {
-            let zeroesAfterDecimal = Math.floor(Math.log10(scaledValue))
-            let precision = Math.max(0, -zeroesAfterDecimal)
-            result = scaledValue.toFixed(precision)
-        }
-
-        if (scaledUnit) {
-            result += ` ${scaledUnit}`
-        }
-
-        actualResult = `${value}`
-        if (unit) {
-            actualResult += ` ${unit}`
+            scaledValue = value / $defaultScale
         }
     }
 </script>
 
-<span title="Well, actually: {actualResult}">{result}</span>
-
-<style>
-    span {
-        font-weight: 600;
-        font-size: 120%;
-    }
-</style>
+<UnscaledNumber
+    value={scaledValue}
+    {unit}
+    {factor}
+    comment="Well, actually: {value} {unit}. Source: {source} ({year})."
+/>
