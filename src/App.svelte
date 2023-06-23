@@ -1,10 +1,13 @@
 <script>
+    import TopBar from "./TopBar.svelte"
     import Number from "./Number.svelte"
     import UnscaledNumber from "./UnscaledNumber.svelte"
     import EmojiBox from "./EmojiBox.svelte"
     import EmojiGraph from "./EmojiGraph.svelte"
     import Squares from "./Squares.svelte"
+    import Question from "./Question.svelte"
     import {defaultScale} from "./stores.js"
+    import {humanReadable} from "./helpers.js"
 
     const values = {
         humans: {
@@ -66,6 +69,35 @@
             unit: "km²",
             source: "https://ourworldindata.org/land-use",
         },
+        milkyWayDiameter: {
+            value: 87400,
+            unit: "light years",
+            source: "https://en.wikipedia.org/wiki/Milky_Way",
+        },
+        ownedCats: {
+            value: 220e6,
+            source: "https://en.wikipedia.org/wiki/Cat",
+        },
+        strayCats: {
+            value: 480e6,
+            source: "https://en.wikipedia.org/wiki/Cat",
+        },
+        cats: {
+            value: 700e6,
+            source: "https://en.wikipedia.org/wiki/Cat",
+        },
+        ownedDogs: {
+            value: 900e6 * 0.2,
+            source: "https://en.wikipedia.org/wiki/Free-ranging_dog",
+        },
+        strayDogs: {
+            value: 900e6 * 0.8,
+            source: "https://en.wikipedia.org/wiki/Free-ranging_dog",
+        },
+        dogs: {
+            value: 900e6,
+            source: "https://en.wikipedia.org/wiki/Free-ranging_dog",
+        },
     }
 
     const values2 = {
@@ -105,7 +137,7 @@
         jeffBezos: 193e9, // USD
         millionaires: 56e6,
         starsInMilkyWay: 250e9,
-        galaxiesInUniverse: 7e9,
+        galaxiesInUniverse: 200e9, // https://en.wikipedia.org/wiki/Galaxy
         co2CarPerKM: 0.2, //kg https://www.quarks.de/umwelt/klimawandel/co2-rechner-fuer-auto-flugzeug-und-co/
         co2PerBitcoinTransaction: 398.86, //kg https://digiconomist.net/bitcoin-energy-consumption
         kWhPerBoilingLiter: 184, //Wh https://discovergy.com/blog/energiesparen-haushalt
@@ -120,25 +152,49 @@
     }
 </script>
 
-<input
-    type="range"
-    min="1"
-    max="8e9"
-    value={$defaultScale}
-    on:input={(e) => defaultScale.update(() => e.target.value)}
-/>
-<button on:click={() => defaultScale.update(() => 1e8)}
-    >Reset to 100 million</button
->
+<TopBar />
 
-<input type="number" bind:value={$defaultScale} />
-
-<h1>Small World</h1>
+<h1>Small World 🌍</h1>
 
 <p>
-    Welcome to our small world! It's like the Earth, but scaled down by a factor
-    of
-    <b>{$defaultScale}</b>. Let's explore it!
+    The Earth is big. Really, really big. So unimaginable big that it can be
+    hard to wrap our heads around it.
+</p>
+
+<p>
+    In an attempt to make it easier to grasp, let's scale it down! This is the
+    factor we'll use:
+</p>
+
+<p class="wow">{humanReadable($defaultScale)}</p>
+
+<p>
+    Quite a number, right? It means that instead of <UnscaledNumber
+        {...values.cats}
+    /> cats on the real Earth, on our small world there are only <Number
+        {...values.cats}
+    /> cats!
+</p>
+
+<EmojiBox count={values.cats.value} emoji="🐈" />
+
+<p>
+    Here's a cool trick: If I tell you that there are <Number
+        {...values.dogs}
+    /> dogs on our small world, you can convert back to the actual number!
+</p>
+
+<EmojiBox count={values.dogs.value} emoji="🐕" />
+
+<Question q="How many dogs are there on the real Earth?">
+    <p>
+        There are <UnscaledNumber {...values.dogs} /> dogs on the real Earth.
+    </p>
+</Question>
+
+<p>
+    Spend some time on our small world, and get a better understanding of the
+    real Earth!
 </p>
 
 <h2>Planet</h2>
@@ -155,6 +211,9 @@
     /> of that is ocean.
 </p>
 
+<p style="font-size: 8rem; text-align: center; margin: 2rem 0;">🌏</p>
+
+<!--
 <Squares
     values={{
         habitable: {
@@ -167,6 +226,7 @@
         },
     }}
 />
+-->
 
 <p>
     Of the <Number {...values.habitableSurface} /> of habitable land, <Number
@@ -347,8 +407,7 @@
 <EmojiBox count={values.cars.value} emoji="🚗" />
 
 <p>
-    There are <Number {...values.flightsPerYear} /> flights per year. (Actually,
-    <UnscaledNumber value={values.flightsPerYear.value / 365 / 60 / 60} /> per minute.)
+    There are <Number {...values.flightsPerYear} /> flights per year.
 </p>
 
 <h2>Animals</h2>
@@ -363,16 +422,18 @@
     <EmojiBox count={values.otherAnimals.value} emoji="🐐" />
     <EmojiBox count={values.otherAnimals.value} emoji="🐖" />
 </p>
-<p>
-    There are <Number {...values.chickens} /> chickens alive right now. <Number
-        {...values.chickensKilledPerYear}
-    /> are killed every year (<Number
-        value={values.chickensKilledPerYear.value / 365}
-    />
-    per day).
-</p>
+<Question q="What do you think, how many chickens are alive right now?">
+    <p>
+        There are <Number {...values.chickens} /> chickens alive right now. <Number
+            {...values.chickensKilledPerYear}
+        /> are killed every year (<Number
+            value={values.chickensKilledPerYear.value / 365}
+        />
+        per day).
+    </p>
 
-<EmojiBox count={values.chickens.value} emoji="🐔" />
+    <EmojiBox count={values.chickens.value} emoji="🐔" />
+</Question>
 
 <p>
     There are <Number {...values.farms} /> farms. <Number
@@ -455,15 +516,31 @@
 
 <p>
     There is <Number {...values.allMoney} unit="USD" /> in the world (money in circulation,
-    plus in checks and demand deposits). Jeff Bezos has a net worth of <Number
-        {...values.jeffBezos}
-        unit="USD"
-    />
+    plus in checks and demand deposits).
 </p>
 
 <h2>The Universe</h2>
 
 <p>
-    The Milky Way contains <Number {...values.starsInMilkyWay} /> stars, and the
-    entire universe contains <Number {...values.galaxiesInUniverse} /> galaxies.
+    The Milky Way contains <Number {...values.starsInMilkyWay} /> stars, and it has
+    a diameter of <Number {...values.milkyWayDiameter} />.
 </p>
+
+<p>
+    The entire universe contains approximately <Number
+        {...values.galaxiesInUniverse}
+    /> galaxies.
+</p>
+
+<style>
+    /* text that pops out! centered! shadow! colorful gradient! */
+    .wow {
+        margin: 2rem 0;
+        font-size: 500%;
+        font-weight: bold;
+        text-align: center;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        font-variant: small-caps;
+        color: darkred;
+    }
+</style>

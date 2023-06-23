@@ -10,12 +10,7 @@
 
     let scaledValue
     $: {
-        if (unit === "km" || unit === "light years") {
-            // Special case: We want areas to scale proportionally, so their edge lenghts scale with the square root of the scale.
-            scaledValue = value / Math.sqrt($defaultScale)
-        } else {
-            scaledValue = value / $defaultScale
-        }
+        scaledValue = value / Math.sqrt($defaultScale)
     }
 </script>
 

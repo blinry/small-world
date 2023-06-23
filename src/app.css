@@ -12,13 +12,17 @@ body {
 
 h1 {
     font-size: 3rem;
+    margin-top: 10rem;
 }
 
 h2 {
     font-size: 2rem;
+    margin-top: 8rem;
+    margin-bottom: 3rem;
 }
 
 input {
     margin-bottom: 1rem;
     width: 30rem;
+    padding: 0.5rem;
 }

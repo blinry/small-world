@@ -1,4 +1,5 @@
 <script>
+    import {humanReadable} from "./helpers.js"
     export let value
     export let unit
     export let comment
@@ -26,9 +27,13 @@
         if (betterValue == 0) {
             roundedValue = 0
         } else {
-            let zeroesAfterDecimal = Math.floor(Math.log10(betterValue))
-            let precision = Math.max(0, -zeroesAfterDecimal)
-            roundedValue = betterValue.toFixed(precision)
+            if (betterValue < 750) {
+                let zeroesAfterDecimal = Math.floor(Math.log10(betterValue))
+                let precision = Math.max(0, -zeroesAfterDecimal)
+                roundedValue = betterValue.toFixed(precision)
+            } else {
+                roundedValue = humanReadable(betterValue)
+            }
         }
     }
 </script>

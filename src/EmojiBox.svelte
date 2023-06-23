@@ -25,8 +25,8 @@
     let instances
     $: {
         instances = []
-        if (scaledCount >= 1 && scaledCount <= limit) {
-            for (let i = 0; i < scaledCount; i++) {
+        if (scaledCount >= 0.5 && scaledCount <= limit) {
+            for (let i = 0; i < Math.round(scaledCount); i++) {
                 let offsetAmount = 2
                 let newInstance = {
                     offsetX: offsetAmount * hash(i),
