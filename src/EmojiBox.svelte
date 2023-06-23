@@ -18,12 +18,20 @@
     export let emoji = "❓"
     export let distribution = undefined
 
+    function hash(i) {
+        return Math.sin(i ** 7)
+    }
+
     let instances
     $: {
         instances = []
         if (scaledCount >= 1 && scaledCount <= limit) {
             for (let i = 0; i < scaledCount; i++) {
-                let newInstance = {}
+                let offsetAmount = 2
+                let newInstance = {
+                    offsetX: offsetAmount * hash(i),
+                    offsetY: offsetAmount * hash(i * 23),
+                }
                 if (distribution) {
                     newInstance.value = distribution((i + 0.5) / scaledCount)
                 }
@@ -44,7 +52,10 @@
         browser.)
     {:else}
         {#each instances as instance}
-            <span class="emoji">
+            <span
+                class="emoji"
+                style="position: relative; left: {instance.offsetX}px; top: {instance.offsetY}px;"
+            >
                 {instance.emoji}
                 {#if instance.value}
                     <span>
