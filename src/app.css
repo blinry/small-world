@@ -1,6 +1,8 @@
 body {
     margin: 1rem;
     font-family: sans-serif;
+    max-width: 60rem;
+    margin: 0 auto;
 }
 
 * {
