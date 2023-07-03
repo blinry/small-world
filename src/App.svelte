@@ -380,7 +380,7 @@
 <EmojiBox count={values.muslims.value} emoji="☪️" />
 
 <p><Number {...values.atheists} /> are non-religious.</p>
-<EmojiBox count={values.atheists.value} emoji="🕊️" />
+<EmojiBox count={values.atheists.value} emoji="🧑" />
 
 <p><Number {...values.hindus} /> are Hindus.</p>
 <EmojiBox count={values.hindus.value} emoji="🕉️" />
