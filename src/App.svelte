@@ -1,9 +1,12 @@
 <script>
-    import TopBar from "./TopBar.svelte"
+    import Slider from "./Slider.svelte"
     import Number from "./Number.svelte"
+    import Length from "./Length.svelte"
+    import Volume from "./Volume.svelte"
     import UnscaledNumber from "./UnscaledNumber.svelte"
     import EmojiBox from "./EmojiBox.svelte"
     import EmojiGraph from "./EmojiGraph.svelte"
+    import EmojiHistogram from "./EmojiHistogram.svelte"
     import Squares from "./Squares.svelte"
     import Question from "./Question.svelte"
     import {defaultScale} from "./stores.js"
@@ -14,6 +17,11 @@
             value: 8.05e9,
             year: 2023,
             source: "https://ourworldindata.org/grapher/population-by-age-group-with-projections",
+        },
+        humans1300: {
+            value: 456.39e6,
+            year: 1300,
+            source: "https://ourworldindata.org/grapher/population",
         },
         surfaceOfEarth: {
             value: 510e6,
@@ -98,7 +106,153 @@
             value: 900e6,
             source: "https://en.wikipedia.org/wiki/Free-ranging_dog",
         },
+        humansKilledByBlackDeath: {
+            value: 75e6,
+            source: "https://www.abc.net.au/science/articles/2008/01/29/2149185.htm",
+        },
+        covidDeaths: {
+            value: 6.95e6,
+            source: "https://ourworldindata.org/covid-deaths",
+            year: 2023,
+        },
+        covidCases: {
+            value: 767e6,
+            source: "https://ourworldindata.org/covid-cases",
+            year: 2023,
+        },
+        motorcycles: {
+            value: 708e6,
+            source: "https://www.riders-share.com/blog/article/number-motorcycles-world-top-countries",
+        },
+        cars: {
+            value: 1083528e3,
+            source: "https://en.wikipedia.org/wiki/Motor_vehicle",
+        },
+        trucksAndBuses: {
+            value: 406770e3,
+            source: "https://en.wikipedia.org/wiki/Motor_vehicle",
+        },
+        railwayNetworkLength: {
+            value: 1.148e6,
+            unit: "km",
+            source: "https://www.citypopulation.de/en/world/bymap/railways/",
+        },
+        fishCaptured: {
+            value: 93.74e6,
+            unit: "tonnes",
+            year: 2015,
+            source: "https://ourworldindata.org/fish-and-overfishing",
+        },
+        fishFromAquaculture: {
+            value: 106e6,
+            unit: "tonnes",
+            year: 2015,
+            source: "https://ourworldindata.org/fish-and-overfishing",
+        },
+        individualFishPerTonne: {
+            value: 13000,
+            source: "https://reducing-suffering.org/one-trillion-fish/#Numerosity_estimate",
+        },
+        insects: {
+            value: 10e18,
+            source: "https://www.si.edu/spotlight/buginfo/bugnos",
+        },
+        oceanWater: {
+            value: 1386000000,
+            unit: "km³",
+        },
+        noAccessToSafeDrinkingWater: {
+            value: 2071265000,
+            source: "https://ourworldindata.org/water-access",
+        },
+        noAccessToElectricity: {
+            value: 760e6,
+            source: "https://ourworldindata.org/energy-access",
+            year: 2019,
+        },
+        companies: {
+            value: 334e6,
+            source: "https://www.businessdit.com/how-many-businesses-are-there-in-the-world/",
+        },
+        visualImpairment: {
+            value: 253e6,
+            source: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5820628/",
+        },
+        chickens: {
+            value: 33e9,
+            source: "https://www.fao.org/poultry-production-products/production/poultry-species/chickens/en/",
+            year: 2020,
+        },
+        shareOfChickensRaisedInIntensiveFarming: {
+            value: 0.7,
+            source: "https://www.ciwf.org.uk/farm-animals/chickens/meat-chickens/",
+        },
     }
+
+    // Source: https://ourworldindata.org/grapher/share-of-deaths-by-cause?time=latest
+    // Year: 2019
+    const deathCauses = [
+        {
+            cause: "Cardiovascular diseases",
+            deathShare: 0.3284,
+            emoji: "💔",
+        },
+        {
+            cause: "Cancers",
+            deathShare: 0.1783,
+            emoji: "🦀",
+        },
+        {
+            cause: "Respiratory diseases",
+            deathShare: 0.0703,
+            emoji: "🫁",
+        },
+        {
+            cause: "Digestive diseases",
+            deathShare: 0.0452,
+            emoji: "🚽",
+        },
+        {
+            cause: "Lower respiratory infections",
+            deathShare: 0.0441,
+            emoji: "🦠",
+        },
+        {
+            cause: "Neonatal deaths",
+            deathShare: 0.0333,
+            emoji: "👶",
+        },
+        /* ... */
+        {
+            cause: "Road incidents",
+            deathShare: 0.0212,
+            emoji: "🚗",
+        },
+        {
+            cause: "Suicide",
+            deathShare: 0.0134,
+            emoji: "😔",
+        },
+        {
+            cause: "HIV",
+            deathShare: 0.0153,
+            emoji: "💉",
+        },
+        {
+            cause: "Malaria",
+            deathShare: 0.0114,
+            emoji: "🦟",
+        },
+    ]
+
+    // Calculate remaining share.
+    const remainingDeathShare =
+        1 - deathCauses.reduce((sum, cause) => sum + cause.deathShare, 0)
+    deathCauses.push({
+        cause: "Other causes",
+        deathShare: remainingDeathShare,
+        emoji: "❓",
+    })
 
     const values2 = {
         humansBornPerYear: 140e6,
@@ -122,11 +276,8 @@
         chineseTraditionalReligions: 394e6,
         depression: 264e6,
         overweight: 1.9e9,
-        humansKilledByBlackDeath: 200e6,
         bikes: 1e9,
-        cars: 1.5e9,
         flightsPerYear: 38e6,
-        chickens: 21e9,
         chickensKilledPerYear: 73e9,
         otherAnimals: 1e9,
         farms: 570e6,
@@ -152,18 +303,16 @@
     }
 </script>
 
-<TopBar />
-
 <h1>Small World 🌍</h1>
 
 <p>
-    The Earth is big. Really, really big. So unimaginable big that it can be
-    hard to wrap our heads around it.
+    The Earth is big. Really, <i>really</i> big. So unimaginable big that it can
+    be hard to wrap our heads around it.
 </p>
 
 <p>
-    In an attempt to make it easier to grasp, let's scale it down! This is the
-    factor we'll use:
+    To make it easier to grasp, we can scale it down! This is the factor we'll
+    use:
 </p>
 
 <p class="wow">{humanReadable($defaultScale)}</p>
@@ -179,9 +328,8 @@
 <EmojiBox count={values.cats.value} emoji="🐈" />
 
 <p>
-    Here's a cool trick: If I tell you that there are <Number
-        {...values.dogs}
-    /> dogs on our small world, you can convert back to the actual number!
+    The cool thing is: If I tell you that there are <Number {...values.dogs} /> dogs
+    on our small world, you can convert back to the actual number!
 </p>
 
 <EmojiBox count={values.dogs.value} emoji="🐕" />
@@ -197,11 +345,17 @@
     real Earth!
 </p>
 
+<p>
+    Each time you see a bold number (like in "<Number {...values.cats} /> cats"),
+    it will be a number scaled down to the small world. You can hover over it to
+    see the real number, or click on it to see the source.
+</p>
+
 <h2>Planet</h2>
 
 <p>
     The surface of our small world is <Number {...values.surfaceOfEarth} /> (a square
-    with edge lengths of <Number
+    with edge lengths of roughly <Length
         value={Math.sqrt(values.surfaceOfEarth.value)}
         unit="km"
     />, or <Number
@@ -237,45 +391,67 @@
 
 <Squares
     values={{
+        ocean: {
+            value: values.oceanSurface.value,
+            color: "blue",
+            label: "🌊",
+        },
         forest: {
             value: values.forestSurface.value,
             color: "darkgreen",
-        },
-        glaciers: {
-            value: values.glaciersSurface.value,
-            color: "lightgray",
-        },
-        urban: {
-            value: values.builtupSurface.value,
-            color: "gray",
-        },
-        freshwater: {
-            value: values.freshwaterSurface.value,
-            color: "lightblue",
+            label: "🌲",
         },
         shrubland: {
             value: values.shrubSurface.value,
             color: "yellowgreen",
+            label: "🌳",
+        },
+        urban: {
+            value: values.builtupSurface.value,
+            color: "gray",
+            label: "🏙",
+        },
+        freshwater: {
+            value: values.freshwaterSurface.value,
+            color: "lightblue",
+            label: "🏞️",
         },
         livestock: {
             value: values.livestockSurface.value,
             color: "brown",
-        },
-        barren: {
-            value: values.barrenSurface.value,
-            color: "beige",
+            label: "🐄",
         },
         cropland: {
             value: values.croplandSurface.value,
             color: "yellow",
+            label: "🌾",
+        },
+        barren: {
+            value: values.barrenSurface.value,
+            color: "beige",
+            label: "🏜️",
+        },
+        glaciers: {
+            value: values.glaciersSurface.value,
+            color: "lightgray",
+            label: "🏔",
         },
     }}
 />
 
+<p>
+    The volume of all water on our small world is <Volume
+        {...values.oceanWater}
+    />. That's a cube with an edge length of <Length
+        value={Math.pow(values.oceanWater.value, 1 / 3)}
+        unit="km"
+    />.
+</p>
+
 <h2>Demographics</h2>
 
 <p>
-    There are <Number {...values.humans} /> people on Earth. (<Number
+    There are <Number {...values.humans} /> people on the small world. (<Number
         {...values.humansEverLived}
     /> have ever lived.)
     <Number {...values.humansBornPerYear} /> are born every year, and <Number
@@ -285,7 +461,12 @@
 
 <EmojiBox count={values.humans.value} emoji="🧑" />
 
-<p>This is how much our people earn per month:</p>
+<p>
+    This is how much our people earn per month. The numbers are already adjusted
+    for price differences between countries. (Note that these values are not
+    scaled down, because they're per-person numbers. They translate directly to
+    real Earth.)
+</p>
 
 <EmojiGraph
     count={values.humans.value}
@@ -297,7 +478,7 @@
 
 <p>This is how old they are:</p>
 
-<EmojiBox
+<EmojiHistogram
     count={values.humans.value}
     emoji={(age) => {
         if (age < 3) {
@@ -307,9 +488,10 @@
         } else if (age < 65) {
             return "🧑"
         } else {
-            return "👴"
+            return "🧓"
         }
     }}
+    bucketSize={10}
     distribution={(x) => 23 * (1.8 * x + 0.03 * (10 / (1.1 - x))) - 4}
 />
 
@@ -324,7 +506,7 @@
 -->
 
 <p><Number {...values.humansEurope} /> of these people live in Europe.</p>
-<EmojiBox count={values.humansEurope.value} emoji="🇪🇺" />
+<EmojiBox count={values.humansEurope.value} emoji="🌍" />
 
 <p><Number {...values.humansAfrica} /> live in Africa.</p>
 <EmojiBox count={values.humansAfrica.value} emoji="🌍" />
@@ -347,31 +529,73 @@
 <p>
     <Number {...values.depression} /> of these people suffer from depression.
 </p>
-
 <EmojiBox count={values.depression.value} emoji="😔" />
 
 <p>
+    <Number {...values.visualImpairment} /> people are blind, or have a moderate
+    to severe visual impairment.
+</p>
+<EmojiBox count={values.visualImpairment.value} emoji="🦯" />
+
+<h2>Death causes</h2>
+
+{#each deathCauses as cause}
+    <p>
+        <Number value={cause.deathShare * values.humans.value} /> of the people will
+        die from {cause.cause}.
+    </p>
+    <EmojiBox
+        count={cause.deathShare * values.humans.value}
+        emoji={cause.emoji}
+    />
+{/each}
+
+<p>
     <Number {...values.humansKilledByBlackDeath} /> people died from the Black Death
-    in the 14th century.
+    in the 14th century. Back then, the world's population was still around <Number
+        {...values.humans1300}
+    />.
 </p>
 
 <EmojiBox count={values.humansKilledByBlackDeath.value} emoji="☠️" />
+
+<h2>Other statistics</h2>
+
+<p>
+    <Number {...values.covidCases} /> people have been infected with COVID-19 so
+    far, and <Number {...values.covidDeaths} /> died from it.
+</p>
+
+<EmojiBox count={values.covidCases.value} emoji="🦠" />
+<EmojiBox count={values.covidDeaths.value} emoji="☠️" />
 
 <p>
     <Number {...values.overweight} /> are overweight.
 </p>
 
-<EmojiBox count={values.overweight.value} emoji="🤰" />
+<EmojiBox count={values.overweight.value} emoji="🍔" />
 
 <p>
     And <Number {...values.extremePoverty} /> live in extreme poverty, on less than
-    $1.90 per day, or the equivalent amount after converting currencies and adjusting
-    for price differences between countries.
+    $1.90 per day
 </p>
 <EmojiBox count={values.extremePoverty.value} emoji="🥺" />
 
 <p><Number {...values.cannotRead} /> people cannot read.</p>
 <EmojiBox count={values.cannotRead.value} />
+
+<p>
+    <Number {...values.noAccessToSafeDrinkingWater} /> have no access to safe drinking
+    water.
+</p>
+<EmojiBox count={values.noAccessToSafeDrinkingWater.value} emoji="🚱" />
+
+<p>
+    <Number {...values.noAccessToElectricity} /> don't have access to electricity.
+</p>
+<EmojiBox count={values.noAccessToElectricity.value} emoji="🪫" />
+
+<h2>Religion</h2>
 
 <p><Number {...values.christians} /> are Christians.</p>
 <EmojiBox count={values.christians.value} emoji="✝️" />
@@ -397,17 +621,38 @@
 <h2>Transport</h2>
 
 <p>
-    There are <Number {...values.bikes} /> bikes in the world, and <Number
+    There are <Number {...values.bikes} /> bikes in the world, <Number
         {...values.cars}
-    /> cars.
+    /> cars, <Number {...values.trucksAndBuses} /> trucks/buses, and <Number
+        {...values.motorcycles}
+    /> motorcycles.
 </p>
 
 <EmojiBox count={values.bikes.value} emoji="🚲" />
 
 <EmojiBox count={values.cars.value} emoji="🚗" />
 
+<EmojiBox count={values.trucksAndBuses.value} emoji="🚚" />
+
+<EmojiBox count={values.motorcycles.value} emoji="🏍️" />
+
 <p>
     There are <Number {...values.flightsPerYear} /> flights per year.
+</p>
+
+<Question
+    q="This sounds like a small number! Let's see if you still remember our conversion factor! How many flights are there actually, on real Earth?"
+>
+    <p>
+        There are <UnscaledNumber {...values.flightsPerYear} /> flights per year
+        on real Earth.
+    </p>
+</Question>
+
+<p>
+    The total length of the railway network is <Number
+        {...values.railwayNetworkLength}
+    />.
 </p>
 
 <h2>Animals</h2>
@@ -422,17 +667,32 @@
     <EmojiBox count={values.otherAnimals.value} emoji="🐐" />
     <EmojiBox count={values.otherAnimals.value} emoji="🐖" />
 </p>
-<Question q="What do you think, how many chickens are alive right now?">
+<Question
+    q="What do you think, how many chickens are alive right now (in the small world)?"
+>
     <p>
         There are <Number {...values.chickens} /> chickens alive right now. <Number
-            {...values.chickensKilledPerYear}
-        /> are killed every year (<Number
-            value={values.chickensKilledPerYear.value / 365}
-        />
-        per day).
+            {...values.chickens}
+            factor={values.shareOfChickensRaisedInIntensiveFarming.value}
+        /> of them are raised in intensive industrial farming systems.
     </p>
 
-    <EmojiBox count={values.chickens.value} emoji="🐔" />
+    <EmojiBox
+        count={values.chickens.value *
+            (1 - values.shareOfChickensRaisedInIntensiveFarming.value)}
+        emoji="🐔"
+    />
+    <EmojiBox
+        count={values.chickens.value *
+            values.shareOfChickensRaisedInIntensiveFarming.value}
+        emoji="🔒"
+    />
+
+    <p>
+        <Number {...values.chickensKilledPerYear} /> chickens are killed every year
+        (<Number value={values.chickensKilledPerYear.value / 365} />
+        per day).
+    </p>
 </Question>
 
 <p>
@@ -442,11 +702,39 @@
     used for livestock.
 </p>
 
+<p>
+    <Number {...values.fishCaptured} /> of fish are captured every year, and <Number
+        {...values.fishFromAquaculture}
+    /> are farmed. That's around <Number
+        value={(values.fishCaptured.value + values.fishFromAquaculture.value) *
+            values.individualFishPerTonne.value}
+    /> indivual fish. Per day, that's <Number
+        value={((values.fishCaptured.value + values.fishFromAquaculture.value) *
+            values.individualFishPerTonne.value) /
+            365}
+    /> fishes.
+</p>
+
+<EmojiBox
+    count={(values.fishCaptured.value + values.fishFromAquaculture.value) *
+        values.individualFishPerTonne.value}
+    emoji="🐟"
+/>
+
+<p>
+    There's the incredible number of <Number {...values.insects} /> insects alive
+    right now.
+</p>
+
+<EmojiBox count={values.insects.value} emoji="🪰" />
+
 <h2>Greenhouse gases</h2>
 
 <p>
-    We are producing <Number {...values.co2EmissionsPerYear} unit="tons" /> of CO₂
-    per year, which is <Number
+    The people on the small world are producing <Number
+        {...values.co2EmissionsPerYear}
+        unit="tons"
+    /> of CO₂ per year, which is <Number
         {...values.co2EmissionsPerYear}
         factor={1 / 365}
         unit="tons"
@@ -472,8 +760,8 @@
 <h2>Energy</h2>
 
 <p>
-    The world is consuming <Number {...values.energyPerYear} unit="kWh" /> of energy
-    per year, which is <Number
+    Our small world is consuming <Number {...values.energyPerYear} unit="kWh" />
+    of energy per year, which is <Number
         {...values.energyPerYear}
         factor={1 / 365}
         unit="kWh"
@@ -519,11 +807,18 @@
     plus in checks and demand deposits).
 </p>
 
+<p>
+    There are <Number {...values.companies} /> companies in the world.
+</p>
+
+<EmojiBox count={values.companies.value} emoji="🏢" />
+
 <h2>The Universe</h2>
 
 <p>
-    The Milky Way contains <Number {...values.starsInMilkyWay} /> stars, and it has
-    a diameter of <Number {...values.milkyWayDiameter} />.
+    The Milky Way (the galaxy that contains the small world) contains <Number
+        {...values.starsInMilkyWay}
+    /> stars, and it has a diameter of <Length {...values.milkyWayDiameter} />.
 </p>
 
 <p>
@@ -531,6 +826,10 @@
         {...values.galaxiesInUniverse}
     /> galaxies.
 </p>
+
+<h2>Play with the scale factor</h2>
+
+<Slider />
 
 <style>
     /* text that pops out! centered! shadow! colorful gradient! */

@@ -2,7 +2,7 @@
     export let values
     // values = [{earth:{value: 1, color: "red"}}]
 
-    let maxArea = 300 ** 2 // px
+    let maxArea = 600 ** 2 // px
 
     $: {
         let max = 0
@@ -24,13 +24,16 @@
         <span
             style="width: {value.width}px; height: {value.height}px; background-color: {value.color};"
         >
-            {key}
+            {value.label || key}
         </span>
     {/each}
 </div>
 
 <style>
     span {
-        display: inline-block;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 150%;
     }
 </style>

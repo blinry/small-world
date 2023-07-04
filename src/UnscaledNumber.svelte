@@ -2,7 +2,7 @@
     import {humanReadable} from "./helpers.js"
     export let value
     export let unit
-    export let comment
+    export let comment = "This is the actual value on the real Earth."
     export let factor = 1
 
     let betterValue
@@ -22,6 +22,9 @@
         } else if (factoredValue < 0.01 && unit === "km²") {
             betterValue = factoredValue * 1000 * 1000
             betterUnit = "m²"
+        } else if (factoredValue < 0.01 && unit === "km³") {
+            betterValue = factoredValue * 1000 * 1000 * 1000
+            betterUnit = "m³"
         }
 
         if (betterValue == 0) {
@@ -39,15 +42,11 @@
 </script>
 
 <span title={comment}
-    >{roundedValue}
-    {#if betterUnit}
-        {betterUnit}
-    {/if}
+    >{roundedValue}{#if betterUnit}{" " + betterUnit}{/if}
 </span>
 
 <style>
     span {
-        font-weight: 600;
         font-size: 120%;
     }
 </style>

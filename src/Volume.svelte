@@ -12,7 +12,8 @@
     let scaledValue
     let comment
     $: {
-        scaledValue = value / $defaultScale
+        // Special case: Volumes
+        scaledValue = value / ($defaultScale * Math.sqrt($defaultScale))
         comment = "Well, actually: " + humanReadable(value)
         if (unit) {
             comment += " " + unit

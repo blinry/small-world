@@ -30,8 +30,6 @@
 
 <style>
     #top-bar {
-        position: fixed;
-        top: 0;
         padding: 1rem;
         background-color: #eee;
         z-index: 1;

@@ -6,7 +6,12 @@
 </script>
 
 <div>
-    <b>{q}</b> <input type="text" bind:value={userAnswer} />
+    <b>{q}</b>
+    <input
+        type="text"
+        bind:value={userAnswer}
+        on:keypress={(e) => e.key === "Enter" && (answerShown = true)}
+    />
 
     {#if answerShown}
         <slot />

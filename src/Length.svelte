@@ -12,7 +12,8 @@
     let scaledValue
     let comment
     $: {
-        scaledValue = value / $defaultScale
+        // Special case: We want areas to scale proportionally, so their edge lenghts scale with the square root of the scale.
+        scaledValue = value / Math.sqrt($defaultScale)
         comment = "Well, actually: " + humanReadable(value)
         if (unit) {
             comment += " " + unit
