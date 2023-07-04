@@ -24,9 +24,10 @@
         return Math.sin(i ** 7)
     }
 
-    let buckets = [[]]
+    let buckets
     let lastValue = 0
     $: {
+        buckets = [[]]
         if (scaledCount >= 0.5 && scaledCount <= limit) {
             for (let i = 0; i < Math.round(scaledCount); i++) {
                 let offsetAmount = 2

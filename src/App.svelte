@@ -9,6 +9,7 @@
     import EmojiHistogram from "./EmojiHistogram.svelte"
     import Squares from "./Squares.svelte"
     import Question from "./Question.svelte"
+    import ContinentMap from "./ContinentMap.svelte"
     import {defaultScale} from "./stores.js"
     import {humanReadable} from "./helpers.js"
 
@@ -264,6 +265,7 @@
         humansIndia: 1.4e9,
         humansNorthAmerica: 580e6,
         humansSouthAmerica: 430e6,
+        humansOceania: 45e6,
         humansAntarctica: 0,
         humansEverLived: 108e9,
         extremePoverty: 700e6,
@@ -495,36 +497,33 @@
     distribution={(x) => 23 * (1.8 * x + 0.03 * (10 / (1.1 - x))) - 4}
 />
 
-<!--
-<EmojiGraph
-    count={values.humans.value}
-    emoji="🧑"
-    barEmoji="🎂"
-    unit="years"
-    distribution={(x) => 23 * (1.8 * x + 0.03 * (10 / (1.1 - x))) - 4}
-/>
--->
-
-<p><Number {...values.humansEurope} /> of these people live in Europe.</p>
-<EmojiBox count={values.humansEurope.value} emoji="🌍" />
-
-<p><Number {...values.humansAfrica} /> live in Africa.</p>
-<EmojiBox count={values.humansAfrica.value} emoji="🌍" />
-
 <p>
+    <Number {...values.humansEurope} /> of these people live in Europe. <Number
+        {...values.humansAfrica}
+    /> live in Africa.
+
     <Number {...values.humansAsia} /> live in Asia (including <Number
         {...values.humansChina}
     /> in China and <Number {...values.humansIndia} /> in India).
+
+    <Number {...values.humansNorthAmerica} /> live in North America.
+
+    <Number {...values.humansSouthAmerica} /> live in South America.
+
+    <Number {...values.humansOceania} /> live in Oceania. And <Number
+        {...values.humansAntarctica}
+    /> live in Antarctica.
 </p>
-<EmojiBox count={values.humansAsia.value} emoji="🌏" />
 
-<p><Number {...values.humansNorthAmerica} /> live in North America.</p>
-<EmojiBox count={values.humansNorthAmerica.value} emoji="🌎" />
-
-<p><Number {...values.humansSouthAmerica} /> live in South America.</p>
-<EmojiBox count={values.humansSouthAmerica.value} emoji="🌎" />
-
-<p>And <Number {...values.humansAntarctica} /> live in Antarctica.</p>
+<ContinentMap
+    emoji="🧑"
+    europe={values.humansEurope}
+    asia={values.humansAsia}
+    africa={values.humansAfrica}
+    northamerica={values.humansNorthAmerica}
+    southamerica={values.humansSouthAmerica}
+    oceania={values.humansOceania}
+/>
 
 <p>
     <Number {...values.depression} /> of these people suffer from depression.

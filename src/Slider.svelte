@@ -1,5 +1,6 @@
 <script>
     import {defaultScale} from "./stores.js"
+    import {humanReadable} from "./helpers.js"
 
     $: logScale = Math.log10($defaultScale)
 </script>
@@ -22,16 +23,18 @@
             <option value={step} />
         {/each}
     </datalist>
+    {humanReadable($defaultScale)}
     <button on:click={() => defaultScale.update(() => 1e8)}
         >Reset to 100 million</button
     >
-    <input type="number" bind:value={$defaultScale} />
 </div>
 
 <style>
     #top-bar {
         padding: 1rem;
         background-color: #eee;
+        position: fixed;
+        bottom: 0;
         z-index: 1;
     }
 </style>
