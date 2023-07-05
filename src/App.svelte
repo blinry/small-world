@@ -309,6 +309,33 @@
         emoji: "❓",
     })
 
+    const humans = {
+        1900: {
+            europe: 406e6,
+            northamerica: 104e6,
+            southamerica: 41e6,
+            asia: 931e6,
+            africa: 138e6,
+            oceania: 5.94e6,
+        },
+        2000: {
+            europe: 727e6,
+            northamerica: 486e6,
+            southamerica: 349e6,
+            asia: 3.74e9,
+            africa: 799e6,
+            oceania: 31.22e6,
+        },
+        2100: {
+            europe: 587e6,
+            northamerica: 669e6,
+            southamerica: 425e6,
+            asia: 4.67e9,
+            africa: 3.92e9,
+            oceania: 68.71e6,
+        },
+    }
+
     const values2 = {
         humansBornPerYear: 140e6,
         humansDiePerYear: 60e6,
@@ -570,16 +597,26 @@
 
 <ContinentMap
     emoji="🧑"
-    europe={values.humansEurope}
-    asia={values.humansAsia}
-    africa={values.humansAfrica}
-    northamerica={values.humansNorthAmerica}
-    southamerica={values.humansSouthAmerica}
-    oceania={values.humansOceania}
+    europe={values.humansEurope.value}
+    asia={values.humansAsia.value}
+    africa={values.humansAfrica.value}
+    northamerica={values.humansNorthAmerica.value}
+    southamerica={values.humansSouthAmerica.value}
+    oceania={values.humansOceania.value}
 />
 
+<h2>Humans through the centuries</h2>
+
+{#each Object.keys(humans) as year}
+    <h3>{year}</h3>
+    <ContinentMap emoji="🧑" {...humans[year]} />
+{/each}
+
+<h2>Other things</h2>
+
 <p>
-    <Number {...values.depression} /> of these people suffer from depression.
+    <Number {...values.depression} /> of our <Number {...values.humans} /> people
+    suffer from depression.
 </p>
 <EmojiBox count={values.depression.value} emoji="😔" />
 

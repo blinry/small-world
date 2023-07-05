@@ -60,9 +60,7 @@
             ...clusterDefinitions.oceania,
         })
         clusters.forEach((cluster) => {
-            cluster.scaledCount = Math.round(
-                cluster.count.value / $defaultScale
-            )
+            cluster.scaledCount = Math.round(cluster.count / $defaultScale)
         })
     }
 </script>
@@ -78,7 +76,7 @@
                 top: {cluster.center[1] * 100}%;
             "
         >
-            <span class="number"><Number {...cluster.count} /></span>
+            <span class="number"><Number value={cluster.count} /></span>
             <hr />
             {#each Array(cluster.scaledCount) as _}
                 <span>{emoji}</span>
