@@ -13,7 +13,7 @@
     let comment
     $: {
         scaledValue = value / $defaultScale
-        comment = "Well, actually: " + humanReadable(value)
+        comment = "Well, actually: " + humanReadable(value * factor)
         if (unit) {
             comment += " " + unit
         }

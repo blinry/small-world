@@ -188,7 +188,61 @@
             value: 0.7,
             source: "https://www.ciwf.org.uk/farm-animals/chickens/meat-chickens/",
         },
+        co2eqEmissionsPerYear: {
+            value: 54.59e9,
+            unit: "tonnes",
+            year: 2021,
+            source: "https://ourworldindata.org/explorers/co2?facet=none&country=~OWID_WRL&Gas+or+Warming=All+GHGs+%28CO%E2%82%82eq%29&Accounting=Production-based&Fuel+or+Land+Use+Change=All+fossil+emissions&Count=Per+country&Relative+to+world+total=false",
+        },
     }
+
+    // Source: https://ourworldindata.org/emissions-by-sector
+    // Year: 2016
+    const greenhouseGasEmissionsSectors = [
+        {
+            description: "Aviation",
+            share: 0.019,
+            emoji: "✈️",
+        },
+        {
+            description: "Shipping",
+            share: 0.017,
+            emoji: "🚢",
+        },
+        {
+            description: "Livestock & manure",
+            share: 0.058,
+            emoji: "🐄💩",
+        },
+        {
+            description: "Cement",
+            share: 0.03,
+            emoji: "🏗️",
+        },
+        {
+            description: "Energy use in residential buildings",
+            share: 0.109,
+            emoji: "🏠",
+        },
+        {
+            description: "Road transport",
+            share: 0.119,
+            emoji: "🚗",
+        },
+    ]
+
+    // Calculate remaining share.
+    const remainingEmissionsShare =
+        1 -
+        greenhouseGasEmissionsSectors.reduce(
+            (sum, sector) => sum + sector.share,
+            0
+        )
+    greenhouseGasEmissionsSectors.push({
+        description: "Other",
+        share: remainingEmissionsShare,
+        emoji: "❓",
+    })
 
     // Source: https://ourworldindata.org/grapher/share-of-deaths-by-cause?time=latest
     // Year: 2019
@@ -284,7 +338,6 @@
         otherAnimals: 1e9,
         farms: 570e6,
         surfaceOfCentralPark: 3.41,
-        co2EmissionsPerYear: 36e9, // tons
         energyPerYear: 2373e9, // kWh
         allMoney: 48.9e12, // USD (M1 supply) https://www.gobankingrates.com/money/economy/how-much-money-is-in-the-world/
         jeffBezos: 193e9, // USD
@@ -731,18 +784,27 @@
 
 <p>
     The people on the small world are producing <Number
-        {...values.co2EmissionsPerYear}
-        unit="tons"
+        {...values.co2eqEmissionsPerYear}
+        unit="tonnes"
     /> of CO₂ per year, which is <Number
-        {...values.co2EmissionsPerYear}
+        {...values.co2eqEmissionsPerYear}
         factor={1 / 365}
-        unit="tons"
-    /> per day, or <UnscaledNumber
-        value={values.co2EmissionsPerYear.value / values.humans.value}
-        factor={1 / 365}
-        unit="tons"
-    /> per person per day.
+    /> per day.
 </p>
+
+{#each greenhouseGasEmissionsSectors as sector}
+    <p>
+        <Number value={sector.share * values.co2eqEmissionsPerYear.value} /> tonnes
+        of CO2eq are produced by
+        {sector.emoji} <strong>{sector.description}</strong>.
+    </p>
+    <EmojiBox
+        count={sector.share * values.co2eqEmissionsPerYear.value}
+        emoji="⚫"
+    />
+{/each}
+
+<!--
 <p>
     This is about the same amount for each person as a <UnscaledNumber
         value={((values.co2EmissionsPerYear.value / 365 / values.humans.value) *
@@ -755,6 +817,7 @@
             values.co2PerBitcoinTransaction.value}
     /> Bitcoin transactions
 </p>
+-->
 
 <h2>Energy</h2>
 
