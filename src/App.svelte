@@ -9,6 +9,7 @@
     import EmojiHistogram from "./EmojiHistogram.svelte"
     import Squares from "./Squares.svelte"
     import Question from "./Question.svelte"
+    import QuestionButtons from "./QuestionButtons.svelte"
     import ContinentMap from "./ContinentMap.svelte"
     import {defaultScale} from "./stores.js"
     import {humanReadable} from "./helpers.js"
@@ -389,11 +390,15 @@
 
 <EmojiBox count={values.dogs.value} emoji="🐕" />
 
-<Question q="How many dogs are there on the real Earth?">
+<QuestionButtons q="How many dogs are there on the real Earth?" a={humanReadable(values.dogs.value)} fakeAnswers={[
+    humanReadable(values.dogs.value/1000),
+    humanReadable(values.dogs.value/10),
+    humanReadable(values.dogs.value*10)
+    ]}>
     <p>
         There are <UnscaledNumber {...values.dogs} /> dogs on the real Earth.
     </p>
-</Question>
+</QuestionButtons>
 
 <p>
     Spend some time on our small world, and get a better understanding of the
