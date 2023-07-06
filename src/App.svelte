@@ -469,6 +469,56 @@
         emoji: "❓",
     })
 
+    // Source: https://ourworldindata.org/energy-mix
+    // Year: 2019
+    const energyConsumptionBySource = [
+        {
+            name: "Oil",
+            percent: 33.1,
+            emoji: "🛢️",
+        },
+        {
+            name: "Coal",
+            percent: 27,
+            emoji: "🪨",
+        },
+        {
+            name: "Gas",
+            percent: 24.3,
+            emoji: "⛽",
+        },
+        {
+            name: "Nuclear",
+            percent: 4.3,
+            emoji: "☢️",
+        },
+        {
+            name: "Hydropower",
+            percent: 6.4,
+            emoji: "💧",
+        },
+        {
+            name: "Wind",
+            percent: 2.2,
+            emoji: "🌬️",
+        },
+        {
+            name: "Solar",
+            percent: 1.1,
+            emoji: "☀️",
+        },
+        {
+            name: "Biofuels",
+            percent: 0.7,
+            emoji: "🌾",
+        },
+        {
+            name: "Other renewables",
+            percent: 0.9,
+            emoji: "🌳",
+        },
+    ]
+
     const humans = {
         1900: {
             europe: 406e6,
@@ -535,7 +585,6 @@
         co2PerBitcoinTransaction: 398.86, //kg https://digiconomist.net/bitcoin-energy-consumption
         kWhPerBoilingLiter: 184, //Wh https://discovergy.com/blog/energiesparen-haushalt
         smartphoneBatteryCapacity: 4.5, //Ah https://www.androidauthority.com/smartphone-battery-size-poll-results-1221015/
-        marsBarWh: 300, //Wh https://talybontenergy.co.uk/education/a-cubs-guide-to-energy-in-mars-bars/
     }
 
     for (const [key, value] of Object.entries(values2)) {
@@ -1005,6 +1054,28 @@
     every day.
 </p>
 
+<p>
+    Burning one liter of gasoline produces <UnscaledNumber value={2.3} /> kg of CO₂.
+</p>
+
+<div style="font-size: 200%; text-align: center; margin: 1rem 0;">
+    ⛽ = ⚫⚫
+</div>
+
+<p>
+    Burning 1 kg of black coal produces <UnscaledNumber value={3.3} /> kg of CO₂.
+</p>
+
+<div style="font-size: 200%; text-align: center; margin: 1rem 0;">
+    🪨 = ⚫⚫⚫
+</div>
+
+<p>Burning 1 kg of wood produces <UnscaledNumber value={1.7} /> kg of CO₂.</p>
+
+<div style="font-size: 200%; text-align: center; margin: 1rem 0;">
+    🪵 = ⚫⚫
+</div>
+
 <!--
 7.7 L of gasoline per 100 km, bei 100 km/h
 Also das inner Stunde.
@@ -1107,11 +1178,28 @@ EU: avg 10 t/year to heat
         {...values.energyPerYear}
         factor={1 / 365}
         unit="kWh"
-    /> per day, or <UnscaledNumber
+    /> per day,
+    <Number {...values.energyPerYear} factor={1 / 365 / 24} unit="kWh" /> per hour,
+    or <UnscaledNumber
         value={(values.energyPerYear.value / 365 / values.humans.value) * 1000}
         unit="Wh"
     /> per person per day.
 </p>
+
+{#each energyConsumptionBySource as source}
+    <p>
+        <Number
+            value={(source.percent / 100) * values.energyPerYear.value}
+            unit="kWh"
+        /> per year come from {source.emoji} <b>{source.name}</b>.
+    </p>
+    <EmojiBox
+        count={(source.percent / 100) * values.energyPerYear.value}
+        factor={1 / 1000}
+        emoji="🔋"
+    />
+{/each}
+
 <p>
     This daily use per person is equivalent to charging <UnscaledNumber
         value={((values.energyPerYear.value / 365 / values.humans.value) *
