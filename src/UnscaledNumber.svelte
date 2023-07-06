@@ -19,6 +19,9 @@
         } else if (factoredValue < 0.1 && unit === "tons") {
             betterValue = factoredValue * 1000
             betterUnit = "kg"
+        } else if (factoredValue < 1 && unit === "km²") {
+            betterValue = factoredValue * 100
+            betterUnit = "hectares"
         } else if (factoredValue < 0.01 && unit === "km²") {
             betterValue = factoredValue * 1000 * 1000
             betterUnit = "m²"

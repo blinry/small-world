@@ -12,6 +12,7 @@
     import Squares from "./Squares.svelte"
     import Question from "./Question.svelte"
     import QuestionButtons from "./QuestionButtons.svelte"
+    import Thought from "./Thought.svelte"
     import ContinentMap from "./ContinentMap.svelte"
     import {defaultScale} from "./stores.js"
     import {humanReadable} from "./helpers.js"
@@ -713,10 +714,24 @@
 -->
 
 <p>
-    Of the <Number {...values.habitableSurface} /> of habitable land, <Number
-        {...values.forestSurface}
-    /> is forest, <Number {...values.glaciersSurface} /> is covered by glaciers,
-    and <Number {...values.builtupSurface} /> is urban and built-up land.
+    That leaves <Number {...values.habitableSurface} /> of habitable land, which
+    is equal to <Number
+        {...values.habitableSurface}
+        factor={100}
+        unit="hectares"
+    />.
+
+    <Number {...values.forestSurface} /> is forest, <Number
+        {...values.glaciersSurface}
+    /> is covered by glaciers, and <Number {...values.builtupSurface} /> is urban
+    and built-up land.
+    <Number {...values.shrubSurface} /> is shrubland, <Number
+        {...values.croplandSurface}
+    /> is cropland.
+    <Number {...values.livestockSurface} /> is used for livestock.
+    <Number {...values.freshwaterSurface} /> is freshwater, and <Number
+        {...values.barrenSurface}
+    /> is barren land.
 </p>
 
 <Squares
@@ -764,10 +779,23 @@
         glaciers: {
             value: values.glaciersSurface.value,
             color: "lightgray",
-            label: "🏔",
+            label: "🏔️",
         },
     }}
 />
+
+<Thought t="That's a lot of land used to keep animals!">
+    Yeah! Around <UnscaledNumber
+        value={(values.livestockSurface.value / values.habitableSurface.value) *
+            100}
+        unit="%"
+    /> of the habitable land is used for livestock. If we'd eat less meat, we could
+    use that land for other things. You can learn more in the Our World in Data article
+    <a href="https://ourworldindata.org/land-use-diets"
+        >If the world adopted a plant-based diet we would reduce global
+        agricultural land use from 4 to 1 billion hectares</a
+    >.
+</Thought>
 
 <p>
     The volume of all water on our small world is <Volume
@@ -886,6 +914,7 @@
     ])}
 />
 
+<!--
 {#each deathCauses as cause}
     <p>
         <Number value={cause.deathShare * values.humans.value} /> of the people will
@@ -896,6 +925,7 @@
         emoji={cause.emoji}
     />
 {/each}
+-->
 
 <p>
     <Number {...values.humansKilledByBlackDeath} /> people died from the Black Death
