@@ -1,28 +1,32 @@
 <script>
+    import {onMount} from "svelte"
     import {defaultScale} from "./stores.js"
+
+    let startTime
+    onMount(() => {
+        startTime = Date.now()
+    })
 
     let limit = 2000
 
-    export let count = 0
-    export let scale
+    export let value
     export let factor = 1
-    export let unscaled = false
 
-    let scaledCount
+    // Default rate: value per year
+
+    let scaledValuePerYear
+    let scaledValuePerSecond
     let zeroesAfterDecimal
     let precision
     $: {
-        if (unscaled) {
-            scaledCount = count * factor
-        } else {
-            scaledCount = scale
-                ? (count / scale) * factor
-                : (count / $defaultScale) * factor
-        }
-        zeroesAfterDecimal = Math.floor(Math.log10(scaledCount))
-        precision = Math.max(0, -zeroesAfterDecimal)
-        scaledCount = scaledCount.toFixed(precision)
+        scaledValuePerYear = (value / $defaultScale) * factor
+        scaledValuePerSecond = scaledValuePerYear / (365 * 24 * 60 * 60)
     }
+
+    let scaledCount = 0
+    setInterval(() => {
+        scaledCount = ((Date.now() - startTime) / 1000) * scaledValuePerSecond
+    }, 1000 / 30)
 
     export let emoji = "❓"
     export let distribution = undefined
@@ -34,8 +38,8 @@
     let instances
     $: {
         instances = []
-        if (scaledCount >= 0.5 && scaledCount <= limit) {
-            for (let i = 0; i < Math.round(scaledCount); i++) {
+        if (scaledCount >= 0 && scaledCount <= limit) {
+            for (let i = 0; i < Math.ceil(scaledCount); i++) {
                 let offsetAmount = 2
                 let newInstance = {
                     offsetX: offsetAmount * hash(i),
@@ -51,6 +55,10 @@
                 }
                 instances.push(newInstance)
             }
+            if (instances.length > 0) {
+                let lastInstance = instances[instances.length - 1]
+                lastInstance.share = scaledCount % 1
+            }
         }
     }
 </script>
@@ -65,14 +73,11 @@
                 class="emoji"
                 style="position: relative; left: {instance.offsetX}px; top: {instance.offsetY}px;"
             >
-                {instance.emoji}
-                {#if instance.value}
-                    <span>
-                        {Math.round(instance.value)}
-                    </span>
-                {/if}
-            </span>
-        {/each}
+                {instance.emoji}{#if instance.share}
+                    <!-- add a white box, covering 0 to 100% of the emoji -->
+                    <div class="cover" style="--share: {instance.share};" />
+                {/if}</span
+            >{/each}
     {/if}
 </div>
 
@@ -82,5 +87,15 @@
     }
     .emoji {
         font-size: 1.5em;
+        position: relative;
+    }
+    .cover {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: calc(100% - var(--share) * 100%);
+        background: white;
+        height: 100%;
+        transform: scale(0.9);
     }
 </style>

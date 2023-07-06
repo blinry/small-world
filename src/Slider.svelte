@@ -33,8 +33,5 @@
     #top-bar {
         padding: 1rem;
         background-color: #eee;
-        position: fixed;
-        bottom: 0;
-        z-index: 1;
     }
 </style>

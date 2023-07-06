@@ -7,12 +7,14 @@
     import EmojiBox from "./EmojiBox.svelte"
     import EmojiGraph from "./EmojiGraph.svelte"
     import EmojiHistogram from "./EmojiHistogram.svelte"
+    import EmojiRate from "./EmojiRate.svelte"
     import Squares from "./Squares.svelte"
     import Question from "./Question.svelte"
     import QuestionButtons from "./QuestionButtons.svelte"
     import ContinentMap from "./ContinentMap.svelte"
     import {defaultScale} from "./stores.js"
     import {humanReadable} from "./helpers.js"
+    import {LocalChunkSize} from "papaparse"
 
     const values = {
         humans: {
@@ -999,18 +1001,72 @@
 </p>
 
 <p>
+    For comparison, you breathe out enough CO₂ to fill one of these bubbles
+    every day.
+</p>
+
+<!--
+7.7 L of gasoline per 100 km, bei 100 km/h
+Also das inner Stunde.
+2.3 kg CO2/L
+17.71 kg CO2 pro Stunde
+-->
+
+<p>
+    As a worldwide average, we produce <UnscaledNumber
+        value={values.co2eqEmissionsPerYear.value / values.humans.value}
+        factor={1000 / 365}
+    /> kg of CO₂ per person every day.
+</p>
+<EmojiBox
+    count={values.co2eqEmissionsPerYear.value / values.humans.value}
+    factor={1000 / 365}
+    unscaled={true}
+    emoji="⚫"
+/>
+
+<p>
+    Driving 100 km by car produces roughly <UnscaledNumber
+        value={17.71}
+        unit="kg"
+    /> of CO2.
+</p>
+<EmojiBox count={17.71} unscaled={true} emoji="⚫" />
+
+<p>
+    Driving the same distance by train produces only <UnscaledNumber
+        value={3.2}
+        unit="kg"
+    /> (per person).
+</p>
+<EmojiBox count={3.2} unscaled={true} emoji="⚫" />
+
+<p>
+    And flying that distance produces <UnscaledNumber value={230} unit="kg" />.
+</p>
+<EmojiBox count={230} unscaled={true} emoji="⚫" />
+
+<!--
+EU: avg 10 t/year to heat
+-->
+
+<!--
+1 t/person/year if eating meat
+2.7397260274 kg per day
+
+<p>If you eat meat, you produce</p>
+-->
+
+<p>
     The people on the small world are producing <Number
         {...values.co2eqEmissionsPerYear}
         factor={1000 * (1 / 365 / 24)}
         unit="kg"
-    /> of CO₂eq <b>per hour</b>.
+    /> of CO₂eq <b>per hour</b>. That's this many bubbles since you opened this
+    page:
 </p>
 
-<EmojiBox
-    count={values.co2eqEmissionsPerYear.value}
-    factor={1000 * (1 / 365 / 24)}
-    emoji="⚫"
-/>
+<EmojiRate {...values.co2eqEmissionsPerYear} factor={1000} emoji="⚫" />
 
 {#each greenhouseGasEmissionsSectors as sector}
     <p>
@@ -1018,7 +1074,7 @@
             value={(sector.percent / 100) * values.co2eqEmissionsPerYear.value}
             factor={(1 / 365 / 24) * 1000}
             unit="kg"
-        /> of CO₂eq are produced by
+        /> of CO₂eq are produced every hour by
         {sector.emoji} <strong>{sector.name}</strong>, {sector.description}.
     </p>
     <EmojiBox
