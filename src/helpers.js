@@ -27,3 +27,36 @@ export function humanReadable(value) {
         return Math.round(value) + scientificNotation
     }
 }
+
+export function parseValue(value) {
+    // Convert strings like "10.5 million bananas", "two thousand tonnes" or "4" or "50 cows" into an object with value and unit.
+
+    const numberMap = {
+        thousand: 1000,
+        million: 1000000,
+        billion: 1000000000,
+        trillion: 1000000000000,
+    }
+
+    const parts = value.split(" ")
+
+    let parsed = {
+        value: parseFloat(parts[0]),
+    }
+
+    if (isNaN(parsed.value)) {
+        throw new Error("Invalid number format")
+    }
+
+    if (parts.length > 1) {
+        const factor = numberMap[parts[1].toLowerCase()]
+        if (factor) {
+            parsed.value *= factor
+            parsed.unit = parts.slice(2).join(" ")
+        } else {
+            parsed.unit = parts.slice(1).join(" ")
+        }
+    }
+
+    return parsed
+}

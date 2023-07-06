@@ -14,9 +14,10 @@
     import QuestionButtons from "./QuestionButtons.svelte"
     import Thought from "./Thought.svelte"
     import ContinentMap from "./ContinentMap.svelte"
+    import ConversionPractice from "./ConversionPractice.svelte"
+
     import {defaultScale} from "./stores.js"
     import {humanReadable} from "./helpers.js"
-    import {LocalChunkSize} from "papaparse"
 
     const values = {
         humans: {
@@ -1327,6 +1328,23 @@ EU: avg 10 t/year to heat
         {...values.galaxiesInUniverse}
     /> galaxies.
 </p>
+
+<h2>What are you curious about?</h2>
+
+<p>
+    Maybe after reading all this, you have some questions about our small world.
+    For example:
+</p>
+
+<ul>
+    <li>How many people live in democracies?</li>
+    <li>How many soldiers are there?</li>
+    <li>How many bananas are eaten per day?</li>
+</ul>
+
+<p>Let's practice finding answers to questions like this!</p>
+
+<ConversionPractice />
 
 <h2>Play with the scale factor</h2>
 
