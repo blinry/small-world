@@ -8,6 +8,7 @@
     import EmojiGraph from "./EmojiGraph.svelte"
     import EmojiHistogram from "./EmojiHistogram.svelte"
     import EmojiRate from "./EmojiRate.svelte"
+    import EmojiWheel from "./EmojiWheel.svelte"
     import Squares from "./Squares.svelte"
     import Question from "./Question.svelte"
     import QuestionButtons from "./QuestionButtons.svelte"
@@ -408,38 +409,68 @@
     // Year: 2019
     const deathCauses = [
         {
-            cause: "Cardiovascular diseases",
+            cause: "Cardiovascular disease",
             deathShare: 0.3284,
             emoji: "💔",
         },
         {
-            cause: "Cancers",
+            cause: "Cancer",
             deathShare: 0.1783,
             emoji: "🦀",
         },
         {
-            cause: "Respiratory diseases",
+            cause: "Respiratory disease",
             deathShare: 0.0703,
             emoji: "🫁",
         },
         {
-            cause: "Digestive diseases",
+            cause: "Digestive disease",
             deathShare: 0.0452,
             emoji: "🚽",
         },
         {
-            cause: "Lower respiratory infections",
+            cause: "Lower respiratory infection",
             deathShare: 0.0441,
             emoji: "🦠",
         },
         {
-            cause: "Neonatal deaths",
+            cause: "Neonatal death",
             deathShare: 0.0333,
             emoji: "👶",
         },
+        {
+            cause: "Enteric infection",
+            deathShare: 0.0309,
+            emoji: "🦠",
+        },
+        {
+            cause: "Alzheimer's disease",
+            deathShare: 0.0287,
+            emoji: "🧠",
+        },
+        {
+            cause: "Diabetes mellitus",
+            deathShare: 0.0274,
+            emoji: "🩸",
+        },
+        {
+            cause: "Diarrheal disease",
+            deathShare: 0.0271,
+            emoji: "💩",
+        },
+        {
+            cause: "Liver disease",
+            deathShare: 0.026,
+            emoji: "🍺",
+        },
+        {
+            cause: "Kidney disease",
+            deathShare: 0.0253,
+            emoji: "🩸",
+        },
         /* ... */
         {
-            cause: "Road incidents",
+            cause: "Road incident",
             deathShare: 0.0212,
             emoji: "🚗",
         },
@@ -464,7 +495,7 @@
     const remainingDeathShare =
         1 - deathCauses.reduce((sum, cause) => sum + cause.deathShare, 0)
     deathCauses.push({
-        cause: "Other causes",
+        cause: "Other cause",
         deathShare: remainingDeathShare,
         emoji: "❓",
     })
@@ -844,6 +875,16 @@
 <EmojiBox count={values.visualImpairment.value} emoji="🦯" />
 
 <h2>Death causes</h2>
+
+<EmojiWheel
+    probabilities={deathCauses.map((cause) => [
+        cause.deathShare,
+        {
+            emoji: cause.emoji,
+            label: cause.cause,
+        },
+    ])}
+/>
 
 {#each deathCauses as cause}
     <p>
