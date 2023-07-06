@@ -5,7 +5,7 @@
 
     export let value
     export let unit
-    export let factor
+    export let factor = 1
     export let source
     export let year
 

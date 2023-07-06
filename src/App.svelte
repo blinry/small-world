@@ -201,34 +201,182 @@
     // Year: 2016
     const greenhouseGasEmissionsSectors = [
         {
-            description: "Aviation",
-            share: 0.019,
-            emoji: "✈️",
-        },
-        {
-            description: "Shipping",
-            share: 0.017,
-            emoji: "🚢",
-        },
-        {
-            description: "Livestock & manure",
-            share: 0.058,
-            emoji: "🐄💩",
-        },
-        {
-            description: "Cement",
-            share: 0.03,
+            name: "Iron and Steel",
+            description:
+                "as energy-related emissions from manufacturing these materials",
+            percent: 7.2,
             emoji: "🏗️",
         },
         {
-            description: "Energy use in residential buildings",
-            share: 0.109,
+            name: "Chemical & petrochemical",
+            description:
+                "from energy used in the manufacturing of fertilizers, pharmaceuticals, refrigerants, oil and gas extraction, etc",
+            percent: 3.6,
+            emoji: "🧪",
+        },
+        {
+            name: "Food and tobacco",
+            description:
+                "for food processing and manufacturing tobacco products",
+            percent: 1,
+            emoji: "🍔🚬",
+        },
+        {
+            name: "Non-ferrous metals",
+            description:
+                "from energy used in the manufacturing of aluminium, copper, lead, nickel, tin, titanium, etc",
+            percent: 0.7,
+            emoji: "🔩",
+        },
+        {
+            name: "Road transport",
+            description: "",
+            percent: 11.9,
+            emoji: "🚗",
+        },
+        {
+            name: "Aviation",
+            description: "",
+            percent: 1.9,
+            emoji: "✈️",
+        },
+        {
+            name: "Rail",
+            description: "",
+            percent: 0.4,
+            emoji: "🚆",
+        },
+        {
+            name: "Pipeline",
+            description: "",
+            percent: 0.3,
+            emoji: "🚰",
+        },
+        {
+            name: "Ship",
+            description: "",
+            percent: 1.7,
+            emoji: "🚢",
+        },
+        {
+            name: "Residential",
+            description: "",
+            percent: 10.9,
             emoji: "🏠",
         },
         {
-            description: "Road transport",
-            share: 0.119,
-            emoji: "🚗",
+            name: "Commercial",
+            description: "",
+            percent: 6.6,
+            emoji: "🏢",
+        },
+        {
+            name: "Machinery",
+            description: "",
+            percent: 0.5,
+            emoji: "🔧",
+        },
+        {
+            name: "Paper, pulp & printing",
+            description: "",
+            percent: 0.6,
+            emoji: "📄",
+        },
+        {
+            name: "Other industry",
+            description: "",
+            percent: 10.6,
+            emoji: "🏭",
+        },
+        {
+            name: "Energy in Agri & Fishing",
+            description: "",
+            percent: 1.7,
+            emoji: "🐄🐟",
+        },
+        {
+            name: "Unallocated fuel combustion",
+            description: "",
+            percent: 7.8,
+            emoji: "🔥",
+        },
+        {
+            name: "Coal",
+            description: "",
+            percent: 1.9,
+            emoji: "🏭",
+        },
+        {
+            name: "Oil & Natural Gas",
+            description: "",
+            percent: 3.9,
+            emoji: "🛢️",
+        },
+        {
+            name: "Cement",
+            description: "",
+            percent: 3,
+            emoji: "🏗️",
+        },
+        {
+            name: "Chemical & petrochemical (industrial)",
+            description: "",
+            percent: 2.2,
+            emoji: "🧪",
+        },
+        {
+            name: "Livestock & Manure",
+            description: "",
+            percent: 5.8,
+            emoji: "🐄💩",
+        },
+        {
+            name: "Rice Cultivation",
+            description: "",
+            percent: 1.3,
+            emoji: "🌾",
+        },
+        {
+            name: "Agricultural Soils",
+            description: "",
+            percent: 4.1,
+            emoji: "🌾",
+        },
+        {
+            name: "Crop Burning",
+            description: "",
+            percent: 3.5,
+            emoji: "🌾🔥",
+        },
+        {
+            name: "Forest Land",
+            description: "",
+            percent: 2.2,
+            emoji: "🌳",
+        },
+        {
+            name: "Cropland",
+            description: "",
+            percent: 1.4,
+            emoji: "🌾",
+        },
+        {
+            name: "Grassland",
+            description: "",
+            percent: 0.1,
+            emoji: "🌾",
+        },
+        {
+            name: "Landfills",
+            description: "",
+            percent: 1.9,
+            emoji: "🗑️",
+        },
+        {
+            name: "Wastewater",
+            description: "",
+            percent: 1.3,
+            emoji: "🚽",
         },
     ]
 
@@ -236,14 +384,23 @@
     const remainingEmissionsShare =
         1 -
         greenhouseGasEmissionsSectors.reduce(
-            (sum, sector) => sum + sector.share,
+            (sum, sector) => sum + sector.percent / 100,
             0
         )
-    greenhouseGasEmissionsSectors.push({
-        description: "Other",
-        share: remainingEmissionsShare,
-        emoji: "❓",
-    })
+    if (remainingEmissionsShare > 1) {
+        greenhouseGasEmissionsSectors.push({
+            sector: "Other",
+            description: "",
+            share: remainingEmissionsShare,
+            emoji: "❓",
+        })
+    }
+
+    const co2Density = 1.842 // kg/m3, at 20°C and 1 atm. Source: https://www.engineeringtoolbox.com/gas-density-d_158.html
+    const weightOfCO2ball = 1 // kg
+    const volumeOfCO2ball = weightOfCO2ball / co2Density
+    const diameterOfCO2ball =
+        Math.cbrt((volumeOfCO2ball * 3) / (4 * Math.PI)) * 2
 
     // Source: https://ourworldindata.org/grapher/share-of-deaths-by-cause?time=latest
     // Year: 2019
@@ -417,11 +574,15 @@
 
 <EmojiBox count={values.dogs.value} emoji="🐕" />
 
-<QuestionButtons q="How many dogs are there on the real Earth?" a={humanReadable(values.dogs.value)} fakeAnswers={[
-    humanReadable(values.dogs.value/1000),
-    humanReadable(values.dogs.value/10),
-    humanReadable(values.dogs.value*10)
-    ]}>
+<QuestionButtons
+    q="How many dogs are there on the real Earth?"
+    a={humanReadable(values.dogs.value)}
+    fakeAnswers={[
+        humanReadable(values.dogs.value / 1000),
+        humanReadable(values.dogs.value / 10),
+        humanReadable(values.dogs.value * 10),
+    ]}
+>
     <p>
         There are <UnscaledNumber {...values.dogs} /> dogs on the real Earth.
     </p>
@@ -824,24 +985,45 @@
 
 <h2>Greenhouse gases</h2>
 
+<p>The problem with CO₂ is that it's an invisible gas.</p>
+
+<p>
+    We're going to imagine a big, black bubble that contains
+    {weightOfCO2ball} kg of CO₂. Conveniently, it has a diameter of almost precisely
+    {Math.round(diameterOfCO2ball)} meters! Here it is:
+</p>
+
+<p style="text-align: center;">
+    <span style="font-size: {(diameterOfCO2ball / 1.7) * 8}rem;">⚫</span>
+    <span style="font-size: 8rem;">🧍</span>
+</p>
+
 <p>
     The people on the small world are producing <Number
         {...values.co2eqEmissionsPerYear}
-        unit="tonnes"
-    /> of CO₂ per year, which is <Number
-        {...values.co2eqEmissionsPerYear}
-        factor={1 / 365}
-    /> per day.
+        factor={1000 * (1 / 365 / 24)}
+        unit="kg"
+    /> of CO₂eq <b>per hour</b>.
 </p>
+
+<EmojiBox
+    count={values.co2eqEmissionsPerYear.value}
+    factor={1000 * (1 / 365 / 24)}
+    emoji="⚫"
+/>
 
 {#each greenhouseGasEmissionsSectors as sector}
     <p>
-        <Number value={sector.share * values.co2eqEmissionsPerYear.value} /> tonnes
-        of CO2eq are produced by
-        {sector.emoji} <strong>{sector.description}</strong>.
+        <Number
+            value={(sector.percent / 100) * values.co2eqEmissionsPerYear.value}
+            factor={(1 / 365 / 24) * 1000}
+            unit="kg"
+        /> of CO₂eq are produced by
+        {sector.emoji} <strong>{sector.name}</strong>, {sector.description}.
     </p>
     <EmojiBox
-        count={sector.share * values.co2eqEmissionsPerYear.value}
+        count={(sector.percent / 100) * values.co2eqEmissionsPerYear.value}
+        factor={1000 * (1 / 365 / 24)}
         emoji="⚫"
     />
 {/each}

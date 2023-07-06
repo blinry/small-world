@@ -5,11 +5,15 @@
 
     export let count = 0
     export let scale
+    export let factor = 1
+
     let scaledCount
     let zeroesAfterDecimal
     let precision
     $: {
-        scaledCount = scale ? count / scale : count / $defaultScale
+        scaledCount = scale
+            ? (count / scale) * factor
+            : (count / $defaultScale) * factor
         zeroesAfterDecimal = Math.floor(Math.log10(scaledCount))
         precision = Math.max(0, -zeroesAfterDecimal)
         scaledCount = scaledCount.toFixed(precision)

@@ -13,7 +13,7 @@
         let factoredValue = value * factor
         betterValue = factoredValue
         betterUnit = unit
-        if (factoredValue < 0.1 && unit === "km") {
+        if (factoredValue < 0.5 && unit === "km") {
             betterValue = factoredValue * 1000
             betterUnit = "m"
         } else if (factoredValue < 0.1 && unit === "tons") {
