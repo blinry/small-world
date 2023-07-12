@@ -1,6 +1,7 @@
 <script>
     import {defaultScale} from "./stores.js"
     import confetti from "canvas-confetti"
+    import {renderEmoji} from "./helpers.js"
 
     export let segments = 50
     export let probabilities = []
@@ -87,11 +88,11 @@
                 style="top: {segment.y}rem; left: {segment.x}rem; transform: translate(-0.8rem, -1rem) rotate({segment.angle}deg) "
                 title="{segment.label}"
             >
-                {segment.emoji}
+                {@html renderEmoji(segment.emoji) }
             </div>
         {/each}
         <div id="center" style="--rotation: {-(rotation * 180) / Math.PI}deg">
-            <span id="center-emoji">{centerEmoji}</span><br />{centerLabel}
+            <span id="center-emoji">{@html renderEmoji(centerEmoji) }</span><br />{centerLabel}
         </div>
     </div>
     <div id="arrow">⬅️</div>

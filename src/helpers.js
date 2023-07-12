@@ -60,3 +60,13 @@ export function parseValue(value) {
 
     return parsed
 }
+
+export function renderEmoji(txt) {
+    if (txt === "") return ""
+
+    if (/\p{Extended_Pictographic}/u.test(txt)) {
+        return txt
+    } else {
+        return `<img class="custom-emoji" src="/custom-emoji/${txt}.svg">`
+    }
+}
