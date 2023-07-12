@@ -1,5 +1,6 @@
 <script>
     import {defaultScale} from "./stores.js"
+    import Popup from "./Popup.svelte"
     import confetti from "canvas-confetti"
     import {renderEmoji} from "./helpers.js"
 
@@ -80,27 +81,34 @@
     }
 </script>
 
-<div id="container" on:click={start}>
+<div id="container">
     <div id="wheel" style="--rotation: {(rotation * 180) / Math.PI}deg">
         {#each segmentInstances as segment}
             <div
                 class="segment"
                 style="top: {segment.y}rem; left: {segment.x}rem; transform: translate(-0.8rem, -1rem) rotate({segment.angle}deg) "
-                title="{segment.label}"
+                title={segment.label}
+                on:click={() => {
+                    centerEmoji = segment.emoji
+                    centerLabel = segment.label
+                    rotationSpeed = 0
+                    rotationAcceleration = 0
+                    rotation = -(segment.angle / 180) * Math.PI
+                }}
             >
-                {@html renderEmoji(segment.emoji) }
+                {@html renderEmoji(segment.emoji)}
             </div>
         {/each}
         <div id="center" style="--rotation: {-(rotation * 180) / Math.PI}deg">
-            <span id="center-emoji">{@html renderEmoji(centerEmoji) }</span><br />{centerLabel}
+            <span id="center-emoji">{@html renderEmoji(centerEmoji)}</span><br
+            />{centerLabel}
         </div>
     </div>
-    <div id="arrow">⬅️</div>
+    <div id="arrow" on:click={start}>⬅️</div>
 </div>
 
 <style>
     #wheel {
-        cursor: pointer;
         width: 40rem;
         height: 40rem;
         position: relative;
@@ -114,13 +122,15 @@
         width: 1.5rem;
         height: 1.5rem;
         font-size: 150%;
+        cursor: pointer;
     }
     #container {
         display: flex;
         align-items: center;
     }
     #arrow {
-        font-size: 200%;
+        font-size: 500%;
+        cursor: pointer;
     }
     #center {
         position: absolute;

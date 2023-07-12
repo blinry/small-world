@@ -21,13 +21,7 @@
 </script>
 
 <b>
-    {#if source}
-        <a href={source} target="_blank">
-            <UnscaledNumber value={scaledValue} {unit} {factor} {comment} />
-        </a>
-    {:else}
-        <UnscaledNumber value={scaledValue} {unit} {factor} {comment} />
-    {/if}
+    <UnscaledNumber value={scaledValue} {unit} {factor} {comment} {source} />
 </b>
 
 <style>

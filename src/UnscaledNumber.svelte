@@ -1,9 +1,11 @@
 <script>
+    import Popup from "./Popup.svelte"
     import {humanReadable} from "./helpers.js"
     export let value
     export let unit
     export let comment = "This is the actual value on the real Earth."
     export let factor = 1
+    export let source
 
     let betterValue
     let betterUnit
@@ -44,9 +46,17 @@
     }
 </script>
 
-<span title={comment}
-    >{roundedValue}{#if betterUnit}{" " + betterUnit}{/if}
-</span>
+<Popup>
+    <span title={comment}
+        >{roundedValue}{#if betterUnit}{" " + betterUnit}{/if}
+    </span>
+    <div slot="popup">
+        <p>{comment}</p>
+        {#if source}
+            <p>Source: <a href={source} target="_blank">{source}</a></p>
+        {/if}
+    </div>
+</Popup>
 
 <style>
     span {
