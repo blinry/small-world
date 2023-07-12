@@ -751,7 +751,7 @@
         shrubland: {
             value: values.shrubSurface.value,
             color: "yellowgreen",
-            label: "🌳",
+            label: "shrub",
         },
         urban: {
             value: values.builtupSurface.value,
@@ -761,7 +761,7 @@
         freshwater: {
             value: values.freshwaterSurface.value,
             color: "lightblue",
-            label: "🏞️",
+            label: "💧",
         },
         livestock: {
             value: values.livestockSurface.value,
@@ -781,7 +781,7 @@
         glaciers: {
             value: values.glaciersSurface.value,
             color: "lightgray",
-            label: "🏔️",
+            label: "🧊",
         },
     }}
 />
@@ -906,7 +906,9 @@
 
 <h2>Death causes</h2>
 
-<ContentNote t="The next section concerns the topic of death. Click here if you want to see it.">
+<ContentNote
+    t="The next section concerns the topic of death. Click here if you want to see it."
+>
     <EmojiWheel
         probabilities={deathCauses.map((cause) => [
             cause.deathShare,
@@ -931,10 +933,9 @@
     -->
 
     <p>
-        <Number {...values.humansKilledByBlackDeath} /> people died from the Black Death
-        in the 14th century. Back then, the world's population was still around <Number
-            {...values.humans1300}
-        />.
+        <Number {...values.humansKilledByBlackDeath} /> people died from the Black
+        Death in the 14th century. Back then, the world's population was still around
+        <Number {...values.humans1300} />.
     </p>
 
     <EmojiBox count={values.humansKilledByBlackDeath.value} emoji="☠️" />
@@ -954,7 +955,7 @@
     <Number {...values.overweight} /> are overweight.
 </p>
 
-<EmojiBox count={values.overweight.value} emoji="🍔" />
+<EmojiBox count={values.overweight.value} emoji="overweight" />
 
 <p>
     And <Number {...values.extremePoverty} /> live in extreme poverty, on less than
