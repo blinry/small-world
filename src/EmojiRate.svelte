@@ -76,7 +76,7 @@
                 {instance.emoji}{#if instance.share}
                     <!-- add a white box, covering 0 to 100% of the emoji -->
                     <div class="cover" style="--share: {instance.share};" />
-                {/if}</span
+                {/if} </span
             >{/each}
     {/if}
 </div>
