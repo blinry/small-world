@@ -30,3 +30,8 @@ input {
     width: 30rem;
     padding: 0.5rem;
 }
+
+.custom-emoji {
+    height: 1em;
+    font-size: 1em;
+}

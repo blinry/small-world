@@ -1,6 +1,7 @@
 <script>
     import {onMount} from "svelte"
     import {defaultScale} from "./stores.js"
+    import {renderEmoji} from "./helpers.js"
 
     let startTime
     onMount(() => {
@@ -73,7 +74,7 @@
                 class="emoji"
                 style="position: relative; left: {instance.offsetX}px; top: {instance.offsetY}px;"
             >
-                {instance.emoji}{#if instance.share}
+                {@html renderEmoji(instance.emoji) }{#if instance.share}
                     <!-- add a white box, covering 0 to 100% of the emoji -->
                     <div class="cover" style="--share: {instance.share};" />
                 {/if} </span

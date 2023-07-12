@@ -1,5 +1,6 @@
 <script>
     import {defaultScale} from "./stores.js"
+    import {renderEmoji} from "./helpers.js"
 
     let limit = 2000
     let maxBarCount = 50
@@ -58,7 +59,7 @@
     {:else}
         {#each instances as instance}
             <div>
-                {emoji}
+                {@html renderEmoji(emoji) }
                 {Math.round(instance.value)}
                 {unit}
                 {instance.bar}

@@ -1,5 +1,6 @@
 <script>
     import {defaultScale} from "./stores.js"
+    import {renderEmoji} from "./helpers.js"
 
     let limit = 2000
 
@@ -69,7 +70,7 @@
                     class="emoji"
                     style="position: relative; left: {instance.offsetX}px; top: {instance.offsetY}px;"
                 >
-                    {instance.emoji}
+                    {@html renderEmoji(instance.emoji) }
                 </span>
                 {#if instance.value}
                     <span>

@@ -1,4 +1,6 @@
 <script>
+    import {renderEmoji} from "./helpers.js"
+
     export let values
     // values = [{earth:{value: 1, color: "red"}}]
 
@@ -24,7 +26,7 @@
         <span
             style="width: {value.width}px; height: {value.height}px; background-color: {value.color};"
         >
-            {value.label || key}
+            {@html renderEmoji(value.label || key) }
         </span>
     {/each}
 </div>
