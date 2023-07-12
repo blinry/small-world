@@ -85,6 +85,7 @@
             <div
                 class="segment"
                 style="top: {segment.y}rem; left: {segment.x}rem; transform: translate(-0.8rem, -1rem) rotate({segment.angle}deg) "
+                title="{segment.label}"
             >
                 {segment.emoji}
             </div>

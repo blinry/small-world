@@ -13,6 +13,7 @@
     import Question from "./Question.svelte"
     import QuestionButtons from "./QuestionButtons.svelte"
     import Thought from "./Thought.svelte"
+    import ContentNote from "./ContentNote.svelte"
     import ContinentMap from "./ContinentMap.svelte"
     import ConversionPractice from "./ConversionPractice.svelte"
 
@@ -905,37 +906,39 @@
 
 <h2>Death causes</h2>
 
-<EmojiWheel
-    probabilities={deathCauses.map((cause) => [
-        cause.deathShare,
-        {
-            emoji: cause.emoji,
-            label: cause.cause,
-        },
-    ])}
-/>
-
-<!--
-{#each deathCauses as cause}
-    <p>
-        <Number value={cause.deathShare * values.humans.value} /> of the people will
-        die from {cause.cause}.
-    </p>
-    <EmojiBox
-        count={cause.deathShare * values.humans.value}
-        emoji={cause.emoji}
+<ContentNote t="The next section concerns the topic of death. Click here if you want to see it.">
+    <EmojiWheel
+        probabilities={deathCauses.map((cause) => [
+            cause.deathShare,
+            {
+                emoji: cause.emoji,
+                label: cause.cause,
+            },
+        ])}
     />
-{/each}
--->
 
-<p>
-    <Number {...values.humansKilledByBlackDeath} /> people died from the Black Death
-    in the 14th century. Back then, the world's population was still around <Number
-        {...values.humans1300}
-    />.
-</p>
+    <!--
+    {#each deathCauses as cause}
+        <p>
+            <Number value={cause.deathShare * values.humans.value} /> of the people will
+            die from {cause.cause}.
+        </p>
+        <EmojiBox
+            count={cause.deathShare * values.humans.value}
+            emoji={cause.emoji}
+        />
+    {/each}
+    -->
 
-<EmojiBox count={values.humansKilledByBlackDeath.value} emoji="☠️" />
+    <p>
+        <Number {...values.humansKilledByBlackDeath} /> people died from the Black Death
+        in the 14th century. Back then, the world's population was still around <Number
+            {...values.humans1300}
+        />.
+    </p>
+
+    <EmojiBox count={values.humansKilledByBlackDeath.value} emoji="☠️" />
+</ContentNote>
 
 <h2>Other statistics</h2>
 
