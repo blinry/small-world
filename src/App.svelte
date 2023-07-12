@@ -454,7 +454,7 @@
         {
             cause: "Diabetes mellitus",
             deathShare: 0.0274,
-            emoji: "🩸",
+            emoji: "sugar-cube",
         },
         {
             cause: "Diarrheal disease",
