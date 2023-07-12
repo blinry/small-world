@@ -18,7 +18,7 @@
     import ConversionPractice from "./ConversionPractice.svelte"
 
     import {defaultScale} from "./stores.js"
-    import {humanReadable} from "./helpers.js"
+    import {humanReadable, renderEmoji} from "./helpers.js"
 
     const values = {
         humans: {
@@ -419,7 +419,7 @@
         {
             cause: "Cancer",
             deathShare: 0.1783,
-            emoji: "🦀",
+            emoji: "cancer-ribbon",
         },
         {
             cause: "Respiratory disease",
@@ -429,7 +429,7 @@
         {
             cause: "Digestive disease",
             deathShare: 0.0452,
-            emoji: "🚽",
+            emoji: "intestines",
         },
         {
             cause: "Lower respiratory infection",
@@ -469,7 +469,7 @@
         {
             cause: "Kidney disease",
             deathShare: 0.0253,
-            emoji: "🩸",
+            emoji: "kidneys",
         },
         /* ... */
         {
@@ -485,7 +485,7 @@
         {
             cause: "HIV",
             deathShare: 0.0153,
-            emoji: "💉",
+            emoji: "hiv-ribbon",
         },
         {
             cause: "Malaria",
