@@ -4,7 +4,7 @@
     export let values
     // values = [{earth:{value: 1, color: "red"}}]
 
-    let maxArea = 600 ** 2 // px
+    let maxArea = 400 ** 2 // px
 
     $: {
         let max = 0
@@ -26,7 +26,7 @@
         <span
             style="width: {value.width}px; height: {value.height}px; background-color: {value.color};"
         >
-            {@html renderEmoji(value.label || key) }
+            {@html renderEmoji(value.label || key)}
         </span>
     {/each}
 </div>

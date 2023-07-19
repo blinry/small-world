@@ -16,6 +16,7 @@
     import ContentNote from "./ContentNote.svelte"
     import ContinentMap from "./ContinentMap.svelte"
     import ConversionPractice from "./ConversionPractice.svelte"
+    import ScrollBar from "./ScrollBar.svelte"
 
     import {defaultScale} from "./stores.js"
     import {humanReadable, renderEmoji} from "./helpers.js"
@@ -803,7 +804,9 @@
     }
 </script>
 
-<h1>Small World 🌍</h1>
+<ScrollBar />
+
+<h1>Small World</h1>
 
 <p>
     The Earth is big. Really, <i>really</i> big. So unimaginable big that it can
@@ -859,7 +862,7 @@
     see the real number, or click on it to see the source.
 </p>
 
-<h2>Planet</h2>
+<h2>🌍 Planet</h2>
 
 <p>
     The surface of our small world is <Number {...values.surfaceOfEarth} /> (a square
@@ -983,7 +986,7 @@
     />.
 </p>
 
-<h2>Demographics</h2>
+<h2>🧑 Demographics</h2>
 
 <p>
     There are <Number {...values.humans} /> people on the small world. (<Number
@@ -1051,15 +1054,6 @@
 
 <ContinentMap emoji="🧑" {...humans[2023]} />
 
-<h2>Humans through the centuries</h2>
-
-{#each Object.keys(humans) as year}
-    <h3>{year}</h3>
-    <ContinentMap emoji="🧑" {...humans[year]} />
-{/each}
-
-<h2>Other things</h2>
-
 <p>
     <Number {...values.depression} /> of our <Number {...values.humans} /> people
     suffer from depression.
@@ -1072,7 +1066,14 @@
 </p>
 <EmojiBox count={values.visualImpairment.value} emoji="🦯" />
 
-<h2>Death causes</h2>
+<h2>⌛ Humans through the centuries</h2>
+
+{#each Object.keys(humans) as year}
+    <h3>{year}</h3>
+    <ContinentMap emoji="🧑" {...humans[year]} />
+{/each}
+
+<h2>☠️ Death causes</h2>
 
 <ContentNote
     t="The next section concerns the topic of death. Click here if you want to see it."
@@ -1109,7 +1110,7 @@
     <EmojiBox count={values.humansKilledByBlackDeath.value} emoji="☠️" />
 </ContentNote>
 
-<h2>Other statistics</h2>
+<h2>📊 Other statistics</h2>
 
 <p>
     <Number {...values.covidCases} /> people have been infected with COVID-19 so
@@ -1146,7 +1147,7 @@
 </p>
 <EmojiBox count={values.noAccessToElectricity.value} emoji="🪫" />
 
-<h2>Religion</h2>
+<h2>🛐 Religion</h2>
 
 {#each religions as religion}
     <p>
@@ -1160,7 +1161,7 @@
     />
 {/each}
 
-<h2>Transport</h2>
+<h2>🛤️ Transport</h2>
 
 <p>
     There are <Number {...values.bikes} /> bikes in the world, <Number
@@ -1197,7 +1198,7 @@
     />.
 </p>
 
-<h2>Animals</h2>
+<h2>🐾 Animals</h2>
 
 <p>
     There are <Number {...values.cattleAlive} /> cattle, <Number
@@ -1273,7 +1274,7 @@
 
 <EmojiBox count={values.insects.value} emoji="🪰" />
 
-<h2>Greenhouse gases</h2>
+<h2>⚫ Greenhouse gases</h2>
 
 <p>The problem with CO₂ is that it's an invisible gas.</p>
 
@@ -1409,7 +1410,7 @@ EU: avg 10 t/year to heat
 </p>
 -->
 
-<h2>Energy</h2>
+<h2>🔋 Energy</h2>
 
 <p>
     Our small world is consuming <Number {...values.energyPerYear} unit="kWh" />
@@ -1469,7 +1470,7 @@ EU: avg 10 t/year to heat
     />
 </p>
 
-<h2>Money</h2>
+<h2>💵 Money</h2>
 
 <p>
     There is <Number {...values.allMoney} unit="USD" /> in the world (money in circulation,
@@ -1482,7 +1483,7 @@ EU: avg 10 t/year to heat
 
 <EmojiBox count={values.companies.value} emoji="🏢" />
 
-<h2>The Universe</h2>
+<h2>🌌 The Universe</h2>
 
 <p>
     The Milky Way (the galaxy that contains the small world) contains <Number
@@ -1496,7 +1497,7 @@ EU: avg 10 t/year to heat
     /> galaxies.
 </p>
 
-<h2>What are you curious about?</h2>
+<h2>🙋 What are you curious about?</h2>
 
 <p>
     Maybe after reading all this, you have some questions about our small world.
