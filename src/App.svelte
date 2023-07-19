@@ -229,7 +229,133 @@
             year: 2021,
             source: "https://ourworldindata.org/explorers/co2?facet=none&country=~OWID_WRL&Gas+or+Warming=All+GHGs+%28CO%E2%82%82eq%29&Accounting=Production-based&Fuel+or+Land+Use+Change=All+fossil+emissions&Count=Per+country&Relative+to+world+total=false",
         },
+        depression: {
+            value: 280e6,
+            year: 2019,
+            source: "https://www.who.int/news-room/fact-sheets/detail/depression",
+        },
+        overweight: {
+            value: 1.9e9,
+            year: 2016,
+            source: "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight",
+        },
+        obese: {
+            value: 650e6,
+            year: 2016,
+            source: "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight",
+        },
+        bikes: {
+            value: 1e9,
+            year: 2000,
+            source: "https://www.worldometers.info/bicycles/",
+            comment:
+                "This number is a broad estimation from numbers collected between 1982-2000 and might be very outdated.",
+        },
+        flightsPerYear: {
+            value: 38.9e6,
+            year: 2019,
+            source: "https://www.statista.com/statistics/564769/airline-industry-number-of-flights/",
+        },
+        chickensKilledPerYear: {
+            value: 70e9,
+            year: 2020,
+            source: "https://faunalytics.org/global-animal-slaughter-statistics-charts-2022-update/",
+        },
+        cattleKilledPerYear: {
+            value: 296e6,
+            year: 2020,
+            source: "https://faunalytics.org/global-animal-slaughter-statistics-charts-2022-update/",
+        },
+        pigsKilledPerYear: {
+            value: 1.5e9,
+            year: 2020,
+            source: "https://faunalytics.org/global-animal-slaughter-statistics-charts-2022-update/",
+        },
+        sheepKilledPerYear: {
+            value: 590e6,
+            year: 2020,
+            source: "https://faunalytics.org/global-animal-slaughter-statistics-charts-2022-update/",
+        },
+        goatKilledPerYear: {
+            value: 500e6,
+            year: 2021,
+            source: "https://worldanimalfoundation.org/advocate/how-many-animals-killed-each-year/#In-2021,-More-Than-500-Million-Goats-Were-Slaughtered-for-Food",
+        },
+        cattleAlive: {
+            value: 1.5e9,
+            year: 2021,
+            source: "https://ourworldindata.org/grapher/cattle-livestock-count-heads?tab=table",
+        },
+        pigAlive: {
+            value: 1e9,
+            year: 2021,
+            source: "https://ourworldindata.org/grapher/pig-livestock-count-heads?tab=table",
+        },
+        sheepAlive: {
+            value: 1.2e9,
+            year: 2020,
+            source: "http://data.un.org/Data.aspx?d=FAO&f=itemCode%3A976#FAO",
+        },
+        goatAlive: {
+            value: 1e9,
+            year: 2021,
+            source: "https://www.frontiersin.org/articles/10.3389/fvets.2021.648500/full",
+        },
+        farms: {
+            value: 656e6,
+            year: 2020,
+            source: "https://journals.sagepub.com/doi/full/10.1177/00307270211025539",
+        },
+        surfaceOfCentralPark: {
+            value: 3.41,
+            unit: "km²",
+            year: 2023,
+            source: "https://en.wikipedia.org/wiki/Central_Park",
+        },
+        energyPerYear: {
+            value: 178899e9,
+            unit: "kWh",
+            year: 2022,
+            source: "https://ourworldindata.org/energy-production-consumption",
+        },
+        allMoney: {
+            value: 48.9e12,
+            unit: "USD",
+            year: 2022,
+            source: "https://www.gobankingrates.com/money/economy/how-much-money-is-in-the-world/",
+        },
+        starsInMilkyWay: {
+            value: 250e9,
+            year: 2022,
+            source: "https://www.space.com/25959-how-many-stars-are-in-the-milky-way.html",
+            comment: "estimate ranges from 100-400e9",
+        },
+        galaxiesInUniverse: {
+            value: 200e9,
+            year: 2021,
+            source: "https://en.wikipedia.org/wiki/Galaxy",
+        },
+        co2CarPerKM: {
+            value: 0.2,
+            unit: "kg",
+            year: 2023,
+            source: "https://www.quarks.de/umwelt/klimawandel/co2-rechner-fuer-auto-flugzeug-und-co/",
+        },
+        kWhPerBoilingLiter: {
+            value: 184,
+            unit: "Wh",
+            year: 2016,
+            source: "https://discovergy.com/blog/energiesparen-haushalt",
+        },
+        smartphoneBatteryCapacity: {
+            value: 4.5,
+            unit: "Ah",
+            year: 2021,
+            source: "https://www.androidauthority.com/smartphone-battery-size-poll-results-1221015/",
+        },
     }
+
+    //co2PerBitcoinTransaction: 398.86, //kg https://digiconomist.net/bitcoin-energy-consumption
 
     // Source: https://ourworldindata.org/emissions-by-sector
     // Year: 2016
@@ -675,33 +801,6 @@
             oceania: 68.71e6,
         },
     }
-
-    const values2 = {
-        depression: 264e6,
-        overweight: 1.9e9,
-        bikes: 1e9,
-        flightsPerYear: 38e6,
-        chickensKilledPerYear: 73e9,
-        otherAnimals: 1e9,
-        farms: 570e6,
-        surfaceOfCentralPark: 3.41,
-        energyPerYear: 2373e9, // kWh
-        allMoney: 48.9e12, // USD (M1 supply) https://www.gobankingrates.com/money/economy/how-much-money-is-in-the-world/
-        jeffBezos: 193e9, // USD
-        millionaires: 56e6,
-        starsInMilkyWay: 250e9,
-        galaxiesInUniverse: 200e9, // https://en.wikipedia.org/wiki/Galaxy
-        co2CarPerKM: 0.2, //kg https://www.quarks.de/umwelt/klimawandel/co2-rechner-fuer-auto-flugzeug-und-co/
-        co2PerBitcoinTransaction: 398.86, //kg https://digiconomist.net/bitcoin-energy-consumption
-        kWhPerBoilingLiter: 184, //Wh https://discovergy.com/blog/energiesparen-haushalt
-        smartphoneBatteryCapacity: 4.5, //Ah https://www.androidauthority.com/smartphone-battery-size-poll-results-1221015/
-    }
-
-    for (const [key, value] of Object.entries(values2)) {
-        values[key] = {
-            value,
-        }
-    }
 </script>
 
 <h1>Small World 🌍</h1>
@@ -1022,6 +1121,7 @@
 
 <p>
     <Number {...values.overweight} /> are overweight.
+    <Number {...values.obese} /> are overweight.
 </p>
 
 <EmojiBox count={values.overweight.value} emoji="overweight" />
@@ -1100,14 +1200,17 @@
 <h2>Animals</h2>
 
 <p>
-    There are approximately <Number {...values.otherAnimals} /> each of cattle, sheep,
-    goats, and pigs alive right now.
+    There are <Number {...values.cattleAlive} /> cattle, <Number
+        {...values.sheepAlive}
+    /> sheep,
+    <Number {...values.goatAlive} /> goats, and <Number {...values.pigAlive} /> pigs
+    alive right now.
 </p>
 <p>
-    <EmojiBox count={values.otherAnimals.value} emoji="🐄" />
-    <EmojiBox count={values.otherAnimals.value} emoji="🐑" />
-    <EmojiBox count={values.otherAnimals.value} emoji="🐐" />
-    <EmojiBox count={values.otherAnimals.value} emoji="🐖" />
+    <EmojiBox count={values.cattleAlive.value} emoji="🐄" />
+    <EmojiBox count={values.sheepAlive.value} emoji="🐑" />
+    <EmojiBox count={values.goatAlive.value} emoji="🐐" />
+    <EmojiBox count={values.pigAlive.value} emoji="🐖" />
 </p>
 <Question
     q="What do you think, how many chickens are alive right now (in the small world)?"
