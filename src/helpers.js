@@ -7,7 +7,9 @@ export function humanReadable(value) {
     let mantissa = value / Math.pow(10, exponent)
     let scientificNotation = " (= " + mantissa + "*10^" + exponent + ")"
 
-    if (value < 1) {
+    if (value < 0.05) {
+        return 0
+    } else if (value < 1) {
         return value
     } else if (value < 10000) {
         return Math.round(value)

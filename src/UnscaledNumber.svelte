@@ -32,16 +32,14 @@
             betterUnit = "m³"
         }
 
-        if (betterValue == 0) {
+        if (betterValue < 0.05) {
             roundedValue = 0
+        } else if (betterValue < 750) {
+            let zeroesAfterDecimal = Math.floor(Math.log10(betterValue))
+            let precision = Math.max(0, -zeroesAfterDecimal)
+            roundedValue = betterValue.toFixed(precision)
         } else {
-            if (betterValue < 750) {
-                let zeroesAfterDecimal = Math.floor(Math.log10(betterValue))
-                let precision = Math.max(0, -zeroesAfterDecimal)
-                roundedValue = betterValue.toFixed(precision)
-            } else {
-                roundedValue = humanReadable(betterValue)
-            }
+            roundedValue = humanReadable(betterValue)
         }
     }
 </script>

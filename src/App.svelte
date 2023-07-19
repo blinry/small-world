@@ -20,20 +20,48 @@
     import {defaultScale} from "./stores.js"
     import {humanReadable, renderEmoji} from "./helpers.js"
 
+    const HUMANS = 8.05e9
+
     const values = {
         humans: {
-            value: 8.05e9,
+            value: HUMANS,
             year: 2023,
             source: "https://ourworldindata.org/grapher/population-by-age-group-with-projections",
+        },
+        humansBornPerYear: {
+            value: 133.97e6,
+            year: 2021,
+            source: "https://ourworldindata.org/grapher/births-and-deaths-projected-to-2100",
+        },
+        humansDiePerYear: {
+            value: 69.25e6,
+            year: 2021,
+            source: "https://ourworldindata.org/grapher/births-and-deaths-projected-to-2100",
         },
         humans1300: {
             value: 456.39e6,
             year: 1300,
             source: "https://ourworldindata.org/grapher/population",
         },
+        humansEverLived: {
+            value: 117e9,
+            year: 2022,
+            source: "https://www.prb.org/articles/how-many-people-have-ever-lived-on-earth/",
+        },
+        extremePoverty: {
+            value: 0.0844 * HUMANS,
+            year: 2019,
+            source: "https://ourworldindata.org/explorers/poverty-explorer",
+        },
+        illiterate: {
+            value: 0.1375 * HUMANS,
+            year: 2016,
+            source: "https://ourworldindata.org/grapher/literate-and-illiterate-world-population",
+        },
         surfaceOfEarth: {
             value: 510e6,
             unit: "km²",
+            source: "http://www.physicalgeography.net/fundamentals/8o.html",
         },
         oceanSurface: {
             value: 361e6,
@@ -402,6 +430,62 @@
         })
     }
 
+    // Source: https://en.wikipedia.org/wiki/List_of_religious_populations
+    // Year: 2023
+    const religions = [
+        {
+            name: "Christianity",
+            percent: 31.11,
+            emoji: "✝️",
+        },
+        {
+            name: "Islam",
+            percent: 24.9,
+            emoji: "☪️",
+        },
+        {
+            name: "Nonreligious",
+            description: "are non-religious",
+            percent: 15.58,
+            emoji: "🧑",
+        },
+        {
+            name: "Hinduism",
+            percent: 15.16,
+            emoji: "🕉️",
+        },
+        {
+            name: "Buddhism",
+            percent: 5.06,
+            emoji: "☸️",
+        },
+        {
+            name: "Chinese traditional religion",
+            percent: 5,
+            emoji: "🈴",
+        },
+        {
+            name: "Ethnic religions (without those in separate categories)",
+            percent: 3,
+            emoji: "❓",
+        },
+        {
+            name: "African traditional religions",
+            percent: 1.2,
+            emoji: "❓",
+        },
+    ]
+
+    const remainingReligionShare =
+        1 - religions.reduce((sum, religion) => sum + religion.percent / 100, 0)
+    if (remainingReligionShare > 1) {
+        religions.push({
+            name: "Other",
+            percent: remainingReligionShare,
+            emoji: "❓",
+        })
+    }
+
     const co2Density = 1.842 // kg/m3, at 20°C and 1 atm. Source: https://www.engineeringtoolbox.com/gas-density-d_158.html
     const weightOfCO2ball = 1 // kg
     const volumeOfCO2ball = weightOfCO2ball / co2Density
@@ -553,6 +637,7 @@
         },
     ]
 
+    // Source: https://ourworldindata.org/grapher/population-regions-with-projections
     const humans = {
         1900: {
             europe: 406e6,
@@ -570,6 +655,17 @@
             africa: 799e6,
             oceania: 31.22e6,
         },
+        2023: {
+            europe: 743e6,
+            northamerica: 604e6,
+            southamerica: 439e6,
+            asia: 4.751e9,
+            africa: 1.46e9,
+            oceania: 45.5e6,
+
+            india: 1.428e9,
+            china: 1.425e9,
+        },
         2100: {
             europe: 587e6,
             northamerica: 669e6,
@@ -581,26 +677,6 @@
     }
 
     const values2 = {
-        humansBornPerYear: 140e6,
-        humansDiePerYear: 60e6,
-        humansEurope: 750e6,
-        humansAfrica: 1.3e9,
-        humansAsia: 4.6e9,
-        humansChina: 1.4e9,
-        humansIndia: 1.4e9,
-        humansNorthAmerica: 580e6,
-        humansSouthAmerica: 430e6,
-        humansOceania: 45e6,
-        humansAntarctica: 0,
-        humansEverLived: 108e9,
-        extremePoverty: 700e6,
-        cannotRead: 750e6,
-        christians: 2.382e9, // https://en.wikipedia.org/wiki/List_of_religious_populations
-        muslims: 1.907e9,
-        atheists: 1.193e9,
-        hindus: 1.161e9,
-        buddhists: 506e6,
-        chineseTraditionalReligions: 394e6,
         depression: 264e6,
         overweight: 1.9e9,
         bikes: 1e9,
@@ -856,32 +932,25 @@
 />
 
 <p>
-    <Number {...values.humansEurope} /> of these people live in Europe. <Number
-        {...values.humansAfrica}
+    <Number value={humans[2023].europe} /> of these people live in Europe. <Number
+        value={humans[2023].africa}
     /> live in Africa.
 
-    <Number {...values.humansAsia} /> live in Asia (including <Number
-        {...values.humansChina}
-    /> in China and <Number {...values.humansIndia} /> in India).
+    <Number value={humans[2023].asia} /> live in Asia (including <Number
+        value={humans[2023].china}
+    /> in China and <Number value={humans[2023].india} /> in India).
 
-    <Number {...values.humansNorthAmerica} /> live in North America.
+    <Number value={humans[2023].northamerica} /> live in North America. <Number
+        value={humans[2023].southamerica}
+    /> live in South America.
 
-    <Number {...values.humansSouthAmerica} /> live in South America.
-
-    <Number {...values.humansOceania} /> live in Oceania. And <Number
-        {...values.humansAntarctica}
+    <Number value={humans[2023].oceania} /> live in Oceania. And <Number
+        value={1000}
+        source="https://en.wikipedia.org/wiki/Antarctica#Population"
     /> live in Antarctica.
 </p>
 
-<ContinentMap
-    emoji="🧑"
-    europe={values.humansEurope.value}
-    asia={values.humansAsia.value}
-    africa={values.humansAfrica.value}
-    northamerica={values.humansNorthAmerica.value}
-    southamerica={values.humansSouthAmerica.value}
-    oceania={values.humansOceania.value}
-/>
+<ContinentMap emoji="🧑" {...humans[2023]} />
 
 <h2>Humans through the centuries</h2>
 
@@ -963,8 +1032,8 @@
 </p>
 <EmojiBox count={values.extremePoverty.value} emoji="🥺" />
 
-<p><Number {...values.cannotRead} /> people cannot read.</p>
-<EmojiBox count={values.cannotRead.value} />
+<p><Number {...values.illiterate} /> people cannot read.</p>
+<EmojiBox count={values.illiterate.value} />
 
 <p>
     <Number {...values.noAccessToSafeDrinkingWater} /> have no access to safe drinking
@@ -979,26 +1048,17 @@
 
 <h2>Religion</h2>
 
-<p><Number {...values.christians} /> are Christians.</p>
-<EmojiBox count={values.christians.value} emoji="✝️" />
-
-<p><Number {...values.muslims} /> are Muslims.</p>
-<EmojiBox count={values.muslims.value} emoji="☪️" />
-
-<p><Number {...values.atheists} /> are non-religious.</p>
-<EmojiBox count={values.atheists.value} emoji="🧑" />
-
-<p><Number {...values.hindus} /> are Hindus.</p>
-<EmojiBox count={values.hindus.value} emoji="🕉️" />
-
-<p><Number {...values.buddhists} /> are Buddhists.</p>
-<EmojiBox count={values.buddhists.value} emoji="☸️" />
-
-<p>
-    <Number {...values.chineseTraditionalReligions} /> follow Chinese traditional
-    religions.
-</p>
-<EmojiBox count={values.chineseTraditionalReligions.value} emoji="🈷️" />
+{#each religions as religion}
+    <p>
+        <Number value={(religion.percent / 100) * values.humans.value} /> of the
+        people follow
+        <b>{religion.name}</b>.
+    </p>
+    <EmojiBox
+        count={(religion.percent / 100) * values.humans.value}
+        emoji={religion.emoji}
+    />
+{/each}
 
 <h2>Transport</h2>
 
