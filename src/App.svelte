@@ -640,95 +640,165 @@
     const deathCauses = [
         {
             cause: "Cardiovascular disease",
-            deathShare: 0.3284,
+            deathShare: 32.84,
             emoji: "💔",
         },
         {
             cause: "Cancer",
-            deathShare: 0.1783,
+            deathShare: 17.83,
             emoji: "cancer-ribbon",
         },
         {
             cause: "Respiratory disease",
-            deathShare: 0.0703,
+            deathShare: 7.03,
             emoji: "🫁",
         },
         {
             cause: "Digestive disease",
-            deathShare: 0.0452,
+            deathShare: 4.52,
             emoji: "intestines",
         },
         {
             cause: "Lower respiratory infection",
-            deathShare: 0.0441,
+            deathShare: 4.41,
             emoji: "🦠",
         },
         {
             cause: "Neonatal death",
-            deathShare: 0.0333,
+            deathShare: 3.33,
             emoji: "👶",
         },
         {
             cause: "Enteric infection",
-            deathShare: 0.0309,
+            deathShare: 3.09,
             emoji: "🦠",
         },
         {
             cause: "Alzheimer's disease",
-            deathShare: 0.0287,
+            deathShare: 2.87,
             emoji: "🧠",
         },
         {
             cause: "Diabetes mellitus",
-            deathShare: 0.0274,
+            deathShare: 2.74,
             emoji: "sugar-cube",
         },
         {
             cause: "Diarrheal disease",
-            deathShare: 0.0271,
+            deathShare: 2.71,
             emoji: "💩",
         },
         {
             cause: "Liver disease",
-            deathShare: 0.026,
+            deathShare: 2.6,
             emoji: "🍺",
         },
         {
             cause: "Kidney disease",
-            deathShare: 0.0253,
+            deathShare: 2.53,
             emoji: "kidneys",
         },
-        /* ... */
         {
             cause: "Road incident",
-            deathShare: 0.0212,
+            deathShare: 2.12,
             emoji: "🚗",
         },
         {
-            cause: "Suicide",
-            deathShare: 0.0134,
-            emoji: "😔",
+            cause: "Tuberculosis",
+            deathShare: 2.09,
+            emoji: "🦠",
         },
         {
-            cause: "HIV",
-            deathShare: 0.0153,
+            cause: "HIV/AIDS",
+            deathShare: 1.53,
             emoji: "hiv-ribbon",
         },
         {
+            cause: "Suicide",
+            deathShare: 1.34,
+            emoji: "😔",
+        },
+        {
             cause: "Malaria",
-            deathShare: 0.0114,
+            deathShare: 1.14,
             emoji: "🦟",
         },
+        {
+            cause: "Homicide",
+            deathShare: 0.73,
+            emoji: "🔪",
+        },
+        {
+            cause: "Parkinson's disease",
+            deathShare: 0.64,
+            emoji: "🌷",
+        },
+        {
+            cause: "Nutritional deficiencies",
+            deathShare: 0.44,
+            emoji: "💊",
+        },
+        {
+            cause: "Meningitis",
+            deathShare: 0.42,
+            emoji: "🧠",
+        },
+        {
+            cause: "Drowning",
+            deathShare: 0.42,
+            emoji: "💦",
+        },
+        {
+            cause: "Protein-energy malnutrition",
+            deathShare: 0.38,
+            emoji: "🧬",
+        },
+        {
+            cause: "Maternal deaths",
+            deathShare: 0.35,
+            emoji: "🤱",
+        },
+        {
+            cause: "Alcohol disorders",
+            deathShare: 0.3,
+            emoji: "🍺",
+        },
+        {
+            cause: "Drug disorders",
+            deathShare: 0.23,
+            emoji: "🧪",
+        },
+        {
+            cause: "Fire",
+            deathShare: 0.2,
+            emoji: "🔥",
+        },
+        {
+            cause: "Hepatitis",
+            deathShare: 0.14,
+            emoji: "🦠",
+        },
+        {
+            cause: "Conflict (including terrorism)",
+            deathShare: 0.11,
+            emoji: "⚔️",
+        },
+        {
+            cause: "Heat-related (hot and cold exposure)",
+            deathShare: 0.08,
+            emoji: "🥶",
+        },
+        /*{
+            cause: "Terrorism",
+            deathShare: 0.05,
+            emoji: "",
+        }, seems included in "Conflict"? */
+        {
+            cause: "Natural disasters",
+            deathShare: 0.01,
+            emoji: "🌋",
+        },
     ]
-
-    // Calculate remaining share.
-    const remainingDeathShare =
-        1 - deathCauses.reduce((sum, cause) => sum + cause.deathShare, 0)
-    deathCauses.push({
-        cause: "Other cause",
-        deathShare: remainingDeathShare,
-        emoji: "❓",
-    })
 
     // Source: https://ourworldindata.org/energy-mix
     // Year: 2019
@@ -1489,13 +1559,15 @@ EU: avg 10 t/year to heat
 {#each energyConsumptionBySource as source}
     <p>
         <Number
-            value={(source.percent / 100) * values.energyPerYear.value / 356 / 24}
+            value={((source.percent / 100) * values.energyPerYear.value) /
+                356 /
+                24}
             unit="kWh"
         /> per hour come from {source.emoji} <b>{source.name}</b>.
     </p>
     <EmojiBox
-        count={(source.percent / 100) * values.energyPerYear.value / 356 / 24}
-        factor=1
+        count={((source.percent / 100) * values.energyPerYear.value) / 356 / 24}
+        factor="1"
         emoji="🔋"
     />
 {/each}

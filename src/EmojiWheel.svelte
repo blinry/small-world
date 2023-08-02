@@ -54,14 +54,37 @@
     let segmentInstances
     $: {
         segmentInstances = []
-        probabilities.forEach((p) => {
-            for (let i = 0; i < p[0] * segments; i++) {
+        let summedOther = 0
+
+        // Map to number of segments.
+        let segmentCounts = probabilities.map((p) => {
+            return [Math.round(p[0] / (100.0 / segments)), p[1]]
+        })
+        console.log(segmentCounts)
+
+        let remainingSegments =
+            segments - segmentCounts.reduce((acc, p) => acc + p[0], 0)
+        segmentCounts.push([
+            remainingSegments,
+            {emoji: "❓", label: "Other causes"},
+        ])
+
+        segmentCounts.forEach((p) => {
+            for (let i = 0; i < p[0]; i++) {
                 segmentInstances.push({
                     emoji: p[1].emoji,
                     label: p[1].label,
                 })
             }
         })
+        // Add other
+        //for (let i = 0; i < (summedOther / 100) * segments; i++) {
+        //    segmentInstances.push({
+        //        emoji: "❓",
+        //        label: "Other",
+        //    })
+        //}
+
         // Distribute angles
         for (let i = 0; i < segmentInstances.length; i++) {
             segmentInstances[i].angle = (i * 360) / segmentInstances.length
