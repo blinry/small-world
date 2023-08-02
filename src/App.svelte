@@ -818,6 +818,10 @@
 <ScrollBar />
 
 <h1>Small World</h1>
+<div id="subtitle">
+    by <a href="https://bleeptrack.de">bleeptrack</a> &
+    <a href="https://blinry.org">blinry</a>, last updated 2023
+</div>
 
 <p>
     The Earth is big. Really, <i>really</i> big. So unimaginable big that it can
@@ -1210,11 +1214,9 @@
 </QuestionButtons>
 
 <p>
-    About  <Number
-        {...values.trainTravelers2015}
-    /> train rides are registered per year and <Number
-        {...values.goodsonrails}
-    /> of goodes are transported my trains per year.
+    About <Number {...values.trainTravelers2015} /> train rides are registered per
+    year and <Number {...values.goodsonrails} /> of goodes are transported my trains
+    per year.
 </p>
 
 <h2>🐾 Animals</h2>
@@ -1533,9 +1535,12 @@ EU: avg 10 t/year to heat
 
 <ConversionPractice />
 
-<h2>Play with the scale factor</h2>
+<h2>📚 Credits</h2>
 
-<Slider />
+<p>
+    Thanks to <a href="https://www.openphilanthropy.org">Open Philanthropy</a> for
+    funding this work!
+</p>
 
 <style>
     /* text that pops out! centered! shadow! colorful gradient! */
@@ -1547,5 +1552,15 @@ EU: avg 10 t/year to heat
         text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
         font-variant: small-caps;
         color: darkred;
+    }
+    h1 {
+        margin-bottom: 0;
+    }
+    #subtitle,
+    #subtitle a {
+        margin-bottom: 3rem;
+        color: #555;
+        font-size: 0.9rem;
+        font-style: italic;
     }
 </style>
