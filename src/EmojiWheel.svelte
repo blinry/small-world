@@ -3,9 +3,13 @@
     import Popup from "./Popup.svelte"
     import confetti from "canvas-confetti"
     import {renderEmoji} from "./helpers.js"
+    import {onMount} from "svelte"
 
     export let segments = 50
     export let probabilities = []
+
+    let wheelScale = 1
+    let wheelWidthAtScale1 = 1200 // px, not super precise way of doing it...
 
     let width = "40"
     let rotation = 0
@@ -79,9 +83,16 @@
                     2
         }
     }
+
+    onMount(() => {
+        window.addEventListener("resize", () => {
+            let currentBodyWidth = document.body.clientWidth
+            wheelScale = currentBodyWidth / wheelWidthAtScale1
+        })
+    })
 </script>
 
-<div id="container">
+<div id="container" style="--scale: {wheelScale}">
     <div id="wheel" style="--rotation: {(rotation * 180) / Math.PI}deg">
         {#each segmentInstances as segment}
             <div
@@ -108,9 +119,18 @@
 </div>
 
 <style>
+    #container {
+        display: flex;
+        align-items: center;
+        transform: scale(var(--scale));
+        transform-origin: top left;
+        background: blue;
+        min-width: 50rem;
+        min-height: 40rem;
+    }
     #wheel {
-        width: 40rem;
-        height: 40rem;
+        min-width: 40rem;
+        min-height: 40rem;
         position: relative;
         transform: rotate(var(--rotation));
         background: #eee;
@@ -123,10 +143,6 @@
         height: 1.5rem;
         font-size: 150%;
         cursor: pointer;
-    }
-    #container {
-        display: flex;
-        align-items: center;
     }
     #arrow {
         font-size: 500%;
