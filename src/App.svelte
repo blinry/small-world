@@ -1570,6 +1570,29 @@ EU: avg 10 t/year to heat
 
 <h2>🔋 Energy</h2>
 
+<p>Energy consumption is not easy to meassure: we need to take two things into account!</p>
+
+<p>
+    ⚡First there is the amount of energy. This is usually meassured in Watts <b>W</b> or when numbers get too big: in Kilowatts <b>kW</b>!<br>
+    🕑Secondly there is the time over which the energy is consumed, for example an <b>hour</b>.<br>
+    🔋Combined we have Watt hours Wh or Kilowatt hours <b>kWh</b>.
+</p>
+
+
+<Question
+    q="💡 So if a 50W light bulb is running for 1 hour, what is the energy consumption?"
+>
+    <p>If a 50W light bulb is running for 1 hour we have an energy consumption of <b>50Wh</b>!</p>
+</Question>
+
+
+
+<p>But even our small world consumed a lot of energy. So from here we symbolize <b>1kWh</b> with one battery:</p>
+
+<p style="text-align: center;">
+    <span style="font-size: 8rem;">🔋</span>
+</p>
+
 <p>
     Our small world is consuming <Number {...values.energyPerYear} unit="kWh" />
     of energy per year, which is <Number
