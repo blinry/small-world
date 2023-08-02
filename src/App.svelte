@@ -1724,6 +1724,59 @@ EU: avg 10 t/year to heat
     /> galaxies.
 </p>
 
+<h2>💯 What does this factor of {humanReadable($defaultScale)} mean?</h2>
+
+<p>
+    It's very important that we don't forget that all numbers on our small world
+    are scaled down by this big factor!
+</p>
+
+<p>
+    So let's do a couple of quick exercises to get a better feeling for this
+    number!
+</p>
+
+<QuestionButtons
+    q={"How long are " + humanReadable($defaultScale) + " seconds?"}
+    a={humanReadable($defaultScale / 60 / 60 / 24 / 365) + " years"}
+    fakeAnswers={[
+        humanReadable((0.1 * $defaultScale) / 60 / 60 / 24) + " days",
+        humanReadable((0.01 * $defaultScale) / 60 / 60 / 24) + " days",
+        humanReadable((100 * $defaultScale) / 60 / 60 / 24 / 365) + " years",
+    ]}
+>
+    <p>
+        If you count from 1 to {humanReadable($defaultScale)}, and it takes you
+        a second to say each number, you'll need {(
+            $defaultScale /
+            60 /
+            60 /
+            24 /
+            365
+        ).toFixed(1)} years!
+    </p>
+</QuestionButtons>
+
+<QuestionButtons
+    q={"If you stack " +
+        humanReadable($defaultScale) +
+        " $1 bills, how high would the resulting stack be?"}
+    a={humanReadable(($defaultScale * 0.1093) / (1000 * 1000)) + " km"}
+    fakeAnswers={[
+        humanReadable(($defaultScale * 0.1093) / (1000 * 10)) + " km",
+        humanReadable(($defaultScale * 0.1093) / (1000 * 1000)) + " m",
+        humanReadable(($defaultScale * 0.1093) / (1000 * 100)) + " km",
+    ]}
+>
+    <p>
+        Tom Scott did <a href="https://www.youtube.com/watch?v=8YUWDrLazCg"
+            >a video about this</a
+        >, where he gets in a car, and drives for the equivalent of 1 billion
+        dollars stacked on top of each other. To reach the end of our 100
+        million dollar stack, he'd need around 10 minutes.
+    </p>
+</QuestionButtons>
+
 <h2>🙋 What are you curious about?</h2>
 
 <p>
