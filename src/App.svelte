@@ -69,6 +69,16 @@
             unit: "km²",
             source: "http://www.physicalgeography.net/fundamentals/8o.html",
         },
+        diameterOfEarth: {
+            value: 6378 * 2,
+            unit: "km",
+            source: "https://imagine.gsfc.nasa.gov/features/cosmic/earth_info.html",
+        },
+        circumferenceOfEarth: {
+            value: 40070,
+            unit: "km",
+            source: "https://imagine.gsfc.nasa.gov/features/cosmic/earth_info.html",
+        },
         oceanSurface: {
             value: 361e6,
             unit: "km²",
@@ -1070,15 +1080,18 @@
 <h2>🌍 Planet</h2>
 
 <p>
-    The surface of our small world is <Number {...values.surfaceOfEarth} /> (a square
-    with edge lengths of roughly <Length
-        value={Math.sqrt(values.surfaceOfEarth.value)}
-        unit="km"
-    />, or <Number
+    The surface of our small world is <Number {...values.surfaceOfEarth} /> (that's
+    roughly
+    <Number
         value={values.surfaceOfEarth.value / values.surfaceOfCentralPark.value}
     /> times the area of Central Park in New York City). <Number
         {...values.oceanSurface}
     /> of that is ocean.
+</p>
+
+<p>
+    The planet is <Length {...values.diameterOfEarth} /> high, and has a circumference
+    of <Length {...values.circumferenceOfEarth} />.
 </p>
 
 <p style="font-size: 8rem; text-align: center; margin: 2rem 0;">🌏</p>
@@ -1570,24 +1583,35 @@ EU: avg 10 t/year to heat
 
 <h2>🔋 Energy</h2>
 
-<p>Energy consumption is not easy to meassure: we need to take two things into account!</p>
-
 <p>
-    ⚡First there is the amount of energy. This is usually meassured in Watts <b>W</b> or when numbers get too big: in Kilowatts <b>kW</b>!<br>
-    🕑Secondly there is the time over which the energy is consumed, for example an <b>hour</b>.<br>
-    🔋Combined we have Watt hours Wh or Kilowatt hours <b>kWh</b>.
+    Energy consumption is not easy to meassure: we need to take two things into
+    account!
 </p>
 
+<p>
+    ⚡First there is the amount of energy. This is usually meassured in Watts <b
+        >W</b
+    >
+    or when numbers get too big: in Kilowatts <b>kW</b>!<br />
+    🕑Secondly there is the time over which the energy is consumed, for example an
+    <b>hour</b>.<br />
+    🔋Combined we have Watt hours Wh or Kilowatt hours <b>kWh</b>.
+</p>
 
 <Question
     q="💡 So if a 50W light bulb is running for 1 hour, what is the energy consumption?"
 >
-    <p>If a 50W light bulb is running for 1 hour we have an energy consumption of <b>50Wh</b>!</p>
+    <p>
+        If a 50W light bulb is running for 1 hour we have an energy consumption
+        of <b>50Wh</b>!
+    </p>
 </Question>
 
-
-
-<p>But even our small world consumed a lot of energy. So from here we symbolize <b>1kWh</b> with one battery:</p>
+<p>
+    But even our small world consumed a lot of energy. So from here we symbolize <b
+        >1kWh</b
+    > with one battery:
+</p>
 
 <p style="text-align: center;">
     <span style="font-size: 8rem;">🔋</span>
@@ -1623,19 +1647,21 @@ EU: avg 10 t/year to heat
     />
 {/each}
 
-<Thought
-    t="Check here if you want to see renewable sources in detail!"
->
+<Thought t="Check here if you want to see renewable sources in detail!">
     {#each energyConsumptionRenewables as source}
         <p>
             <Number
-                value={(source.percent / 100) * values.energyPerYear.value / 356 / 24}
+                value={((source.percent / 100) * values.energyPerYear.value) /
+                    356 /
+                    24}
                 unit="kWh"
             /> per hour come from {source.emoji} <b>{source.name}</b>.
         </p>
         <EmojiBox
-            count={(source.percent / 100) * values.energyPerYear.value / 356 / 24}
-            factor=1
+            count={((source.percent / 100) * values.energyPerYear.value) /
+                356 /
+                24}
+            factor="1"
             emoji="🔋"
         />
     {/each}

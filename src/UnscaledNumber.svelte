@@ -34,6 +34,12 @@
 
         if (betterValue < 0.05) {
             roundedValue = 0
+        } else if (betterValue < 0.7) {
+            roundedValue = betterValue.toFixed(1)
+        } else if (betterValue < 1.4) {
+            roundedValue = Math.round(betterValue)
+        } else if (betterValue < 1.6) {
+            roundedValue = betterValue.toFixed(1)
         } else if (betterValue < 750) {
             let zeroesAfterDecimal = Math.floor(Math.log10(betterValue))
             let precision = Math.max(0, -zeroesAfterDecimal)
@@ -46,12 +52,14 @@
 
 <Popup>
     <span title={comment}
-        >{roundedValue}{#if betterUnit}{" " + betterUnit}{/if}
-    </span>
+        >{roundedValue}{#if betterUnit}{" " + betterUnit}{/if}</span
+    >
     <div slot="popup">
         <p>{comment}</p>
         {#if source}
-            <p>Source: <a href={source} target="_blank">{source}</a></p>
+            <p>
+                Source: <a href={source} target="_blank">{source}</a>
+            </p>
         {/if}
     </div>
 </Popup>

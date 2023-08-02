@@ -6,15 +6,9 @@
     on:click={() => {
         visible = !visible
     }}
->
-    <slot />
-    {#if visible}
-        <div class="background">
-            <div class="popup">
-                <slot name="popup" />
-            </div>
-        </div>
-    {/if}
+    ><slot />{#if visible}<div class="background">
+            <div class="popup"><slot name="popup" /></div>
+        </div>{/if}
 </span>
 
 <style>

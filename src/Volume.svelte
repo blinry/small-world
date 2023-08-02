@@ -18,20 +18,23 @@
         if (unit) {
             comment += " " + unit
         }
+        comment +=
+            " (note that all volumes scale with a factor of " +
+            humanReadable($defaultScale * Math.sqrt($defaultScale)) +
+            ")"
     }
 </script>
 
 <b>
-    {#if source}
-        <a href={source} target="_blank">
-            <UnscaledNumber value={scaledValue} {unit} {factor} {comment} />
-        </a>
-    {:else}
-        <UnscaledNumber value={scaledValue} {unit} {factor} {comment} />
-    {/if}
+    <UnscaledNumber value={scaledValue} {unit} {factor} {comment} {source} />
 </b>
 
 <style>
+    b {
+        background: lightred;
+        border-radius: 5px;
+        padding: 2px;
+    }
     a {
         color: inherit;
         text-decoration: none;

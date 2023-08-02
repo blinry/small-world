@@ -9,7 +9,7 @@ export function humanReadable(value) {
 
     if (value < 0.05) {
         return 0
-    } else if (value < 1) {
+    } else if (value < 2) {
         return value
     } else if (value < 10000) {
         return Math.round(value)
