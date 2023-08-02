@@ -79,7 +79,7 @@
             <span class="number"><Number value={cluster.count} /></span>
             <hr />
             {#each Array(cluster.scaledCount) as _}
-                <span>{emoji}</span>
+                <span class="emoji">{emoji}</span>
             {/each}
         </div>
     {/each}
@@ -121,5 +121,29 @@
         padding: 0;
         background: black;
         border: none;
+    }
+    @media (max-width: 1000px) {
+        .emoji {
+            font-size: 60%;
+        }
+        .cluster {
+            width: 170px;
+        }
+    }
+    @media (max-width: 800px) {
+        .emoji {
+            font-size: 40%;
+        }
+        .cluster {
+            width: 140px;
+        }
+    }
+    @media (max-width: 600px) {
+        .emoji {
+            font-size: 20%;
+        }
+        .cluster {
+            width: 100px;
+        }
     }
 </style>
