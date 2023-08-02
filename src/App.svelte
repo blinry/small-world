@@ -753,6 +753,7 @@
             percent: 4.3,
             emoji: "☢️",
         },
+        /*
         {
             name: "Hydropower",
             percent: 6.4,
@@ -776,6 +777,12 @@
         {
             name: "Other renewables",
             percent: 0.9,
+            emoji: "🌳",
+        },
+        */
+        {
+            name: "Renewables",
+            percent: 0.9 + 0.7 + 1.1 + 2.2 + 6.4,
             emoji: "🌳",
         },
     ]
@@ -1482,13 +1489,13 @@ EU: avg 10 t/year to heat
 {#each energyConsumptionBySource as source}
     <p>
         <Number
-            value={(source.percent / 100) * values.energyPerYear.value}
+            value={(source.percent / 100) * values.energyPerYear.value / 356 / 24}
             unit="kWh"
-        /> per year come from {source.emoji} <b>{source.name}</b>.
+        /> per hour come from {source.emoji} <b>{source.name}</b>.
     </p>
     <EmojiBox
-        count={(source.percent / 100) * values.energyPerYear.value}
-        factor={1 / 1000}
+        count={(source.percent / 100) * values.energyPerYear.value / 356 / 24}
+        factor=1
         emoji="🔋"
     />
 {/each}
