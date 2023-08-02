@@ -1093,6 +1093,12 @@
 <ContentNote
     t="The next section concerns the topic of death. Click here if you want to see it."
 >
+
+     <p>
+        In this section we take a look at death probabilities in our little world. These are current probabilities - they might change during your lifetime!<br>
+        Go ahead and spin the wheel to see what death cause might await you! (And don't take it too seriously ;) )
+    </p>
+
     <EmojiWheel
         probabilities={deathCauses.map((cause) => [
             cause.deathShare,
