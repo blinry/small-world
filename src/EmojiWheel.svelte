@@ -84,11 +84,14 @@
         }
     }
 
+    function onResize() {
+        let currentBodyWidth = document.body.clientWidth
+        wheelScale = currentBodyWidth / wheelWidthAtScale1
+    }
+
     onMount(() => {
-        window.addEventListener("resize", () => {
-            let currentBodyWidth = document.body.clientWidth
-            wheelScale = currentBodyWidth / wheelWidthAtScale1
-        })
+        window.addEventListener("resize", onResize)
+        onResize()
     })
 </script>
 
@@ -124,7 +127,6 @@
         align-items: center;
         transform: scale(var(--scale));
         transform-origin: top left;
-        background: blue;
         min-width: 50rem;
         min-height: 40rem;
     }

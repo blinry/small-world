@@ -34,6 +34,7 @@
         z-index: 1;
     }
     .popup {
+        max-width: 90vw;
         width: 30em;
         height: 10em;
         background-color: white;
@@ -41,5 +42,7 @@
         padding: 1em;
         border-radius: 0.5em;
         font-weight: normal;
+        margin: 2em;
+        overflow-wrap: break-word;
     }
 </style>
