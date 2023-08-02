@@ -44,6 +44,11 @@
             year: 1300,
             source: "https://ourworldindata.org/grapher/population",
         },
+        humans2086: {
+            value: 10.43e9,
+            year: 2086,
+            source: "https://ourworldindata.org/grapher/population",
+        },
         humansEverLived: {
             value: 117e9,
             year: 2022,
@@ -877,6 +882,86 @@
     see the real number, or click on it to see the source.
 </p>
 
+<h2>🧑 Demographics</h2>
+
+<p>
+    There are <Number {...values.humans} /> people on the small world. (<Number
+        {...values.humansEverLived}
+    /> have ever lived.)
+    <Number {...values.humansBornPerYear} /> are born every year, and <Number
+        {...values.humansDiePerYear}
+    /> die.
+</p>
+
+<EmojiBox count={values.humans.value} emoji="🧑" />
+
+<p>
+    This is how much our people earn per month. The numbers are already adjusted
+    for price differences between countries. (Note that these values are not
+    scaled down, because they're per-person numbers. They translate directly to
+    real Earth.)
+</p>
+
+<EmojiGraph
+    count={values.humans.value}
+    emoji="🧑"
+    barEmoji="💵"
+    unit="$"
+    distribution={(percentile) => Math.round((1.207 / (1 - percentile)) * 30)}
+/>
+
+<p>This is how old they are:</p>
+
+<EmojiHistogram
+    count={values.humans.value}
+    emoji={(age) => {
+        if (age < 3) {
+            return "👶"
+        } else if (age < 18) {
+            return "🧒"
+        } else if (age < 65) {
+            return "🧑"
+        } else {
+            return "🧓"
+        }
+    }}
+    bucketSize={10}
+    distribution={(x) => 23 * (1.8 * x + 0.03 * (10 / (1.1 - x))) - 4}
+/>
+
+<p>
+    <Number value={humans[2023].europe} /> of these people live in Europe. <Number
+        value={humans[2023].africa}
+    /> live in Africa.
+
+    <Number value={humans[2023].asia} /> live in Asia (including <Number
+        value={humans[2023].china}
+    /> in China and <Number value={humans[2023].india} /> in India).
+
+    <Number value={humans[2023].northamerica} /> live in North America. <Number
+        value={humans[2023].southamerica}
+    /> live in South America.
+
+    <Number value={humans[2023].oceania} /> live in Oceania. And <Number
+        value={1000}
+        source="https://en.wikipedia.org/wiki/Antarctica#Population"
+    /> live in Antarctica.
+</p>
+
+<ContinentMap emoji="🧑" {...humans[2023]} />
+
+<p>
+    <Number {...values.depression} /> of our <Number {...values.humans} /> people
+    suffer from depression.
+</p>
+<EmojiBox count={values.depression.value} emoji="😔" />
+
+<p>
+    <Number {...values.visualImpairment} /> people are blind, or have a moderate
+    to severe visual impairment.
+</p>
+<EmojiBox count={values.visualImpairment.value} emoji="🦯" />
+
 <h2>🌍 Planet</h2>
 
 <p>
@@ -1001,102 +1086,43 @@
     />.
 </p>
 
-<h2>🧑 Demographics</h2>
-
-<p>
-    There are <Number {...values.humans} /> people on the small world. (<Number
-        {...values.humansEverLived}
-    /> have ever lived.)
-    <Number {...values.humansBornPerYear} /> are born every year, and <Number
-        {...values.humansDiePerYear}
-    /> die.
-</p>
-
-<EmojiBox count={values.humans.value} emoji="🧑" />
-
-<p>
-    This is how much our people earn per month. The numbers are already adjusted
-    for price differences between countries. (Note that these values are not
-    scaled down, because they're per-person numbers. They translate directly to
-    real Earth.)
-</p>
-
-<EmojiGraph
-    count={values.humans.value}
-    emoji="🧑"
-    barEmoji="💵"
-    unit="$"
-    distribution={(percentile) => Math.round((1.207 / (1 - percentile)) * 30)}
-/>
-
-<p>This is how old they are:</p>
-
-<EmojiHistogram
-    count={values.humans.value}
-    emoji={(age) => {
-        if (age < 3) {
-            return "👶"
-        } else if (age < 18) {
-            return "🧒"
-        } else if (age < 65) {
-            return "🧑"
-        } else {
-            return "🧓"
-        }
-    }}
-    bucketSize={10}
-    distribution={(x) => 23 * (1.8 * x + 0.03 * (10 / (1.1 - x))) - 4}
-/>
-
-<p>
-    <Number value={humans[2023].europe} /> of these people live in Europe. <Number
-        value={humans[2023].africa}
-    /> live in Africa.
-
-    <Number value={humans[2023].asia} /> live in Asia (including <Number
-        value={humans[2023].china}
-    /> in China and <Number value={humans[2023].india} /> in India).
-
-    <Number value={humans[2023].northamerica} /> live in North America. <Number
-        value={humans[2023].southamerica}
-    /> live in South America.
-
-    <Number value={humans[2023].oceania} /> live in Oceania. And <Number
-        value={1000}
-        source="https://en.wikipedia.org/wiki/Antarctica#Population"
-    /> live in Antarctica.
-</p>
-
-<ContinentMap emoji="🧑" {...humans[2023]} />
-
-<p>
-    <Number {...values.depression} /> of our <Number {...values.humans} /> people
-    suffer from depression.
-</p>
-<EmojiBox count={values.depression.value} emoji="😔" />
-
-<p>
-    <Number {...values.visualImpairment} /> people are blind, or have a moderate
-    to severe visual impairment.
-</p>
-<EmojiBox count={values.visualImpairment.value} emoji="🦯" />
-
 <h2>⌛ Humans through the centuries</h2>
 
-{#each Object.keys(humans) as year}
-    <h3>{year}</h3>
-    <ContinentMap emoji="🧑" {...humans[year]} />
-{/each}
+<p>Here's how many humans lived on the small world in the year 1900:</p>
+
+<ContinentMap emoji="🧑" {...humans[1900]} />
+
+<p>
+    And this is the projection of how many humans will live on the small world
+    in the year 2100:
+</p>
+
+<ContinentMap emoji="🧑" {...humans[2100]} />
+
+<Thought t="Will there be even more humans than this in the future?">
+    Surprisingly, no! According to projections by the UN, the global population
+    will peak at around <Number {...values.humans2086} /> humans in 2086. Read more
+    in the article
+    <a
+        href="https://ourworldindata.org/population-growth?insight=the-un-expects-the-global-population-to-peak-by-the-end-of-the-century#key-insights"
+        >Population Growth</a
+    > by Our World in Data.
+</Thought>
 
 <h2>☠️ Death causes</h2>
 
 <ContentNote
-    t="The next section concerns the topic of death. Click here if you want to see it."
+    t="The next section concerns the topic of death in a playful way. Click here if you want to see it."
 >
+    <p>
+        In this section we take a look at death probabilities in our little
+        world. These are current probabilities - they might change during your
+        lifetime!
+    </p>
 
-     <p>
-        In this section we take a look at death probabilities in our little world. These are current probabilities - they might change during your lifetime!<br>
-        Go ahead and spin the wheel to see what death cause might await you! (And don't take it too seriously ;) )
+    <p>
+        Go ahead and spin the wheel to see what death cause might await you!
+        (And don't take it too seriously ;) )
     </p>
 
     <EmojiWheel
