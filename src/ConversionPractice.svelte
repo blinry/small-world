@@ -29,18 +29,21 @@
     }
 </script>
 
-<h3>Step 1: Define your question!</h3>
+<h3>Step 1: Write down your question!</h3>
 
 <p>
     What do you want to know? Type it into this textbox. Especially questions
-    that start with "How many…" are well-suited!
+    that start with "How many…" work well!
 </p>
 
 <input type="text" bind:value={question} />
 
 <h3>Step 2: Research the number for the real world!</h3>
 
-<p>Press one of these buttons to do an internet search for your question:</p>
+<p>
+    Press one or more of these buttons to do an internet search for your
+    question:
+</p>
 
 {#each searchEngines as engine}
     <a

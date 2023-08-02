@@ -17,6 +17,8 @@
     import ContinentMap from "./ContinentMap.svelte"
     import ConversionPractice from "./ConversionPractice.svelte"
     import ScrollBar from "./ScrollBar.svelte"
+    import Dots from "./Dots.svelte"
+    import ScrollBox from "./ScrollBox.svelte"
 
     import {defaultScale} from "./stores.js"
     import {humanReadable, renderEmoji} from "./helpers.js"
@@ -1769,13 +1771,55 @@ EU: avg 10 t/year to heat
     ]}
 >
     <p>
-        Tom Scott did <a href="https://www.youtube.com/watch?v=8YUWDrLazCg"
-            >a video about this</a
-        >, where he gets in a car, and drives for the equivalent of 1 billion
-        dollars stacked on top of each other. To reach the end of our 100
-        million dollar stack, he'd need around 10 minutes.
+        In fact, Tom Scott did <a
+            href="https://www.youtube.com/watch?v=8YUWDrLazCg"
+            >a video about this!</a
+        > He gets in a car, and drives for the equivalent of 1 billion dollars stacked
+        on top of each other. To reach the end of our 100 million dollar stack, he'd
+        need around 10 minutes.
     </p>
 </QuestionButtons>
+
+<p>
+    Finally, let's really look at the number! Here's 100 dots (you might need to
+    zoom in a bit to see them): <Dots n={100} />
+</p>
+
+<p>Here's 100 thousand dots:</p>
+
+<ScrollBox>
+    <Dots n={100000} />
+</ScrollBox>
+
+<p>
+    And here's 100 million dots! Come on, let's scroll through them together!
+    There will be a surprise at the end!
+</p>
+
+<ScrollBox>
+    {#each [...Array(1000).keys()] as _}<Dots n={100000} />{/each}
+    <p>You did it! You just saw 100 million dots! Here's your cake: 🍰</p>
+
+    <p>
+        Okay, so, for each value on the small world, you have to mentally
+        account for this factor.
+    </p>
+
+    <p>
+        For example, when we said that <Number
+            {...values.chickensKilledPerYear}
+            factor={1 / 365}
+        /> chickens are killed every day, the number on the real world is actually
+        <Number {...values.chickensKilledPerYear} factor={1 / 365} /> times the number
+        of dots you just saw.
+    </p>
+    <p>
+        And when we said that <Number {...values.extremePoverty} /> people live in
+        extreme poverty, on the real world, it's <Number
+            {...values.extremePoverty}
+        /> times the number of dots you just scrolled through.
+    </p>
+</ScrollBox>
 
 <h2>🙋 What are you curious about?</h2>
 
@@ -1793,6 +1837,8 @@ EU: avg 10 t/year to heat
 <p>Let's practice finding answers to questions like this!</p>
 
 <ConversionPractice />
+
+<!--<h2>🎬 What do you want to do now?</h2>-->
 
 <h2>📚 Credits</h2>
 
