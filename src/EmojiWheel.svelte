@@ -1,7 +1,6 @@
 <script>
     import {defaultScale} from "./stores.js"
     import Popup from "./Popup.svelte"
-    import confetti from "canvas-confetti"
     import {renderEmoji} from "./helpers.js"
     import {onMount} from "svelte"
 
@@ -47,11 +46,6 @@
             centerEmoji = segmentInstances[segmentIndex].emoji
             if (rotationSpeed <= 0.01) {
                 centerLabel = segmentInstances[segmentIndex].label
-                confetti({
-                    particleCount: 100,
-                    spread: 70,
-                    origin: {y: 0.6},
-                })
                 clearInterval(intervalID)
             }
         }, dt * 1000)
