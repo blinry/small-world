@@ -857,6 +857,34 @@
         },
     ]
 
+    const energyConsumptionRenewables = [
+        {
+            name: "Hydropower",
+            percent: 6.4,
+            emoji: "💧",
+        },
+        {
+            name: "Wind",
+            percent: 2.2,
+            emoji: "🌬️",
+        },
+        {
+            name: "Solar",
+            percent: 1.1,
+            emoji: "☀️",
+        },
+        {
+            name: "Biofuels",
+            percent: 0.7,
+            emoji: "🌾",
+        },
+        {
+            name: "Other renewables",
+            percent: 0.9,
+            emoji: "🌳",
+        },
+    ]
+
     // Source: https://ourworldindata.org/grapher/population-regions-with-projections
     const humans = {
         1900: {
@@ -1571,6 +1599,24 @@ EU: avg 10 t/year to heat
         emoji="🔋"
     />
 {/each}
+
+<Thought
+    t="Check here if you want to see renewable sources in detail!"
+>
+    {#each energyConsumptionRenewables as source}
+        <p>
+            <Number
+                value={(source.percent / 100) * values.energyPerYear.value / 356 / 24}
+                unit="kWh"
+            /> per hour come from {source.emoji} <b>{source.name}</b>.
+        </p>
+        <EmojiBox
+            count={(source.percent / 100) * values.energyPerYear.value / 356 / 24}
+            factor=1
+            emoji="🔋"
+        />
+    {/each}
+</Thought>
 
 <p>
     This daily use per person is equivalent to charging <UnscaledNumber
