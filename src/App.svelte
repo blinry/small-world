@@ -354,6 +354,17 @@
             year: 2021,
             source: "https://www.androidauthority.com/smartphone-battery-size-poll-results-1221015/",
         },
+        trainTravelers2015: {
+            value: 31162000000,
+            year: 2015,
+            source: "https://uic.org/IMG/pdf/synopsis_2015_print_5_.pdf",
+        },
+        goodsonrails: {
+            value: 8696000000,
+            year: 2015,
+            unit: "tonnes",
+            source: "https://uic.org/IMG/pdf/synopsis_2015_print_5_.pdf",
+        },
     }
 
     //co2PerBitcoinTransaction: 398.86, //kg https://digiconomist.net/bitcoin-energy-consumption
@@ -1122,7 +1133,7 @@
 
 <p>
     <Number {...values.overweight} /> are overweight.
-    <Number {...values.obese} /> are overweight.
+    <Number {...values.obese} /> are obese.
 </p>
 
 <EmojiBox count={values.overweight.value} emoji="overweight" />
@@ -1183,19 +1194,27 @@
     There are <Number {...values.flightsPerYear} /> flights per year.
 </p>
 
-<Question
+<QuestionButtons
     q="This sounds like a small number! Let's see if you still remember our conversion factor! How many flights are there actually, on real Earth?"
+    a={humanReadable(values.flightsPerYear.value)}
+    fakeAnswers={[
+        humanReadable(values.flightsPerYear.value / 100),
+        humanReadable(values.flightsPerYear.value / 1000),
+        humanReadable(values.flightsPerYear.value * 10),
+    ]}
 >
     <p>
         There are <UnscaledNumber {...values.flightsPerYear} /> flights per year
         on real Earth.
     </p>
-</Question>
+</QuestionButtons>
 
 <p>
-    The total length of the railway network is <Number
-        {...values.railwayNetworkLength}
-    />.
+    About  <Number
+        {...values.trainTravelers2015}
+    /> train rides are registered per year and <Number
+        {...values.goodsonrails}
+    /> of goodes are transported my trains per year.
 </p>
 
 <h2>🐾 Animals</h2>
