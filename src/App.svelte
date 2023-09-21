@@ -953,25 +953,47 @@
 </p>
 
 <p>
-    To make it easier to grasp, we can scale it down! This is the factor we'll
-    use:
+    To make it easier to grasp, let's scale it down! Imagine a really tiny
+    world:
+</p>
+
+<p
+    style="font-size: 4rem; text-align: center; margin-top: 2rem; margin-bottom: -0.9rem;"
+>
+    🗼
+</p>
+<p
+    style="font-size: 12rem; text-align: center; margin-bottom: 2rem; margin-top: 0;"
+>
+    🌏
+</p>
+
+<p>
+    If you would put the Tokyo Tower (or another big building) on it, you could
+    easily see it!
+</p>
+
+<p>On this small world, there are <Number {...values.cats} /> cats!</p>
+
+<EmojiBox count={values.cats.value} emoji="🐈" />
+
+<p>
+    How does that compare to the real Earth? Well, we scale down all numbers by
+    a this factor:
 </p>
 
 <p class="wow">{humanReadable($defaultScale)}</p>
 
 <p>
-    Quite a number, right? It means that instead of <UnscaledNumber
-        {...values.cats}
-    /> cats on the real Earth, on our small world there are only <Number
-        {...values.cats}
-    /> cats!
+    Quite a number, right? It means that instead of <Number {...values.cats} /> cats,
+    there are <UnscaledNumber {...values.cats} /> cats on the real Earth!
 </p>
 
-<EmojiBox count={values.cats.value} emoji="🐈" />
-
 <p>
-    The cool thing is: If I tell you that there are <Number {...values.dogs} /> dogs
-    on our small world, you can convert back to the actual number!
+    The cool thing is: As you learn more about the small world, you will be able
+    to convert everything back to real numbers! For example, if I tell you that
+    there are <Number {...values.dogs} /> dogs on our small world, you can convert
+    back to the actual number!
 </p>
 
 <EmojiBox count={values.dogs.value} emoji="🐕" />
@@ -1018,7 +1040,7 @@
         factor={12}
         inverse={true}
         unit={"months"}
-    />, 1 person dies.
+    />, one of them dies.
     <!--and <Number
         {...values.humansDiePerYear}
     /> die.-->
@@ -1053,6 +1075,44 @@
     distribution={ageDistribution}
 />
 
+<h2>📊 Other statistics</h2>
+
+<p>
+    <Number {...values.covidCases} /> people have been infected with COVID-19 so
+    far, and <Number {...values.covidDeaths} /> died from it.
+</p>
+
+<EmojiBox count={values.covidCases.value} emoji="🦠" />
+<EmojiBox count={values.covidDeaths.value} emoji="☠️" />
+
+<p>
+    <Number {...values.overweight} /> are overweight.
+    <Number {...values.obese} /> are obese.
+</p>
+
+<EmojiBox count={values.overweight.value} emoji="overweight" />
+<EmojiBox count={values.obese.value} emoji="obese" />
+
+<p>
+    And <Number {...values.extremePoverty} /> live in extreme poverty, on less than
+    $1.90 per day
+</p>
+<EmojiBox count={values.extremePoverty.value} emoji="🥺" />
+
+<p><Number {...values.illiterate} /> people cannot read.</p>
+<EmojiBox count={values.illiterate.value} />
+
+<p>
+    <Number {...values.noAccessToSafeDrinkingWater} /> have no access to safe drinking
+    water.
+</p>
+<EmojiBox count={values.noAccessToSafeDrinkingWater.value} emoji="🚱" />
+
+<p>
+    <Number {...values.noAccessToElectricity} /> don't have access to electricity.
+</p>
+<EmojiBox count={values.noAccessToElectricity.value} emoji="🪫" />
+
 <p>
     <Number {...values.depression} /> of our <Number {...values.humans} /> people
     suffer from depression.
@@ -1068,6 +1128,11 @@
 <h2>🌍 Planet</h2>
 
 <p>
+    The planet has a diameter of <Length {...values.diameterOfEarth} />, and a
+    circumference of <Length {...values.circumferenceOfEarth} />.
+</p>
+
+<p>
     The surface of our small world is <Number {...values.surfaceOfEarth} /> (that's
     roughly
     <Number
@@ -1075,11 +1140,6 @@
     /> times the area of Central Park in New York City). <Number
         {...values.oceanSurface}
     /> of that is ocean.
-</p>
-
-<p>
-    The planet has a diameter of <Length {...values.diameterOfEarth} />, and has
-    a circumference of <Length {...values.circumferenceOfEarth} />.
 </p>
 
 <p style="font-size: 12rem; text-align: center; margin: 2rem 0;">🌏</p>
@@ -1221,10 +1281,10 @@
 
 <ContinentMap emoji="🧑" {...humans[2100]} />
 
-<Thought t="Will there be even more humans than this in the future?">
-    Probably not! According to projections by the UN, the global population will
-    peak at around <Number {...values.humans2086} /> humans in 2086. Read more in
-    the article
+<Thought t="Will the global population increase even more in the future?">
+    Probably not! According to projections by the UN, it will peak at around <Number
+        {...values.humans2086}
+    /> humans in 2086. Read more in the article
     <a
         href="https://ourworldindata.org/population-growth?insight=the-un-expects-the-global-population-to-peak-by-the-end-of-the-century#key-insights"
         >Population Growth</a
@@ -1278,43 +1338,6 @@
 
     <EmojiBox count={values.humansKilledByBlackDeath.value} emoji="☠️" />
 </ContentNote>
-
-<h2>📊 Other statistics</h2>
-
-<p>
-    <Number {...values.covidCases} /> people have been infected with COVID-19 so
-    far, and <Number {...values.covidDeaths} /> died from it.
-</p>
-
-<EmojiBox count={values.covidCases.value} emoji="🦠" />
-<EmojiBox count={values.covidDeaths.value} emoji="☠️" />
-
-<p>
-    <Number {...values.overweight} /> are overweight.
-    <Number {...values.obese} /> are obese.
-</p>
-
-<EmojiBox count={values.overweight.value} emoji="overweight" />
-
-<p>
-    And <Number {...values.extremePoverty} /> live in extreme poverty, on less than
-    $1.90 per day
-</p>
-<EmojiBox count={values.extremePoverty.value} emoji="🥺" />
-
-<p><Number {...values.illiterate} /> people cannot read.</p>
-<EmojiBox count={values.illiterate.value} />
-
-<p>
-    <Number {...values.noAccessToSafeDrinkingWater} /> have no access to safe drinking
-    water.
-</p>
-<EmojiBox count={values.noAccessToSafeDrinkingWater.value} emoji="🚱" />
-
-<p>
-    <Number {...values.noAccessToElectricity} /> don't have access to electricity.
-</p>
-<EmojiBox count={values.noAccessToElectricity.value} emoji="🪫" />
 
 <h2>🛐 Religion</h2>
 
@@ -1417,10 +1440,10 @@
 </Question>
 
 <p>
-    There are <Number {...values.farms} /> farms. <Number
+    There are <Number {...values.farms} /> farms.<!-- <Number
         {...values.croplandSurface}
     /> of land is used for crops, and <Number {...values.livestockSurface} /> is
-    used for livestock.
+    used for livestock.-->
 </p>
 
 <p>
@@ -1554,21 +1577,26 @@ EU: avg 10 t/year to heat
 
 <EmojiRate {...values.co2eqEmissionsPerYear} factor={1000} emoji="⚫" />
 
-{#each greenhouseGasEmissionsSectors as sector}
-    <p>
-        <Number
-            value={(sector.percent / 100) * values.co2eqEmissionsPerYear.value}
-            factor={(1 / 365 / 24) * 1000}
-            unit="kg"
-        /> of CO₂eq are produced every hour by
-        {sector.emoji} <strong>{sector.name}</strong>, {sector.description}.
-    </p>
-    <EmojiBox
-        count={(sector.percent / 100) * values.co2eqEmissionsPerYear.value}
-        factor={1000 * (1 / 365 / 24)}
-        emoji="⚫"
-    />
-{/each}
+<ContentNote
+    t="Do you want to see more details about where exactly these bubbles come from?"
+>
+    {#each greenhouseGasEmissionsSectors as sector}
+        <p>
+            <Number
+                value={(sector.percent / 100) *
+                    values.co2eqEmissionsPerYear.value}
+                factor={(1 / 365 / 24) * 1000}
+                unit="kg"
+            /> of CO₂eq are produced every hour by
+            {sector.emoji} <strong>{sector.name}</strong>, {sector.description}.
+        </p>
+        <EmojiBox
+            count={(sector.percent / 100) * values.co2eqEmissionsPerYear.value}
+            factor={1000 * (1 / 365 / 24)}
+            emoji="⚫"
+        />
+    {/each}
+</ContentNote>
 
 <!--
 <p>
@@ -1585,7 +1613,7 @@ EU: avg 10 t/year to heat
 </p>
 -->
 
-<h2>🔋 Energy</h2>
+<!--<h2>🔋 Energy</h2>
 
 <p>
     Energy consumption is not easy to meassure: we need to take two things into
@@ -1700,6 +1728,7 @@ EU: avg 10 t/year to heat
         scale={1}
     />
 </p>
+-->
 
 <h2>💵 Money</h2>
 
@@ -1877,12 +1906,16 @@ EU: avg 10 t/year to heat
     }
     h1 {
         margin-bottom: 0;
+        text-align: center;
+        font-size: 7em;
+        margin-top: 1em;
     }
     #subtitle,
     #subtitle a {
+        text-align: center;
         margin-bottom: 3rem;
         color: #555;
-        font-size: 0.9rem;
+        font-size: 1.3rem;
         font-style: italic;
     }
 </style>

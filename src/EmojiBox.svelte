@@ -66,7 +66,7 @@
                 class="emoji"
                 style="position: relative; left: {instance.offsetX}px; top: {instance.offsetY}px;"
             >
-                {@html renderEmoji(instance.emoji) }
+                {@html renderEmoji(instance.emoji)}
                 {#if instance.value}
                     <span>
                         {Math.round(instance.value)}
@@ -80,6 +80,7 @@
 <style>
     #box {
         position: relative;
+        margin: 2em 0;
     }
     .emoji {
         font-size: 1.5em;

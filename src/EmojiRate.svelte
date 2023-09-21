@@ -74,11 +74,11 @@
                 class="emoji"
                 style="position: relative; left: {instance.offsetX}px; top: {instance.offsetY}px;"
             >
-                {@html renderEmoji(instance.emoji) }{#if instance.share}
+                {@html renderEmoji(instance.emoji)}{#if instance.share}
                     <!-- add a white box, covering 0 to 100% of the emoji -->
                     <div class="cover" style="--share: {instance.share};" />
-                {/if} </span
-            >{/each}
+                {/if}
+            </span>{/each}
     {/if}
 </div>
 
@@ -97,6 +97,5 @@
         width: calc(100% - var(--share) * 100%);
         background: white;
         height: 100%;
-        transform: scale(0.9);
     }
 </style>

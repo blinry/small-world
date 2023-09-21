@@ -39,18 +39,13 @@ export function humanReadableSmall(value, unit) {
             {unit: "milliseconds", factor: 1e-3},
             {unit: "seconds", factor: 1},
             {unit: "minutes", factor: 60},
-            {unit: "hours", factor: 60},
-            {unit: "days", factor: 24},
-            {unit: "months", factor: 30},
+            {unit: "hours", factor: 60 * 60},
+            {unit: "days", factor: 24 * 60 * 60},
+            {unit: "months", factor: 30 * 24 * 60 * 60},
         ]
         // find correct input factor
-        let inputFactor
-        for (let conversion of conversions) {
-            if (conversion.unit === unit) {
-                inputFactor = conversion.factor
-                break
-            }
-        }
+        let inputFactor = 30 * 24 * 60 * 60
+
         // find correct output factor, so that result will be 1-3 digits
         for (let conversion of conversions) {
             let result = (value * inputFactor) / conversion.factor
