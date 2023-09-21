@@ -20,6 +20,8 @@
     import Dots from "./Dots.svelte"
     import ScrollBox from "./ScrollBox.svelte"
 
+    import {ageDistribution} from "./AgeData.js"
+
     import {defaultScale} from "./stores.js"
     import {humanReadable, renderEmoji} from "./helpers.js"
 
@@ -1009,32 +1011,30 @@
 <h2>🧑 Demographics</h2>
 
 <p>
-    There are <Number {...values.humans} /> people on the small world. (<Number
-        {...values.humansEverLived}
-    /> have ever lived.)
-    <Number {...values.humansBornPerYear} /> are born every year, and <Number
+    There are <Number {...values.humans} /> people on the small world.
+    <Number {...values.humansBornPerYear} /> is born every year, and every
+    <Number
+        value={values.humansDiePerYear.value}
+        factor={12}
+        inverse={true}
+        unit={"months"}
+    />, 1 person dies.
+    <!--and <Number
         {...values.humansDiePerYear}
-    /> die.
+    /> die.-->
 </p>
+
+<!--<p>
+    Every three years, <Number {...values.humansDiePerYear} factor={3} /> die.
+</p>-->
 
 <EmojiBox count={values.humans.value} emoji="🧑" />
 
-<p>
-    This is how much our people earn per month. The numbers are already adjusted
-    for price differences between countries. (Note that these values are not
-    scaled down, because they're per-person numbers. They translate directly to
-    real Earth.)
-</p>
+<p>This is where they live:</p>
 
-<EmojiGraph
-    count={values.humans.value}
-    emoji="🧑"
-    barEmoji="💵"
-    unit="$"
-    distribution={(percentile) => Math.round((1.207 / (1 - percentile)) * 30)}
-/>
+<ContinentMap emoji="🧑" {...humans[2023]} />
 
-<p>This is how old they are:</p>
+<p>And this is how old they are:</p>
 
 <EmojiHistogram
     count={values.humans.value}
@@ -1043,36 +1043,15 @@
             return "👶"
         } else if (age < 18) {
             return "🧒"
-        } else if (age < 65) {
+        } else if (age < 60) {
             return "🧑"
         } else {
             return "🧓"
         }
     }}
     bucketSize={10}
-    distribution={(x) => 23 * (1.8 * x + 0.03 * (10 / (1.1 - x))) - 4}
+    distribution={ageDistribution}
 />
-
-<p>
-    <Number value={humans[2023].europe} /> of these people live in Europe. <Number
-        value={humans[2023].africa}
-    /> live in Africa.
-
-    <Number value={humans[2023].asia} /> live in Asia (including <Number
-        value={humans[2023].china}
-    /> in China and <Number value={humans[2023].india} /> in India).
-
-    <Number value={humans[2023].northamerica} /> live in North America. <Number
-        value={humans[2023].southamerica}
-    /> live in South America.
-
-    <Number value={humans[2023].oceania} /> live in Oceania. And <Number
-        value={1000}
-        source="https://en.wikipedia.org/wiki/Antarctica#Population"
-    /> live in Antarctica.
-</p>
-
-<ContinentMap emoji="🧑" {...humans[2023]} />
 
 <p>
     <Number {...values.depression} /> of our <Number {...values.humans} /> people
@@ -1208,24 +1187,28 @@
         value={(values.livestockSurface.value / values.habitableSurface.value) *
             100}
         unit="%"
-    /> of the habitable land is used for livestock. If we'd eat less meat, we could
-    use that land for other things. You can learn more in the Our World in Data article
+    /> of the habitable land is used for livestock. You can learn more in the Our
+    World in Data article
     <a href="https://ourworldindata.org/land-use-diets"
         >If the world adopted a plant-based diet we would reduce global
         agricultural land use from 4 to 1 billion hectares</a
     >.
 </Thought>
 
-<p>
+<!--<p>
     The volume of all water on our small world is <Volume
         {...values.oceanWater}
     />. That's a cube with an edge length of <Length
         value={Math.pow(values.oceanWater.value, 1 / 3)}
         unit="km"
     />.
-</p>
+</p>-->
 
 <h2>⌛ Humans through the centuries</h2>
+
+<p>
+    Until today, <Number {...values.humansEverLived} /> humans have ever lived.
+</p>
 
 <p>Here's how many humans lived on the small world in the year 1900:</p>
 
@@ -1239,9 +1222,9 @@
 <ContinentMap emoji="🧑" {...humans[2100]} />
 
 <Thought t="Will there be even more humans than this in the future?">
-    Surprisingly, no! According to projections by the UN, the global population
-    will peak at around <Number {...values.humans2086} /> humans in 2086. Read more
-    in the article
+    Probably not! According to projections by the UN, the global population will
+    peak at around <Number {...values.humans2086} /> humans in 2086. Read more in
+    the article
     <a
         href="https://ourworldindata.org/population-growth?insight=the-un-expects-the-global-population-to-peak-by-the-end-of-the-century#key-insights"
         >Population Growth</a
@@ -1730,6 +1713,21 @@ EU: avg 10 t/year to heat
 </p>
 
 <EmojiBox count={values.companies.value} emoji="🏢" />
+
+<p>
+    This is how much our people earn per month. The numbers are already adjusted
+    for price differences between countries. (Note that these values are not
+    scaled down, because they're per-person numbers. They translate directly to
+    real Earth.)
+</p>
+
+<EmojiGraph
+    count={values.humans.value}
+    emoji="🧑"
+    barEmoji="💵"
+    unit="$"
+    distribution={(percentile) => Math.round((1.207 / (1 - percentile)) * 30)}
+/>
 
 <h2>🌌 The Universe</h2>
 

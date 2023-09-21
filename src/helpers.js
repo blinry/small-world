@@ -30,6 +30,39 @@ export function humanReadable(value) {
     }
 }
 
+// Converts small values (like 0.000000001 months) into something like 10 seconds.
+export function humanReadableSmall(value, unit) {
+    if (unit === "months") {
+        let conversions = [
+            {unit: "nanoseconds", factor: 1e-9},
+            {unit: "microseconds", factor: 1e-6},
+            {unit: "milliseconds", factor: 1e-3},
+            {unit: "seconds", factor: 1},
+            {unit: "minutes", factor: 60},
+            {unit: "hours", factor: 60},
+            {unit: "days", factor: 24},
+            {unit: "months", factor: 30},
+        ]
+        // find correct input factor
+        let inputFactor
+        for (let conversion of conversions) {
+            if (conversion.unit === unit) {
+                inputFactor = conversion.factor
+                break
+            }
+        }
+        // find correct output factor, so that result will be 1-3 digits
+        for (let conversion of conversions) {
+            let result = (value * inputFactor) / conversion.factor
+            if (result >= 1 && result < 1000) {
+                return `${Math.round(result)} ${conversion.unit}`
+            }
+        }
+    } else {
+        return `${value} ${unit}`
+    }
+}
+
 export function parseValue(value) {
     // Convert strings like "10.5 million bananas", "two thousand tonnes" or "4" or "50 cows" into an object with value and unit.
 

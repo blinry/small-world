@@ -70,11 +70,11 @@
                     class="emoji"
                     style="position: relative; left: {instance.offsetX}px; top: {instance.offsetY}px;"
                 >
-                    {@html renderEmoji(instance.emoji) }
+                    {@html renderEmoji(instance.emoji)}
                 </span>
-                {#if instance.value}
+                {#if instance.value !== undefined}
                     <span>
-                        {Math.round(instance.value)}
+                        {Math.floor(instance.value)}
                     </span>
                 {/if}
             {/each}
