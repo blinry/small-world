@@ -1,27 +1,27 @@
 <script>
     import {renderEmoji} from "./helpers.js"
 
+    export let total
     export let values
-    // values = [{earth:{value: 1, color: "red"}}]
 
-    let maxArea = 400 ** 2 // px
+    let maxArea = 800 ** 2 // px
 
     $: {
-        let max = 0
+        total.scaledValue = maxArea
+        total.width = Math.sqrt(total.scaledValue)
+        total.height = Math.sqrt(total.scaledValue)
         for (let [key, value] of Object.entries(values)) {
-            if (value.value > max) {
-                max = value.value
-            }
-        }
-        for (let [key, value] of Object.entries(values)) {
-            value.scaledValue = (value.value / max) * maxArea
+            value.scaledValue = (value.value / total.value) * maxArea
             value.width = Math.sqrt(value.scaledValue)
             value.height = Math.sqrt(value.scaledValue)
         }
     }
 </script>
 
-<div id="box">
+<div
+    id="box"
+    style="width: {total.width}px; height: {total.height}px; background-color: {total.color};"
+>
     {#each Object.entries(values) as [key, value]}
         <span
             style="width: {value.width}px; height: {value.height}px; background-color: {value.color};"
@@ -32,10 +32,15 @@
 </div>
 
 <style>
+    #box {
+        box-sizing: border-box;
+        padding: 1em;
+    }
     span {
         display: inline-flex;
         justify-content: center;
         align-items: center;
         font-size: 150%;
+        margin: 1em;
     }
 </style>

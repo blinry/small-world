@@ -10,6 +10,7 @@
     import EmojiRate from "./EmojiRate.svelte"
     import EmojiWheel from "./EmojiWheel.svelte"
     import Squares from "./Squares.svelte"
+    import ComparisonMap from "./ComparisonMap.svelte"
     import Question from "./Question.svelte"
     import QuestionButtons from "./QuestionButtons.svelte"
     import Thought from "./Thought.svelte"
@@ -1142,12 +1143,12 @@
 </p>
 
 <Squares
+    total={{
+        value: values.surfaceOfEarth.value,
+        color: "blue",
+        label: "🌊",
+    }}
     values={{
-        ocean: {
-            value: values.oceanSurface.value,
-            color: "blue",
-            label: "🌊",
-        },
         forest: {
             value: values.forestSurface.value,
             color: "darkgreen",
@@ -1190,6 +1191,8 @@
         },
     }}
 />
+
+<ComparisonMap />
 
 <Thought t="That's a lot of land used to keep animals!">
     Yeah! Around <UnscaledNumber
