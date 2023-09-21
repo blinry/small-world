@@ -10,7 +10,6 @@
     import EmojiRate from "./EmojiRate.svelte"
     import EmojiWheel from "./EmojiWheel.svelte"
     import Squares from "./Squares.svelte"
-    import ComparisonMap from "./ComparisonMap.svelte"
     import Question from "./Question.svelte"
     import QuestionButtons from "./QuestionButtons.svelte"
     import Thought from "./Thought.svelte"
@@ -1099,10 +1098,10 @@
     /> of that is ocean.
 </p>
 
-<!--<p>
+<p>
     The planet has a diameter of <Length {...values.diameterOfEarth} />, and has
     a circumference of <Length {...values.circumferenceOfEarth} />.
-</p>-->
+</p>
 
 <p style="font-size: 12rem; text-align: center; margin: 2rem 0;">🌏</p>
 
@@ -1121,7 +1120,7 @@
 />
 -->
 
-<p>
+<!--<p>
     That leaves <Number {...values.habitableSurface} /> of habitable land, which
     is equal to <Number
         {...values.habitableSurface}
@@ -1140,59 +1139,69 @@
     <Number {...values.freshwaterSurface} /> is freshwater, and <Number
         {...values.barrenSurface}
     /> is barren land.
-</p>
+</p>-->
+
+<p>Here's how the land is used! Click on the squares to learn what they are!</p>
 
 <Squares
     total={{
-        value: values.surfaceOfEarth.value,
+        value: values.surfaceOfEarth,
         color: "blue",
         label: "🌊",
     }}
     values={{
         forest: {
-            value: values.forestSurface.value,
+            value: values.forestSurface,
             color: "darkgreen",
             label: "🌲",
+            description: "Forest",
         },
         shrubland: {
-            value: values.shrubSurface.value,
+            value: values.shrubSurface,
             color: "yellowgreen",
             label: "shrub",
+            description: "Shrubs and grasslands",
         },
         urban: {
-            value: values.builtupSurface.value,
+            value: values.builtupSurface,
             color: "gray",
             label: "🏙",
+            description:
+                "Urban and built-up land (cities, towns, villages, roads, and other human infrastructure)",
         },
         freshwater: {
-            value: values.freshwaterSurface.value,
+            value: values.freshwaterSurface,
             color: "lightblue",
             label: "💧",
+            description: "Freshwater",
         },
         livestock: {
-            value: values.livestockSurface.value,
+            value: values.livestockSurface,
             color: "brown",
             label: "🐄",
+            description: "Livestock",
         },
         cropland: {
-            value: values.croplandSurface.value,
+            value: values.croplandSurface,
             color: "yellow",
             label: "🌾",
+            description: "Cropland",
         },
         barren: {
-            value: values.barrenSurface.value,
+            value: values.barrenSurface,
             color: "beige",
             label: "🏜️",
+            description:
+                "Barren land (deserts, dry salt flats, beaches, sand dunes, exposed rocks)",
         },
         glaciers: {
-            value: values.glaciersSurface.value,
+            value: values.glaciersSurface,
             color: "lightgray",
             label: "🧊",
+            description: "Glaciers",
         },
     }}
 />
-
-<ComparisonMap />
 
 <Thought t="That's a lot of land used to keep animals!">
     Yeah! Around <UnscaledNumber
