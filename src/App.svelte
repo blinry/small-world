@@ -986,6 +986,13 @@
     <p>
         There are <UnscaledNumber {...values.dogs} /> dogs on the real Earth.
     </p>
+
+    <p>
+        You get that value by multiplying <Number {...values.dogs} /> (the number
+        of dogs on the small world), with our factor of {humanReadable(
+            $defaultScale
+        )}.
+    </p>
 </QuestionButtons>
 
 <p>
@@ -1091,12 +1098,12 @@
     /> of that is ocean.
 </p>
 
-<p>
-    The planet is <Length {...values.diameterOfEarth} /> high, and has a circumference
-    of <Length {...values.circumferenceOfEarth} />.
-</p>
+<!--<p>
+    The planet has a diameter of <Length {...values.diameterOfEarth} />, and has
+    a circumference of <Length {...values.circumferenceOfEarth} />.
+</p>-->
 
-<p style="font-size: 8rem; text-align: center; margin: 2rem 0;">🌏</p>
+<p style="font-size: 12rem; text-align: center; margin: 2rem 0;">🌏</p>
 
 <!--
 <Squares

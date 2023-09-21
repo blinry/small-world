@@ -28,7 +28,7 @@
 
 body {
     margin: 1rem;
-    font-family: sans-serif, "Noto Color Emoji";
+    font-family: Roboto, sans-serif, "Noto Color Emoji";
     max-width: 60rem;
     margin: 0 auto;
     padding: 1rem;
@@ -36,7 +36,6 @@ body {
 
 * {
     font-size: 1.1rem;
-    font-family: "Roboto", sans-serif;
 }
 
 h1,
