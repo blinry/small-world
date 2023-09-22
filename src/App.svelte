@@ -338,11 +338,35 @@
             year: 2022,
             source: "https://ourworldindata.org/energy-production-consumption",
         },
+        banknotesAndCoinsInCirulation: {
+            value: 8275e9,
+            unit: "USD",
+            year: 2021,
+            source: "https://stats.bis.org/statx/srs/table/CT2",
+        },
+        goldAboveGround: {
+            value: 208874,
+            unit: "tonnes",
+            year: 2022,
+            source: "https://www.gold.org/goldhub/data/how-much-gold",
+        },
+        goldPrice: {
+            value: 61.96,
+            unit: "USD/g",
+            year: 2023,
+            source: "https://goldprice.org",
+        },
         allMoney: {
             value: 48.9e12,
             unit: "USD",
             year: 2022,
             source: "https://www.gobankingrates.com/money/economy/how-much-money-is-in-the-world/",
+        },
+        grossWorldProduct: {
+            value: 100.56e12,
+            unit: "USD",
+            year: 2022,
+            source: "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=1W",
         },
         starsInMilkyWay: {
             value: 250e9,
@@ -1733,8 +1757,30 @@ EU: avg 10 t/year to heat
 <h2>💵 Money</h2>
 
 <p>
-    There is <Number {...values.allMoney} unit="USD" /> in the world (money in circulation,
-    plus in checks and demand deposits).
+    All banknotes and coins that are in circulation right now are worth <Number
+        {...values.banknotesAndCoinsInCirulation}
+        unit="USD"
+    />.
+</p>
+
+<p>
+    <Number {...values.goldAboveGround} /> of gold have been mined so far, which
+    are worth <Number
+        value={values.goldAboveGround.value *
+            1000 *
+            1000 *
+            values.goldPrice.value}
+        unit="USD"
+    />.
+</p>
+
+<p>
+    The gross world product is <Number {...values.grossWorldProduct} /> per year
+    (<UnscaledNumber
+        value={values.grossWorldProduct.value / HUMANS}
+        unit="USD"
+    />
+    per person).
 </p>
 
 <p>

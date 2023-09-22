@@ -18,7 +18,7 @@
         if (factoredValue < 0.5 && unit === "km") {
             betterValue = factoredValue * 1000
             betterUnit = "m"
-        } else if (factoredValue < 0.1 && unit === "tons") {
+        } else if (factoredValue < 0.1 && unit === "tonnes") {
             betterValue = factoredValue * 1000
             betterUnit = "kg"
         } else if (factoredValue < 1 && unit === "km²") {
