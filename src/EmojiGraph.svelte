@@ -3,12 +3,13 @@
     import {renderEmoji} from "./helpers.js"
 
     let limit = 2000
-    let maxBarCount = 50
+    let maxBarCount = 35
 
     export let count = 0
     $: scaledCount = Math.round(count / $defaultScale)
     export let emoji = "❓"
     export let barEmoji = "❓"
+    export let barEmojiNegative = barEmoji
     export let distribution
     export let unit = ""
 
@@ -44,9 +45,15 @@
             }
             let scale = maxBarCount / max
             for (let instance of instances) {
-                instance.bar = barEmoji.repeat(
-                    Math.round(instance.value * scale)
-                )
+                if (instance.value >= 0) {
+                    instance.bar = barEmoji.repeat(
+                        Math.round(instance.value * scale)
+                    )
+                } else {
+                    instance.bar = barEmojiNegative.repeat(
+                        -Math.round(instance.value * scale)
+                    )
+                }
             }
         }
     }
@@ -59,7 +66,7 @@
     {:else}
         {#each instances as instance}
             <div>
-                {@html renderEmoji(emoji) }
+                {@html renderEmoji(emoji)}
                 {Math.round(instance.value)}
                 {unit}
                 {instance.bar}

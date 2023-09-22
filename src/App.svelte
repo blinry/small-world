@@ -21,9 +21,11 @@
     import ScrollBox from "./ScrollBox.svelte"
 
     import {ageDistribution} from "./AgeData.js"
+    import {postTaxIncomeDistribution} from "./IncomeData.js"
+    import {wealthDistribution} from "./WealthData.js"
 
     import {defaultScale} from "./stores.js"
-    import {humanReadable, renderEmoji} from "./helpers.js"
+    import {humanReadable} from "./helpers.js"
 
     const HUMANS = 8.05e9
 
@@ -57,6 +59,10 @@
             value: 117e9,
             year: 2022,
             source: "https://www.prb.org/articles/how-many-people-have-ever-lived-on-earth/",
+        },
+        shareAdults: {
+            value: 1 - 24 / 81,
+            year: 2023,
         },
         extremePoverty: {
             value: 0.0844 * HUMANS,
@@ -1790,18 +1796,29 @@ EU: avg 10 t/year to heat
 <EmojiBox count={values.companies.value} emoji="🏢" />
 
 <p>
-    This is how much our people earn per month. The numbers are already adjusted
-    for price differences between countries. (Note that these values are not
-    scaled down, because they're per-person numbers. They translate directly to
-    real Earth.)
+    This is how much the adult people on our small world earn per month (after
+    tax). The numbers are already adjusted for price differences between
+    countries. (Note that these values are not scaled down, because they're
+    per-person numbers. They translate directly to real Earth.)
 </p>
 
 <EmojiGraph
-    count={values.humans.value}
+    count={values.humans.value * values.shareAdults.value}
     emoji="🧑"
     barEmoji="💵"
     unit="$"
-    distribution={(percentile) => Math.round((1.207 / (1 - percentile)) * 30)}
+    distribution={postTaxIncomeDistribution}
+/>
+
+<p>And this is how rich the adults are:</p>
+
+<EmojiGraph
+    count={values.humans.value * values.shareAdults.value}
+    emoji="🧑"
+    barEmoji="💰"
+    barEmojiNegative="💸"
+    unit="$"
+    distribution={wealthDistribution}
 />
 
 <h2>🌌 The Universe</h2>

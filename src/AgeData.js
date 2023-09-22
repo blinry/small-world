@@ -1,3 +1,4 @@
+// Source: https://population.un.org/wpp/Download/Files/1_Indicators%20(Standard)/CSV_FILES/WPP2022_PopulationBySingleAgeSex_Medium_Percentage_2022-2100.zip
 const ageSexPercentages = [
     {age: 0, male: 0.836, female: 0.794},
     {age: 1, male: 0.829, female: 0.787},
