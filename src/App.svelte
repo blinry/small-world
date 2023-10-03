@@ -376,8 +376,8 @@
         },
         starsInMilkyWay: {
             value: 250e9,
-            year: 2022,
-            source: "https://www.space.com/25959-how-many-stars-are-in-the-milky-way.html",
+            year: 2015,
+            source: "https://asd.gsfc.nasa.gov/blueshift/index.php/2015/07/22/how-many-stars-in-the-milky-way/",
             comment: "estimate ranges from 100-400e9",
         },
         galaxiesInUniverse: {
@@ -413,6 +413,21 @@
             year: 2015,
             unit: "tonnes",
             source: "https://uic.org/IMG/pdf/synopsis_2015_print_5_.pdf",
+        },
+        domains: {
+            value: 254e6,
+            year: 2023,
+            source: "https://www.netcraft.com/blog/september-2023-web-server-survey/",
+        },
+        websites: {
+            value: 1085e6,
+            year: 2023,
+            source: "https://www.netcraft.com/blog/september-2023-web-server-survey/",
+        },
+        internetUsers: {
+            value: 5.3e9,
+            year: 2022,
+            source: "https://www.itu.int/en/ITU-D/Statistics/Pages/facts/default.aspx",
         },
     }
 
@@ -984,7 +999,7 @@
 
 <p>
     To make it easier to grasp, let's scale it down! Imagine a really tiny
-    world:
+    world, so tiny that you can see its big buildings from space:
 </p>
 
 <p
@@ -996,11 +1011,6 @@
     style="font-size: 12rem; text-align: center; margin-bottom: 2rem; margin-top: 0;"
 >
     🌏
-</p>
-
-<p>
-    If you would put the Tokyo Tower (or another big building) on it, you could
-    easily see it!
 </p>
 
 <p>On this small world, there are <Number {...values.cats} /> cats!</p>
@@ -1501,6 +1511,13 @@
 </p>
 
 <EmojiBox count={values.insects.value} emoji="🪰" />
+
+<h2>🌐 Technology</h2>
+
+<p>
+    <Number {...values.internetUsers} /> people use the Internet (which consists
+    of <Number {...values.websites} /> websites).
+</p>
 
 <h2>⚫ Greenhouse gases</h2>
 
