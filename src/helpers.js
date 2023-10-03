@@ -41,7 +41,8 @@ export function humanReadableSmall(value, unit) {
             {unit: "minutes", factor: 60},
             {unit: "hours", factor: 60 * 60},
             {unit: "days", factor: 24 * 60 * 60},
-            {unit: "months", factor: 30 * 24 * 60 * 60},
+            //{unit: "months", factor: 30 * 24 * 60 * 60},
+            {unit: "years", factor: 30 * 24 * 60 * 60 * 365},
         ]
         // find correct input factor
         let inputFactor = 30 * 24 * 60 * 60

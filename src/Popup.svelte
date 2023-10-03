@@ -1,11 +1,19 @@
 <script>
     let visible = false
+
+    function toggle() {
+        visible = !visible
+        if (visible) {
+            document.body.style.height = "100%"
+            document.body.style.overflow = "hidden"
+        } else {
+            document.body.style.height = ""
+            document.body.style.overflow = ""
+        }
+    }
 </script>
 
-<span
-    on:click={() => {
-        visible = !visible
-    }}
+<span on:click={toggle}
     ><slot />{#if visible}<div class="background">
             <div class="popup"><slot name="popup" /></div>
         </div>{/if}

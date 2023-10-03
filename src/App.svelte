@@ -172,6 +172,10 @@
             value: 75e6,
             source: "https://www.abc.net.au/science/articles/2008/01/29/2149185.htm",
         },
+        humansKilledInWorldWar2: {
+            value: 85e6,
+            source: "https://en.wikipedia.org/wiki/World_War_II_casualties",
+        },
         covidDeaths: {
             value: 6.95e6,
             source: "https://ourworldindata.org/covid-deaths",
@@ -1013,30 +1017,53 @@
     🌏
 </p>
 
-<p>On this small world, there are <Number {...values.cats} /> cats!</p>
+<p>
+    On this small world, there are <Number {...values.humans} /> humans! One of them
+    is you!
+</p>
 
-<EmojiBox count={values.cats.value} emoji="🐈" />
+<EmojiBox count={values.humans.value} emoji="🧑" />
+
+<p>Together, the people have <Number {...values.cars} /> cars.</p>
+<EmojiBox count={values.cars.value} emoji="🚗" />
 
 <p>
-    How does that compare to the real Earth? Well, we scale down all numbers by
-    a this factor:
+    And there are <Number {...values.cats} /> cats and <Number
+        {...values.dogs}
+    /> dogs:
+</p>
+
+<EmojiBox count={values.cats.value} emoji="🐈" />
+<EmojiBox count={values.dogs.value} emoji="🐕" />
+
+<h2>💯 How does this relate to the real Earth?</h2>
+
+<p>
+    Have you played with miniature scale models? For examle, model trains use a
+    1:87 scale, which means that real trains are 87 times larger than the
+    models!
+</p>
+
+<p>
+    For our Small World, we picked a factor that's a <i>tiny bit</i> bigger. Here
+    it is:
 </p>
 
 <p class="wow">{humanReadable($defaultScale)}</p>
 
 <p>
-    Quite a number, right? It means that instead of <Number {...values.cats} /> cats,
-    there are <UnscaledNumber {...values.cats} /> cats on the real Earth!
+    Quite a number, right? That means that instead of <Number
+        {...values.cats}
+    /> cats, there are 7 × 100 million = <UnscaledNumber {...values.cats} /> cats
+    on the real Earth!
 </p>
 
 <p>
-    The cool thing is: As you learn more about the small world, you will be able
-    to convert everything back to real numbers! For example, if I tell you that
-    there are <Number {...values.dogs} /> dogs on our small world, you can convert
+    And the cool thing is: As you learn more about the small world, you will be
+    able to convert everything back to real numbers! For example, if you know
+    that there are <Number {...values.dogs} /> dogs on our small world, you can convert
     back to the actual number!
 </p>
-
-<EmojiBox count={values.dogs.value} emoji="🐕" />
 
 <QuestionButtons
     q="How many dogs are there on the real Earth?"
@@ -1060,20 +1087,20 @@
 </QuestionButtons>
 
 <p>
-    Spend some time on our small world, and get a better understanding of the
-    real Earth!
-</p>
-
-<p>
     Each time you see a bold number (like in "<Number {...values.cats} /> cats"),
     it will be a number scaled down to the small world. You can hover over it to
     see the real number, or click on it to see the source.
 </p>
 
+<p>
+    Spend some time on our small world, and get a better understanding of the
+    real Earth!
+</p>
+
 <h2>🧑 Demographics</h2>
 
 <p>
-    There are <Number {...values.humans} /> people on the small world.
+    There are <Number {...values.humans} /> humans on the small world.
     <Number {...values.humansBornPerYear} /> is born every year, and every
     <Number
         value={values.humansDiePerYear.value}
@@ -1092,11 +1119,14 @@
 
 <EmojiBox count={values.humans.value} emoji="🧑" />
 
-<p>This is where they live:</p>
+<p>This is where they live. Where do you live?</p>
 
 <ContinentMap emoji="🧑" {...humans[2023]} />
 
-<p>And this is how old they are:</p>
+<p>
+    And this is how old they are. Again, can you find yourself? Can you find
+    other members of your family?
+</p>
 
 <EmojiHistogram
     count={values.humans.value}
@@ -1116,11 +1146,6 @@
 />
 
 <h2>📊 Other statistics</h2>
-
-<p>
-    <Number {...values.covidCases} /> people have been infected with COVID-19 so
-    far, and <Number {...values.covidDeaths} /> died from it.
-</p>
 
 <EmojiBox count={values.covidCases.value} emoji="🦠" />
 <EmojiBox count={values.covidDeaths.value} emoji="☠️" />
@@ -1333,31 +1358,27 @@
 
 <h2>☠️ Death causes</h2>
 
-<ContentNote
-    t="The next section concerns the topic of death in a playful way. Click here if you want to see it."
->
-    <p>
-        In this section we take a look at death probabilities in our little
-        world. These are current probabilities - they might change during your
-        lifetime!
-    </p>
+<p>
+    What do people on our small world die from? Here's the current global
+    probabilities. Go ahead and spin the wheel by clicking the arrow!
+</p>
 
-    <p>
-        Go ahead and spin the wheel to see what death cause might await you!
-        (And don't take it too seriously ;) )
-    </p>
+<EmojiWheel
+    probabilities={deathCauses.map((cause) => [
+        cause.deathShare,
+        {
+            emoji: cause.emoji,
+            label: cause.cause,
+        },
+    ])}
+/>
 
-    <EmojiWheel
-        probabilities={deathCauses.map((cause) => [
-            cause.deathShare,
-            {
-                emoji: cause.emoji,
-                label: cause.cause,
-            },
-        ])}
-    />
+<p>
+    <Number {...values.covidCases} /> people have been infected with COVID-19 so
+    far, and <Number {...values.covidDeaths} /> died from it.
+</p>
 
-    <!--
+<!--
     {#each deathCauses as cause}
         <p>
             <Number value={cause.deathShare * values.humans.value} /> of the people will
@@ -1370,14 +1391,29 @@
     {/each}
     -->
 
-    <p>
-        <Number {...values.humansKilledByBlackDeath} /> people died from the Black
-        Death in the 14th century. Back then, the world's population was still around
-        <Number {...values.humans1300} />.
-    </p>
+<h2>📖 History</h2>
 
-    <EmojiBox count={values.humansKilledByBlackDeath.value} emoji="☠️" />
-</ContentNote>
+<p>
+    In the 14th century, there were <Number {...values.humans1300} /> humans in the
+    world.
+</p>
+
+<EmojiBox count={values.humans1300.value} emoji="🧑" />
+
+<p>
+    <Number {...values.humansKilledByBlackDeath} /> one of them died from the Black
+    Death.
+</p>
+
+<EmojiBox count={values.humansKilledByBlackDeath.value} emoji="☠️" />
+
+<p>
+    During World War II, the deadliest military conflict in history, <Number
+        {...values.humansKilledInWorldWar2}
+    /> human died.
+</p>
+
+<EmojiBox count={values.humansKilledInWorldWar2.value} emoji="☠️" />
 
 <h2>🛐 Religion</h2>
 
