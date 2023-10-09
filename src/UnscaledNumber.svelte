@@ -55,7 +55,7 @@
         >{roundedValue}{#if betterUnit}{" " + betterUnit}{/if}</span
     >
     <div slot="popup">
-        <p>{comment}</p>
+        <p id="comment">{comment}</p>
         {#if source}
             <p>
                 Source: <a href={source} target="_blank">{source}</a>
@@ -65,6 +65,9 @@
 </Popup>
 
 <style>
+    #comment {
+        font-size: 140%;
+    }
     span {
         font-size: 120%;
     }

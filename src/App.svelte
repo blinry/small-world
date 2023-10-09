@@ -253,6 +253,11 @@
             value: 0.7,
             source: "https://www.ciwf.org.uk/farm-animals/chickens/meat-chickens/",
         },
+        farmedFish: {
+            value: 111.3e9,
+            year: 2019,
+            source: "https://www.sentienceinstitute.org/global-animal-farming-estimates",
+        },
         co2eqEmissionsPerYear: {
             value: 54.59e9,
             unit: "tonnes",
@@ -636,8 +641,8 @@
         })
     }
 
-    // Source: https://en.wikipedia.org/wiki/List_of_religious_populations
-    // Year: 2023
+    // Source: https://www.pewresearch.org/religion/interactives/religious-composition-by-country-2010-2050/
+    // Year: 2020
     const religions = [
         {
             name: "Christianity",
@@ -652,33 +657,23 @@
         {
             name: "Nonreligious",
             description: "are non-religious",
-            percent: 15.58,
-            emoji: "🧑",
+            percent: 15.6,
+            emoji: "⚛️",
         },
         {
             name: "Hinduism",
-            percent: 15.16,
+            percent: 15.2,
             emoji: "🕉️",
         },
         {
             name: "Buddhism",
-            percent: 5.06,
+            percent: 6.6,
             emoji: "☸️",
         },
         {
-            name: "Chinese traditional religion",
-            percent: 5,
-            emoji: "🈴",
-        },
-        {
-            name: "Ethnic religions (without those in separate categories)",
-            percent: 3,
-            emoji: "❓",
-        },
-        {
-            name: "African traditional religions",
-            percent: 1.2,
-            emoji: "❓",
+            name: "Folk religions and other religions",
+            percent: 6.6,
+            emoji: "other-religions",
         },
     ]
 
@@ -1475,6 +1470,15 @@
 <h2>🐾 Animals</h2>
 
 <p>
+    There are <Number {...values.farms} /> farms.<!-- <Number
+        {...values.croplandSurface}
+    /> of land is used for crops, and <Number {...values.livestockSurface} /> is
+    used for livestock.-->
+</p>
+
+<EmojiBox count={values.farms.value} emoji="🏡" />
+
+<p>
     There are <Number {...values.cattleAlive} /> cattle, <Number
         {...values.sheepAlive}
     /> sheep,
@@ -1497,16 +1501,7 @@
         /> of them are raised in intensive industrial farming systems.
     </p>
 
-    <EmojiBox
-        count={values.chickens.value *
-            (1 - values.shareOfChickensRaisedInIntensiveFarming.value)}
-        emoji="🐔"
-    />
-    <EmojiBox
-        count={values.chickens.value *
-            values.shareOfChickensRaisedInIntensiveFarming.value}
-        emoji="🔒"
-    />
+    <EmojiBox count={values.chickens.value} emoji="🐔" />
 
     <p>
         <Number {...values.chickensKilledPerYear} /> chickens are killed every year
@@ -1516,12 +1511,13 @@
 </Question>
 
 <p>
-    There are <Number {...values.farms} /> farms.<!-- <Number
-        {...values.croplandSurface}
-    /> of land is used for crops, and <Number {...values.livestockSurface} /> is
-    used for livestock.-->
+    There are <Number {...values.farmedFish} /> fish alive in fish tanks or ponds
+    right now.
 </p>
 
+<EmojiBox count={values.farmedFish.value} emoji="🐟" />
+
+<!--
 <p>
     <Number {...values.fishCaptured} /> of fish are captured every year, and <Number
         {...values.fishFromAquaculture}
@@ -1540,13 +1536,14 @@
         values.individualFishPerTonne.value}
     emoji="🐟"
 />
+-->
 
-<p>
+<!--<p>
     There's the incredible number of <Number {...values.insects} /> insects alive
     right now.
-</p>
 
-<EmojiBox count={values.insects.value} emoji="🪰" />
+    <EmojiBox count={values.insects.value} emoji="🪰" />
+</p>-->
 
 <h2>🌐 Technology</h2>
 
