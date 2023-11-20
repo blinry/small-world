@@ -1,4 +1,6 @@
 <script>
+    import Portal from "./Portal.svelte"
+
     let visible = false
 
     function toggle() {
@@ -13,11 +15,15 @@
     }
 </script>
 
-<span on:click={toggle}
-    ><slot />{#if visible}<div class="background">
-            <div class="popup"><slot name="popup" /></div>
-        </div>{/if}
-</span>
+    <span on:click={toggle}
+        ><slot />
+    </span>
+
+<Portal>
+        {#if visible}<div class="background" on:click={toggle}>
+                <div class="popup"><slot name="popup" /></div>
+            </div>{/if}
+</Portal>
 
 <style>
     span {

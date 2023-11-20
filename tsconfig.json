@@ -1,0 +1,10 @@
+{
+    "extends": "@tsconfig/svelte/tsconfig.json",
+    "compilerOptions": {
+        "allowImportingTsExtensions": true,
+        "typeRoots": ["typings", "node_modules/@types"],
+        "lib": ["es2015", "dom"],
+        "allowJs": true
+    },
+    "include": ["src/**/*.ts", "src/**/*.svelte"]
+}
