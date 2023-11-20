@@ -269,13 +269,18 @@
             year: 2019,
             source: "https://www.who.int/news-room/fact-sheets/detail/depression",
         },
-        overweight: {
-            value: 1.9e9,
+        overweightOrObese: {
+            value: 1.9e9 + 340e6 + 38e6,
             year: 2016,
             source: "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight",
         },
         obese: {
             value: 650e6,
+            year: 2016,
+            source: "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight",
+        },
+        onlyOverweight: {
+            value: 1.9e9 + 340e6 + 38e6 - 650e6,
             year: 2016,
             source: "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight",
         },
@@ -671,7 +676,7 @@
             emoji: "☸️",
         },
         {
-            name: "Folk religions and other religions",
+            name: "Other religions",
             percent: 6.6,
             emoji: "other-religions",
         },
@@ -1025,7 +1030,7 @@
 <p>
     And there are <Number {...values.cats} /> cats and <Number
         {...values.dogs}
-    /> dogs:
+    /> dogs (including undomesticated ones).
 </p>
 
 <EmojiBox count={values.cats.value} emoji="🐈" />
@@ -1099,9 +1104,9 @@
     <Number {...values.humansBornPerYear} /> is born every year, and every
     <Number
         value={values.humansDiePerYear.value}
-        factor={12}
+        factor={1}
         inverse={true}
-        unit={"months"}
+        unit={"years"}
     />, one of them dies.
     <!--and <Number
         {...values.humansDiePerYear}
@@ -1142,15 +1147,15 @@
 
 <h2>📊 Other statistics</h2>
 
-<EmojiBox count={values.covidCases.value} emoji="🦠" />
-<EmojiBox count={values.covidDeaths.value} emoji="☠️" />
-
 <p>
-    <Number {...values.overweight} /> are overweight.
-    <Number {...values.obese} /> are obese.
+    Here's some more information about our <Number {...values.humans} /> humans!
 </p>
 
-<EmojiBox count={values.overweight.value} emoji="overweight" />
+<p>
+    <Number {...values.onlyOverweight} /> are overweight, and <Number {...values.obese} /> are obese.
+</p>
+
+<EmojiBox count={values.onlyOverweight.value} emoji="overweight" />
 <EmojiBox count={values.obese.value} emoji="obese" />
 
 <p>
@@ -1167,6 +1172,27 @@
     water.
 </p>
 <EmojiBox count={values.noAccessToSafeDrinkingWater.value} emoji="🚱" />
+
+<QuestionButtons
+    q="Time for another conversion practice! How many people have no access to safe drinking water on the real Earth?"
+    a={humanReadable(values.noAccessToSafeDrinkingWater.value)}
+    fakeAnswers={[
+        humanReadable(values.noAccessToSafeDrinkingWater.value / 1000),
+        humanReadable(values.noAccessToSafeDrinkingWater.value * 10),
+        humanReadable(values.noAccessToSafeDrinkingWater.value / 100000),
+    ]}
+>
+    <p>The correct answer is that there are <UnscaledNumber
+        {...values.noAccessToSafeDrinkingWater}
+    /> people without access to safe drinking water on the real Earth.</p>
+
+    <p>
+        You get that value by multiplying <Number
+            {...values.noAccessToSafeDrinkingWater}
+        /> (the number of people without access to safe drinking water on the
+        small world), with our factor of {humanReadable($defaultScale)}.
+</QuestionButtons>
+
 
 <p>
     <Number {...values.noAccessToElectricity} /> don't have access to electricity.
@@ -1373,6 +1399,9 @@
     far, and <Number {...values.covidDeaths} /> died from it.
 </p>
 
+<EmojiBox count={values.covidCases.value} emoji="🦠" />
+<EmojiBox count={values.covidDeaths.value} emoji="☠️" />
+
 <!--
     {#each deathCauses as cause}
         <p>
@@ -1415,8 +1444,10 @@
 {#each religions as religion}
     <p>
         <Number value={(religion.percent / 100) * values.humans.value} /> of the
-        people follow
-        <b>{religion.name}</b>.
+        people
+    {#if religion.description}
+    <b>{religion.description}</b>{:else}
+        follow <b>{religion.name}</b>{/if}.
     </p>
     <EmojiBox
         count={(religion.percent / 100) * values.humans.value}
@@ -1492,7 +1523,7 @@
     <EmojiBox count={values.pigAlive.value} emoji="🐖" />
 </p>
 <Question
-    q="What do you think, how many chickens are alive right now (in the small world)?"
+    q="What do you think: How many chickens are alive right now (in the small world)?"
 >
     <p>
         There are <Number {...values.chickens} /> chickens alive right now. <Number
@@ -1511,7 +1542,7 @@
 </Question>
 
 <p>
-    There are <Number {...values.farmedFish} /> fish alive in fish tanks or ponds
+    There are <Number {...values.farmedFish} /> fish being kept in fish tanks or ponds
     right now.
 </p>
 
