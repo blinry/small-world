@@ -104,8 +104,20 @@ const postTaxIncomePercentiles = [
     {percentile: 99, value: 294666.4},
 ]
 
-export function postTaxIncomeDistribution(x) {
-    let i = Math.floor(x * 100)
-    let usdPerEuro = 1.09
-    return (postTaxIncomePercentiles[i].value * usdPerEuro) / 12 // Per month!
+export function postTaxIncomeDistribution(x1, x2) {
+    let sum = 0
+    let count = 0
+    for (let i = 0; i < postTaxIncomePercentiles.length; i++) {
+        if (
+            postTaxIncomePercentiles[i].percentile >= x1 * 100 &&
+            postTaxIncomePercentiles[i].percentile <= x2 * 100
+        ) {
+            sum += postTaxIncomePercentiles[i].value
+            count++
+        }
+    }
+
+    const usdPerEur = 1.21
+
+    return ((sum / count) * usdPerEur) / 12 // per month!
 }

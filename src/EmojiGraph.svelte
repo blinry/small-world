@@ -32,7 +32,7 @@
         if (scaledCount >= 1 && scaledCount <= limit) {
             for (let i = 0; i < scaledCount; i++) {
                 let newInstance = {
-                    value: distribution((i + 0.5) / scaledCount),
+                    value: distribution(i / scaledCount, (i+1)/scaledCount),
                 }
                 instances.push(newInstance)
             }

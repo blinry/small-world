@@ -4,9 +4,9 @@
     import {humanReadable, humanReadableSmall} from "./helpers.js"
 
     export let value
-    export let unit
+    export let unit = null
     export let factor = 1
-    export let source
+    export let source = null
     export let inverse = false
 
     let scaledValue

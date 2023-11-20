@@ -104,7 +104,20 @@ const wealthPercentiles = [
     {percentile: 99, value: 3007763.8},
 ]
 
-export function wealthDistribution(x) {
-    let i = Math.floor(x * 100)
-    return wealthPercentiles[i].value
+export function wealthDistribution(x1, x2) {
+    let sum = 0
+    let count = 0
+    for (let i = 0; i < wealthPercentiles.length; i++) {
+        if (
+            wealthPercentiles[i].percentile >= x1 * 100 &&
+            wealthPercentiles[i].percentile <= x2 * 100
+        ) {
+            sum += wealthPercentiles[i].value
+            count++
+        }
+    }
+
+    const usdPerEur = 1.21
+
+    return (sum / count) * usdPerEur
 }

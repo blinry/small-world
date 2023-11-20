@@ -2,10 +2,10 @@
     import Popup from "./Popup.svelte"
     import {humanReadable} from "./helpers.js"
     export let value
-    export let unit
+    export let unit = null
     export let comment = "This is the actual value on the real Earth."
     export let factor = 1
-    export let source
+    export let source = null
 
     let betterValue
     let betterUnit
