@@ -19,6 +19,7 @@
         "lodash": "^4.17.21",
         "papaparse": "^5.4.1",
         "prettier": "^2.8.8",
+        "typescript": "^5.2.2",
         "vite-plugin-checker": "^0.6.2"
     }
 }

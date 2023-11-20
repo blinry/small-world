@@ -986,6 +986,11 @@
             oceania: 68.71e6,
         },
     }
+    // Add sums.
+    for (const year in humans) {
+        const sum = Object.values(humans[year]).reduce((a, b) => a + b, 0)
+        humans[year].sum = sum
+    }
 </script>
 
 <ScrollBar />
@@ -1356,18 +1361,18 @@
     Until today, <Number {...values.humansEverLived} /> humans have ever lived.
 </p>
 
-<p>Here's how many humans lived on the small world in the year 1900:</p>
+<p>In the year 1900, there were <Number value={humans[1900].sum} /> humans on the small world. Here's where they lived:</p>
 
 <ContinentMap emoji="🧑" {...humans[1900]} />
 
 <p>
-    And this is the projection of how many humans will live on the small world
-    in the year 2100:
+    And in the year 2100, it's estimated that there will be <Number
+        value={humans[2100].sum}/> humans:
 </p>
 
 <ContinentMap emoji="🧑" {...humans[2100]} />
 
-<Thought t="Will the global population increase even more in the future?">
+<Thought t="Will there the number of humans keep increasing?">
     Probably not! According to projections by the UN, it will peak at around <Number
         {...values.humans2086}
     /> humans in 2086. Read more in the article

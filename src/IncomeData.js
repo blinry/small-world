@@ -105,7 +105,7 @@ const postTaxIncomePercentiles = [
 ]
 
 export function postTaxIncomeDistribution(x) {
-    let sum = 0
     let i = Math.floor(x * 100)
-    return postTaxIncomePercentiles[i].value / 12 // Per month!
+    let usdPerEuro = 1.09
+    return (postTaxIncomePercentiles[i].value * usdPerEuro) / 12 // Per month!
 }
