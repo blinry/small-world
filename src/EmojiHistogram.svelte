@@ -1,4 +1,6 @@
 <script>
+    import Popup from "./Popup.svelte"
+
     import {defaultScale} from "./stores.js"
     import {renderEmoji} from "./helpers.js"
 
@@ -7,6 +9,7 @@
     export let count = 0
     export let scale
     export let bucketSize
+    export let source
 
     let scaledCount
     let zeroesAfterDecimal
@@ -59,6 +62,7 @@
     }
 </script>
 
+<Popup>
 <div id="box">
     {#if scaledCount > limit}
         (A lot of {emoji}s, which I won't render, because it would crash your
@@ -82,6 +86,14 @@
         {/each}
     {/if}
 </div>
+    <div slot="popup">
+        {#if source}
+            <p>
+                Source: <a href={source} target="_blank">{source}</a>
+            </p>
+        {/if}
+    </div>
+</Popup>
 
 <style>
     #box {

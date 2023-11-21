@@ -480,13 +480,13 @@
         },
         {
             name: "Road transport",
-            description: "",
+            description: "from the burning of petrol and diesel in cars, trucks, lorries, motorcycles and buses. 60% of these emissions come from passenger travel, and the remaining 40% from road freight",
             percent: 11.9,
             emoji: "🚗",
         },
         {
             name: "Aviation",
-            description: "",
+            description: "81% of which come from passenger travel, and 19% from freight",
             percent: 1.9,
             emoji: "✈️",
         },
@@ -510,13 +510,13 @@
         },
         {
             name: "Residential",
-            description: "",
+            description: "from the generation of electricity for lighting, appliances, cooking etc. and heating at home",
             percent: 10.9,
             emoji: "🏠",
         },
         {
             name: "Commercial",
-            description: "",
+            description: "from the generation of electricity for lighting, appliances, etc. and heating in commercial buildings, such as offices, restaurants, and shops",
             percent: 6.6,
             emoji: "🏢",
         },
@@ -534,7 +534,7 @@
         },
         {
             name: "Other industry",
-            description: "",
+            description: "from manufacturing in industries not listed below, including mining and quarrying, construction, textiles, wood products, and transport equipment (such as car manufacturing)",
             percent: 10.6,
             emoji: "🏭",
         },
@@ -546,7 +546,7 @@
         },
         {
             name: "Unallocated fuel combustion",
-            description: "",
+            description: "from the production energy from other fuels including electricity and heat from biomass; on-site heat sources; combined heat and power (CHP); nuclear industry; and pumped hydroelectric storage",
             percent: 7.8,
             emoji: "🔥",
         },
@@ -576,7 +576,7 @@
         },
         {
             name: "Livestock & Manure",
-            description: "",
+            description: "mainly produced by cattle and sheep – when microbes in their digestive systems break down food, they produce methane as a by-product",
             percent: 5.8,
             emoji: "🐄💩",
         },
@@ -641,10 +641,13 @@
         greenhouseGasEmissionsSectors.push({
             sector: "Other",
             description: "",
-            share: remainingEmissionsShare,
+            percent: remainingEmissionsShare,
             emoji: "❓",
         })
     }
+
+    // Sort sectors by share.
+    greenhouseGasEmissionsSectors.sort((a, b) => b.percent - a.percent)
 
     // Source: https://www.pewresearch.org/religion/interactives/religious-composition-by-country-2010-2050/
     // Year: 2020
@@ -1109,6 +1112,7 @@
     <Number {...values.humansBornPerYear} /> is born every year, and every
     <Number
         value={values.humansDiePerYear.value}
+        source={values.humansDiePerYear.source}
         factor={1}
         inverse={true}
         unit={"years"}
@@ -1126,7 +1130,9 @@
 
 <p>This is where they live. Where do you live?</p>
 
-<ContinentMap emoji="🧑" {...humans[2023]} />
+<ContinentMap emoji="🧑" {...humans[2023]}
+source="https://ourworldindata.org/grapher/population-regions-with-projections"
+/>
 
 <p>
     And this is how old they are. Again, can you find yourself? Can you find
@@ -1148,6 +1154,7 @@
     }}
     bucketSize={10}
     distribution={ageDistribution}
+    source="https://population.un.org/wpp/Download/Files/1_Indicators%20(Standard)/CSV_FILES/WPP2022_PopulationBySingleAgeSex_Medium_Percentage_2022-2100.zip"
 />
 
 <h2>📊 Other statistics</h2>
@@ -1279,6 +1286,7 @@
         color: "blue",
         label: "🌊",
     }}
+    source="https://ourworldindata.org/land-use"
     values={{
         forest: {
             value: values.forestSurface,
@@ -1363,14 +1371,18 @@
 
 <p>In the year 1900, there were <Number value={humans[1900].sum} /> humans on the small world. Here's where they lived:</p>
 
-<ContinentMap emoji="🧑" {...humans[1900]} />
+<ContinentMap emoji="🧑" {...humans[1900]}
+source="https://ourworldindata.org/grapher/population-regions-with-projections"
+/>
 
 <p>
     And in the year 2100, it's estimated that there will be <Number
         value={humans[2100].sum}/> humans:
 </p>
 
-<ContinentMap emoji="🧑" {...humans[2100]} />
+<ContinentMap emoji="🧑" {...humans[2100]} 
+source="https://ourworldindata.org/grapher/population-regions-with-projections"
+/>
 
 <Thought t="Will there the number of humans keep increasing?">
     Probably not! According to projections by the UN, it will peak at around <Number
@@ -1397,6 +1409,7 @@
             label: cause.cause,
         },
     ])}
+    source="https://ourworldindata.org/grapher/share-of-deaths-by-cause?time=latest"
 />
 
 <p>
@@ -1637,6 +1650,7 @@ Also das inner Stunde.
 17.71 kg CO2 pro Stunde
 -->
 
+<!--
 <p>
     As a worldwide average, we produce <UnscaledNumber
         value={values.co2eqEmissionsPerYear.value / values.humans.value}
@@ -1670,6 +1684,7 @@ Also das inner Stunde.
     And flying that distance produces <UnscaledNumber value={230} unit="kg" />.
 </p>
 <EmojiBox count={230} unscaled={true} emoji="⚫" />
+-->
 
 <!--
 EU: avg 10 t/year to heat
@@ -1687,15 +1702,24 @@ EU: avg 10 t/year to heat
         {...values.co2eqEmissionsPerYear}
         factor={1000 * (1 / 365 / 24)}
         unit="kg"
-    /> of CO₂eq <b>per hour</b>. That's this many bubbles since you opened this
-    page:
+    /> of CO₂ <b>per hour</b>.
 </p>
 
-<EmojiRate {...values.co2eqEmissionsPerYear} factor={1000} emoji="⚫" />
+<!--<EmojiRate {...values.co2eqEmissionsPerYear} factor={1000} emoji="⚫" />-->
+
+<EmojiBox
+    count={values.co2eqEmissionsPerYear.value}
+    factor={1000 * (1 / 365 / 24)}
+    emoji="⚫"
+/>
 
 <ContentNote
     t="Do you want to see more details about where exactly these bubbles come from?"
 >
+<p>Okay, sure! Here's a description of where these CO₂ bubbles come from.</p>
+
+<p>Note: We use the term "CO₂" as a shorthand for "CO₂-equivalent", which includes other greenhouse gases like methane.</p>
+
     {#each greenhouseGasEmissionsSectors as sector}
         <p>
             <Number
@@ -1703,7 +1727,7 @@ EU: avg 10 t/year to heat
                     values.co2eqEmissionsPerYear.value}
                 factor={(1 / 365 / 24) * 1000}
                 unit="kg"
-            /> of CO₂eq are produced every hour by
+            /> of CO₂ are produced every hour by
             {sector.emoji} <strong>{sector.name}</strong>, {sector.description}.
         </p>
         <EmojiBox
@@ -1894,6 +1918,7 @@ EU: avg 10 t/year to heat
     barEmoji="💵"
     unit="$"
     distribution={postTaxIncomeDistribution}
+    source="https://wid.world/data/"
 />
 
 <p>And this is how rich the adults are:</p>
@@ -1905,6 +1930,7 @@ EU: avg 10 t/year to heat
     barEmojiNegative="💸"
     unit="$"
     distribution={wealthDistribution}
+    source="https://wid.world/data/"
 />
 
 <h2>🌌 The Universe</h2>

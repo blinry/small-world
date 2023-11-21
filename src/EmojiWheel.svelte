@@ -6,6 +6,7 @@
 
     export let segments = 50
     export let probabilities = []
+    export let source
 
     let wheelScale = 1
     let wheelWidthAtScale1 = 1200 // px, not super precise way of doing it...
@@ -131,8 +132,19 @@
             </div>
         {/each}
         <div id="center" style="--rotation: {-(rotation * 180) / Math.PI}deg">
-            <span id="center-emoji">{@html renderEmoji(centerEmoji)}</span><br
-            />{centerLabel}
+            <Popup>
+            <div>
+            <span style="font-size: 1200%">{@html renderEmoji(centerEmoji)}</span><br
+            /><span style="font-size: 150%">{centerLabel}</span>
+            </div>
+    <div slot="popup">
+        {#if source}
+            <p>
+                Source: <a href={source} target="_blank">{source}</a>
+            </p>
+        {/if}
+    </div>
+            </Popup>
         </div>
     </div>
     <div id="arrow" on:click={start}>⬅️</div>
@@ -174,8 +186,5 @@
         transform: translate(-50%, -50%) rotate(var(--rotation));
         text-align: center;
         font-size: 150%;
-    }
-    #center-emoji {
-        font-size: 800%;
     }
 </style>

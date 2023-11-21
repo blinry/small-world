@@ -6,6 +6,7 @@
 
     export let total
     export let values
+    export let source
 
     let maxArea = 800 ** 2 // px
 
@@ -50,6 +51,9 @@
                             value={Math.sqrt(value.value.value)}
                             unit="km"
                         />)
+                    </p>
+                    <p>
+                        Source: <a href={source} target="_blank">{source}</a>
                     </p>
                 </div>
             </Popup>

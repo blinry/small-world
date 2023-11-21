@@ -1,4 +1,6 @@
 <script>
+    import Popup from "./Popup.svelte"
+
     import {defaultScale} from "./stores.js"
     import {renderEmoji} from "./helpers.js"
 
@@ -12,6 +14,7 @@
     export let barEmojiNegative = barEmoji
     export let distribution
     export let unit = ""
+    export let source = null
 
     const pixelsPerEntity = 80 ** 2
     let clientWidth
@@ -59,6 +62,7 @@
     }
 </script>
 
+<Popup>
 <div id="box">
     {#if scaledCount > limit}
         (A lot of {emoji}s, which I won't render, because it would crash your
@@ -74,6 +78,14 @@
         {/each}
     {/if}
 </div>
+    <div slot="popup">
+        {#if source}
+            <p>
+                Source: <a href={source} target="_blank">{source}</a>
+            </p>
+        {/if}
+    </div>
+</Popup>
 
 <style>
 </style>

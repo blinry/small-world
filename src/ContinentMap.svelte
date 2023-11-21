@@ -11,6 +11,8 @@
     export let southamerica
     export let oceania
 
+    export let source
+
     let clusterDefinitions = {
         europe: {
             center: [0.5, 0.13],
@@ -76,7 +78,7 @@
                 top: {cluster.center[1] * 100}%;
             "
         >
-            <span class="number"><Number value={cluster.count} /></span>
+            <span class="number"><Number value={cluster.count} source={source} /></span>
             <hr />
             {#each Array(cluster.scaledCount) as _}
                 <span class="emoji">{emoji}</span>
