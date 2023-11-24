@@ -63,29 +63,29 @@
 </script>
 
 <Popup>
-<div id="box">
-    {#if scaledCount > limit}
-        (A lot of {emoji}s, which I won't render, because it would crash your
-        browser.)
-    {:else}
-        {#each buckets as bucket}
-            {#each bucket as instance}
-                <span
-                    class="emoji"
-                    style="position: relative; left: {instance.offsetX}px; top: {instance.offsetY}px;"
-                >
-                    {@html renderEmoji(instance.emoji)}
-                </span>
-                {#if instance.value !== undefined}
-                    <span>
-                        {Math.floor(instance.value)}
+    <div id="box">
+        {#if scaledCount > limit}
+            (A lot of {emoji}s, which I won't render, because it would crash
+            your browser.)
+        {:else}
+            {#each buckets as bucket}
+                {#each bucket as instance}
+                    <span
+                        class="emoji"
+                        style="position: relative; left: {instance.offsetX}px; top: {instance.offsetY}px;"
+                    >
+                        {@html renderEmoji(instance.emoji)}
                     </span>
-                {/if}
+                    {#if instance.value !== undefined}
+                        <span>
+                            {Math.floor(instance.value)}
+                        </span>
+                    {/if}
+                {/each}
+                <br />
             {/each}
-            <br />
-        {/each}
-    {/if}
-</div>
+        {/if}
+    </div>
     <div slot="popup">
         {#if source}
             <p>

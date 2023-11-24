@@ -1,6 +1,6 @@
 <script>
-    import _ from 'lodash'
-    import confetti from 'canvas-confetti';
+    import _ from "lodash"
+    import confetti from "canvas-confetti"
 
     export let q
     export let a
@@ -11,9 +11,8 @@
 
     $: allAnswers = _.shuffle([...fakeAnswers, a])
 
-    const audioFail = new Audio("fail.wav");
-    const audioCorrect = new Audio("correct.wav");
-
+    const audioFail = new Audio("fail.wav")
+    const audioCorrect = new Audio("correct.wav")
 </script>
 
 <div>
@@ -26,27 +25,27 @@
                 class:wrong={answer !== a && answerShown === true}
                 on:click={() => {
                     answerShown = true
-                    if(answer === a){
+                    if (answer === a) {
                         confetti({
                             particleCount: 100,
                             spread: 70,
-                            origin: { y: 0.6 }
-                        });
+                            origin: {y: 0.6},
+                        })
                         audioCorrect.play()
-                    }else{
+                    } else {
                         audioFail.play()
                     }
-                } }
-
+                }}
                 disabled={answerShown}
-            >{#if answerShown}
-                {#if answer === a}
-                    ✅
-                {:else}
-                    ❌
+                >{#if answerShown}
+                    {#if answer === a}
+                        ✅
+                    {:else}
+                        ❌
+                    {/if}
                 {/if}
-            {/if}
-            {answer}</button>
+                {answer}</button
+            >
         {/each}
     </div>
 
@@ -63,7 +62,7 @@
         margin: 1rem 0;
     }
 
-    .button-wrapper{
+    .button-wrapper {
         display: flex;
         width: 100%;
         box-sizing: border-box;
@@ -72,17 +71,17 @@
         gap: 1rem;
     }
 
-    .button-wrapper > button{
+    .button-wrapper > button {
         flex-grow: 1;
         width: 40%;
         color: black;
     }
 
-    .correct{
-        background-color: DarkSeaGreen ;
+    .correct {
+        background-color: DarkSeaGreen;
     }
 
-    .wrong{
+    .wrong {
         background-color: RosyBrown;
     }
 </style>

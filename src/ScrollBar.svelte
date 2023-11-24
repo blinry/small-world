@@ -12,11 +12,11 @@
             const {offsetTop, offsetHeight} = h2
             const progress = Math.max(
                 0,
-                Math.min(1, (offsetTop - clientHeight / 2) / height)
+                Math.min(1, (offsetTop - clientHeight / 2) / height),
             )
             const emoji = h2.textContent.replaceAll(
                 /[^\p{Extended_Pictographic}]/gu,
-                ""
+                "",
             )
             return {name: h2.textContent, emoji, progress}
         })

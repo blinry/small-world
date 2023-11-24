@@ -46,7 +46,8 @@
                 </span>
                 <div slot="popup">
                     <p>
-                        {value.description}: <Number {...value.value} /> (a square with an edge length of
+                        {value.description}: <Number {...value.value} /> (a square
+                        with an edge length of
                         <Length
                             value={Math.sqrt(value.value.value)}
                             unit="km"

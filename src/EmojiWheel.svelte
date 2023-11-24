@@ -44,7 +44,7 @@
                 Math.round(
                     segmentInstances.length +
                         (1 - (rotation % (Math.PI * 2)) / (Math.PI * 2)) *
-                            segmentInstances.length
+                            segmentInstances.length,
                 ) % segmentInstances.length
             centerEmoji = segmentInstances[segmentIndex].emoji
             if (rotationSpeed <= 0.01) {
@@ -70,8 +70,19 @@
             segments - segmentCounts.reduce((acc, p) => acc + p[0], 0)
         segmentCounts.push([
             remainingSegments,
-            {emoji: "❓", label: "Other causes",
-            description: "including: " + probabilities.filter(p => Math.round(p[0] / (100.0 / segments)) == 0).map(p => p[1].label).slice(0, 5).join(", ") + ", ..."
+            {
+                emoji: "❓",
+                label: "Other causes",
+                description:
+                    "including: " +
+                    probabilities
+                        .filter(
+                            (p) => Math.round(p[0] / (100.0 / segments)) == 0,
+                        )
+                        .map((p) => p[1].label)
+                        .slice(0, 5)
+                        .join(", ") +
+                    ", ...",
             },
         ])
 
@@ -140,24 +151,27 @@
         {/each}
         <div id="center" style="--rotation: {-(rotation * 180) / Math.PI}deg">
             <Popup>
-            <div>
-            <span style="font-size: 1200%">{@html renderEmoji(centerEmoji)}</span><br
-            /><span style="font-size: 150%">{centerLabel}</span><br>
-            {#if description}
-            {#if description == " " || description == "" || description == "​"}
-                <span style="font-size: 100%">{description}</span>
-            {:else}
-                <span style="font-size: 100%">({description})</span>
-                {/if}
-                {/if}
-            </div>
-    <div slot="popup">
-        {#if source}
-            <p>
-                Source: <a href={source} target="_blank">{source}</a>
-            </p>
-        {/if}
-    </div>
+                <div>
+                    <span style="font-size: 1200%"
+                        >{@html renderEmoji(centerEmoji)}</span
+                    ><br /><span style="font-size: 150%">{centerLabel}</span><br
+                    />
+                    {#if description}
+                        {#if description == " " || description == "" || description == "​"}
+                            <span style="font-size: 100%">{description}</span>
+                        {:else}
+                            <span style="font-size: 100%">({description})</span>
+                        {/if}
+                    {/if}
+                </div>
+                <div slot="popup">
+                    {#if source}
+                        <p>
+                            Source: <a href={source} target="_blank">{source}</a
+                            >
+                        </p>
+                    {/if}
+                </div>
             </Popup>
         </div>
     </div>

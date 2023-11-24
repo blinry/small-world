@@ -117,8 +117,8 @@ export async function onDataReady(hook) {
     await parseCSV(povertyCSV)
     await Promise.all(
         Object.keys(propertyDefinitions).map(async (propertyName) =>
-            parseCSV(`/data/${propertyName}.csv`)
-        )
+            parseCSV(`/data/${propertyName}.csv`),
+        ),
     )
 
     hook()
@@ -147,7 +147,7 @@ async function getTotalHumans(entity, year) {
     let yearField = 1
 
     let currentData = results.data.filter(
-        (row) => row[entityField] == entity && Number(row[yearField]) == year
+        (row) => row[entityField] == entity && Number(row[yearField]) == year,
     )
     if (currentData.length <= 0) {
         throw `getTotalHumans: No age data for ${entity} in ${year}.`
@@ -169,7 +169,7 @@ async function generateGenericProperty(year, entity, propertyName) {
     let yearField = 1
 
     let currentData = results.data.filter(
-        (row) => row[entityField] == entity && Number(row[yearField]) == year
+        (row) => row[entityField] == entity && Number(row[yearField]) == year,
     )
     if (currentData.length <= 0) {
         throw `No ${propertyName} data for ${entity} in ${year}.`
@@ -221,7 +221,7 @@ async function generateAgeProperty(year, entity) {
         },
     ]
     let currentData = results.data.filter(
-        (row) => row[entityField] == entity && Number(row[yearField]) == year
+        (row) => row[entityField] == entity && Number(row[yearField]) == year,
     )
     if (currentData.length <= 0) {
         throw `No age data for ${entity} in ${year}.`
@@ -267,7 +267,7 @@ async function generatePovertyProperty(year, entity) {
         },
     ]
     let data = results.data.filter(
-        (row) => row[entityField] == entity && Number(row[yearField]) == year
+        (row) => row[entityField] == entity && Number(row[yearField]) == year,
     )
     if (data.length <= 0) {
         throw `No poverty data for ${entity} in ${year}.`
@@ -326,7 +326,7 @@ export function buildWorld(scale, year, entity) {
         try {
             humanProperties["poverty"] = await generatePovertyProperty(
                 year,
-                entity
+                entity,
             )
         } catch (e) {
             console.error(e)
@@ -338,7 +338,7 @@ export function buildWorld(scale, year, entity) {
                 humanProperties[propertyName] = await generateGenericProperty(
                     year,
                     entity,
-                    propertyName
+                    propertyName,
                 )
             } catch (e) {
                 console.error(e)

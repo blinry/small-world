@@ -78,7 +78,8 @@
                 top: {cluster.center[1] * 100}%;
             "
         >
-            <span class="number"><Number value={cluster.count} source={source} /></span>
+            <span class="number"><Number value={cluster.count} {source} /></span
+            >
             <hr />
             {#each Array(cluster.scaledCount) as _}
                 <span class="emoji">{emoji}</span>

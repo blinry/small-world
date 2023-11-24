@@ -6,7 +6,8 @@
     "scripts": {
         "dev": "vite --host",
         "build": "vite build",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "format": "prettier --write ."
     },
     "devDependencies": {
         "@sveltejs/vite-plugin-svelte": "^2.0.0",
@@ -18,7 +19,8 @@
         "canvas-confetti": "^1.6.0",
         "lodash": "^4.17.21",
         "papaparse": "^5.4.1",
-        "prettier": "^2.8.8",
+        "prettier": "^3.1.0",
+        "prettier-plugin-svelte": "^3.1.2",
         "typescript": "^5.2.2",
         "vite-plugin-checker": "^0.6.2"
     }

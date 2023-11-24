@@ -35,7 +35,7 @@
         if (scaledCount >= 1 && scaledCount <= limit) {
             for (let i = 0; i < scaledCount; i++) {
                 let newInstance = {
-                    value: distribution(i / scaledCount, (i+1)/scaledCount),
+                    value: distribution(i / scaledCount, (i + 1) / scaledCount),
                 }
                 instances.push(newInstance)
             }
@@ -50,11 +50,11 @@
             for (let instance of instances) {
                 if (instance.value >= 0) {
                     instance.bar = barEmoji.repeat(
-                        Math.round(instance.value * scale)
+                        Math.round(instance.value * scale),
                     )
                 } else {
                     instance.bar = barEmojiNegative.repeat(
-                        -Math.round(instance.value * scale)
+                        -Math.round(instance.value * scale),
                     )
                 }
             }
@@ -63,21 +63,21 @@
 </script>
 
 <Popup>
-<div id="box">
-    {#if scaledCount > limit}
-        (A lot of {emoji}s, which I won't render, because it would crash your
-        browser.)
-    {:else}
-        {#each instances as instance}
-            <div>
-                {@html renderEmoji(emoji)}
-                {Math.round(instance.value)}
-                {unit}
-                {instance.bar}
-            </div>
-        {/each}
-    {/if}
-</div>
+    <div id="box">
+        {#if scaledCount > limit}
+            (A lot of {emoji}s, which I won't render, because it would crash
+            your browser.)
+        {:else}
+            {#each instances as instance}
+                <div>
+                    {@html renderEmoji(emoji)}
+                    {Math.round(instance.value)}
+                    {unit}
+                    {instance.bar}
+                </div>
+            {/each}
+        {/if}
+    </div>
     <div slot="popup">
         {#if source}
             <p>

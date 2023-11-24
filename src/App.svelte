@@ -480,13 +480,15 @@
         },
         {
             name: "Road transport",
-            description: "from the burning of petrol and diesel in cars, trucks, lorries, motorcycles and buses. 60% of these emissions come from passenger travel, and the remaining 40% from road freight",
+            description:
+                "from the burning of petrol and diesel in cars, trucks, lorries, motorcycles and buses. 60% of these emissions come from passenger travel, and the remaining 40% from road freight",
             percent: 11.9,
             emoji: "🚗",
         },
         {
             name: "Aviation",
-            description: "81% of which come from passenger travel, and 19% from freight",
+            description:
+                "81% of which come from passenger travel, and 19% from freight",
             percent: 1.9,
             emoji: "✈️",
         },
@@ -498,73 +500,85 @@
         },
         {
             name: "Pipelines",
-            description: "from energy use in the transport of oil and gas through pipelines",
+            description:
+                "from energy use in the transport of oil and gas through pipelines",
             percent: 0.3,
             emoji: "🚰",
         },
         {
             name: "Shipping",
-            description: "from the burning of fuel on passenger and freight boats",
+            description:
+                "from the burning of fuel on passenger and freight boats",
             percent: 1.7,
             emoji: "🚢",
         },
         {
             name: "Residential",
-            description: "from the generation of electricity for lighting, appliances, cooking etc. and heating at home",
+            description:
+                "from the generation of electricity for lighting, appliances, cooking etc. and heating at home",
             percent: 10.9,
             emoji: "🏠",
         },
         {
             name: "Commercial",
-            description: "from the generation of electricity for lighting, appliances, etc. and heating in commercial buildings, such as offices, restaurants, and shops",
+            description:
+                "from the generation of electricity for lighting, appliances, etc. and heating in commercial buildings, such as offices, restaurants, and shops",
             percent: 6.6,
             emoji: "🏢",
         },
         {
             name: "Machinery",
-            description: "as energy-related emissions from the production of machinery",
+            description:
+                "as energy-related emissions from the production of machinery",
             percent: 0.5,
             emoji: "🔧",
         },
         {
             name: "Paper & pulp",
-            description: "as energy-related emissions from the conversion of wood into paper and pulp",
+            description:
+                "as energy-related emissions from the conversion of wood into paper and pulp",
             percent: 0.6,
             emoji: "📄",
         },
         {
             name: "Other industry",
-            description: "from manufacturing in industries not listed below, including mining and quarrying, construction, textiles, wood products, and transport equipment (such as car manufacturing)",
+            description:
+                "from manufacturing in industries not listed below, including mining and quarrying, construction, textiles, wood products, and transport equipment (such as car manufacturing)",
             percent: 10.6,
             emoji: "🏭",
         },
         {
             name: "Energy use in agriculture & fishing",
-            description: "from fuel used to power farm machinery or fishing vessels",
+            description:
+                "from fuel used to power farm machinery or fishing vessels",
             percent: 1.7,
             emoji: "🐄🐟",
         },
         {
             name: "Unallocated fuel combustion",
-            description: "from the production energy from other fuels including electricity and heat from biomass; on-site heat sources; combined heat and power (CHP); nuclear industry; and pumped hydroelectric storage",
+            description:
+                "from the production energy from other fuels including electricity and heat from biomass; on-site heat sources; combined heat and power (CHP); nuclear industry; and pumped hydroelectric storage",
             percent: 7.8,
             emoji: "🔥",
         },
         {
             name: "Fugitive emission from coal",
-            description: "from the accidental leakage of methane during coal mining",
+            description:
+                "from the accidental leakage of methane during coal mining",
             percent: 1.9,
             emoji: "🏭",
         },
         {
             name: "Fugitive emissions from oil & natural gas",
-            description: "from the often-accidental leakage of methane to the atmosphere",
+            description:
+                "from the often-accidental leakage of methane to the atmosphere",
             percent: 3.9,
             emoji: "🛢️",
         },
         {
             name: "Cement",
-            description: "as a byproduct of a chemical conversion process used in the production of clinker, a component of cement",
+            description:
+                "as a byproduct of a chemical conversion process used in the production of clinker, a component of cement",
             percent: 3,
             emoji: "🏗️",
         },
@@ -576,19 +590,22 @@
         },
         {
             name: "Livestock & Manure",
-            description: "mainly produced by cattle and sheep – when microbes in their digestive systems break down food, they produce methane as a by-product",
+            description:
+                "mainly produced by cattle and sheep – when microbes in their digestive systems break down food, they produce methane as a by-product",
             percent: 5.8,
             emoji: "🐄💩",
         },
         {
             name: "Rice Cultivation",
-            description: "on flooded rice paddies, microbes in the soil produce methane as a by-product",
+            description:
+                "on flooded rice paddies, microbes in the soil produce methane as a by-product",
             percent: 1.3,
             emoji: "🌾",
         },
         {
             name: "Agricultural Soils",
-            description: "from the addition of synthetic nitrogen fertilizers to soils",
+            description:
+                "from the addition of synthetic nitrogen fertilizers to soils",
             percent: 4.1,
             emoji: "🌾",
         },
@@ -600,7 +617,8 @@
         },
         {
             name: "Deforestation",
-            description: "as the net emissions of carbon dioxide from changes in forestry cover",
+            description:
+                "as the net emissions of carbon dioxide from changes in forestry cover",
             percent: 2.2,
             emoji: "🌳",
         },
@@ -618,13 +636,15 @@
         },
         {
             name: "Landfills",
-            description: "produced when organic matter decomposes in low-oxygen conditions",
+            description:
+                "produced when organic matter decomposes in low-oxygen conditions",
             percent: 1.9,
             emoji: "🗑️",
         },
         {
             name: "Wastewater",
-            description: "from the decomposition of organic matter in wastewater treatment plants",
+            description:
+                "from the decomposition of organic matter in wastewater treatment plants",
             percent: 1.3,
             emoji: "🚽",
         },
@@ -635,7 +655,7 @@
         1 -
         greenhouseGasEmissionsSectors.reduce(
             (sum, sector) => sum + sector.percent / 100,
-            0
+            0,
         )
     if (remainingEmissionsShare > 1) {
         greenhouseGasEmissionsSectors.push({
@@ -732,49 +752,49 @@
             cause: "Lower respiratory infection",
             deathShare: 4.41,
             emoji: "🦠",
-            description: "pseumonia, ..."
+            description: "pseumonia, ...",
         },
         {
             cause: "Neonatal death",
             deathShare: 3.33,
             emoji: "👶",
-            description: "death a few weeks after birth"
+            description: "death a few weeks after birth",
         },
         {
             cause: "Enteric infection",
             deathShare: 3.09,
             emoji: "🦠",
-            description: "typhoid fever, cholera, ..."
+            description: "typhoid fever, cholera, ...",
         },
         {
             cause: "Alzheimer's disease",
             deathShare: 2.87,
             emoji: "🧠",
-            description: "a type of dementia"
+            description: "a type of dementia",
         },
         {
             cause: "Diabetes mellitus",
             deathShare: 2.74,
             emoji: "sugar-cube",
-            description: "type 1 and type 2 diabetes"
+            description: "type 1 and type 2 diabetes",
         },
         {
             cause: "Diarrheal disease",
             deathShare: 2.71,
             emoji: "💩",
-            description: "causes severe dehydration"
+            description: "causes severe dehydration",
         },
         {
             cause: "Liver disease",
             deathShare: 2.6,
             emoji: "🍺",
-            description: "cirrhosis, alcoholic liver disease, ..."
+            description: "cirrhosis, alcoholic liver disease, ...",
         },
         {
             cause: "Kidney disease",
             deathShare: 2.53,
             emoji: "kidneys",
-            description: "chronic kidney disease, ..."
+            description: "chronic kidney disease, ...",
         },
         {
             cause: "Road incident",
@@ -785,13 +805,13 @@
             cause: "Tuberculosis",
             deathShare: 2.09,
             emoji: "🦠",
-            description: "a bacterial infection affecting the lungs"
+            description: "a bacterial infection affecting the lungs",
         },
         {
             cause: "HIV/AIDS",
             deathShare: 1.53,
             emoji: "hiv-ribbon",
-            description: "a viral infection that destroys the immune system"
+            description: "a viral infection that destroys the immune system",
         },
         {
             cause: "Suicide",
@@ -1103,7 +1123,7 @@
     <p>
         You get that value by multiplying <Number {...values.dogs} /> (the number
         of dogs on the small world), with our factor of {humanReadable(
-            $defaultScale
+            $defaultScale,
         )}.
     </p>
 </QuestionButtons>
@@ -1144,8 +1164,10 @@
 
 <p>This is where they live. Where do you live?</p>
 
-<ContinentMap emoji="🧑" {...humans[2023]}
-source="https://ourworldindata.org/grapher/population-regions-with-projections"
+<ContinentMap
+    emoji="🧑"
+    {...humans[2023]}
+    source="https://ourworldindata.org/grapher/population-regions-with-projections"
 />
 
 <p>
@@ -1178,7 +1200,9 @@ source="https://ourworldindata.org/grapher/population-regions-with-projections"
 </p>
 
 <p>
-    <Number {...values.onlyOverweight} /> are overweight, and <Number {...values.obese} /> are obese.
+    <Number {...values.onlyOverweight} /> are overweight, and <Number
+        {...values.obese}
+    /> are obese.
 </p>
 
 <EmojiBox count={values.onlyOverweight.value} emoji="overweight" />
@@ -1208,17 +1232,19 @@ source="https://ourworldindata.org/grapher/population-regions-with-projections"
         humanReadable(values.noAccessToSafeDrinkingWater.value / 100000),
     ]}
 >
-    <p>The correct answer is that there are <UnscaledNumber
-        {...values.noAccessToSafeDrinkingWater}
-    /> people without access to safe drinking water on the real Earth.</p>
+    <p>
+        The correct answer is that there are <UnscaledNumber
+            {...values.noAccessToSafeDrinkingWater}
+        /> people without access to safe drinking water on the real Earth.
+    </p>
 
     <p>
         You get that value by multiplying <Number
             {...values.noAccessToSafeDrinkingWater}
-        /> (the number of people without access to safe drinking water on the
-        small world), with our factor of {humanReadable($defaultScale)}.
-</QuestionButtons>
-
+        /> (the number of people without access to safe drinking water on the small
+        world), with our factor of {humanReadable($defaultScale)}.
+    </p></QuestionButtons
+>
 
 <p>
     <Number {...values.noAccessToElectricity} /> don't have access to electricity.
@@ -1383,19 +1409,27 @@ source="https://ourworldindata.org/grapher/population-regions-with-projections"
     Until today, <Number {...values.humansEverLived} /> humans have ever lived.
 </p>
 
-<p>In the year 1900, there were <Number value={humans[1900].sum} /> humans on the small world. Here's where they lived:</p>
+<p>
+    In the year 1900, there were <Number value={humans[1900].sum} /> humans on the
+    small world. Here's where they lived:
+</p>
 
-<ContinentMap emoji="🧑" {...humans[1900]}
-source="https://ourworldindata.org/grapher/population-regions-with-projections"
+<ContinentMap
+    emoji="🧑"
+    {...humans[1900]}
+    source="https://ourworldindata.org/grapher/population-regions-with-projections"
 />
 
 <p>
     And in the year 2100, it's estimated that there will be <Number
-        value={humans[2100].sum}/> humans:
+        value={humans[2100].sum}
+    /> humans:
 </p>
 
-<ContinentMap emoji="🧑" {...humans[2100]} 
-source="https://ourworldindata.org/grapher/population-regions-with-projections"
+<ContinentMap
+    emoji="🧑"
+    {...humans[2100]}
+    source="https://ourworldindata.org/grapher/population-regions-with-projections"
 />
 
 <Thought t="Will there the number of humans keep increasing?">
@@ -1478,9 +1512,9 @@ source="https://ourworldindata.org/grapher/population-regions-with-projections"
     <p>
         <Number value={(religion.percent / 100) * values.humans.value} /> of the
         people
-    {#if religion.description}
-    <b>{religion.description}</b>{:else}
-        follow <b>{religion.name}</b>{/if}.
+        {#if religion.description}
+            <b>{religion.description}</b>{:else}
+            follow <b>{religion.name}</b>{/if}.
     </p>
     <EmojiBox
         count={(religion.percent / 100) * values.humans.value}
@@ -1575,8 +1609,8 @@ source="https://ourworldindata.org/grapher/population-regions-with-projections"
 </Question>
 
 <p>
-    There are <Number {...values.farmedFish} /> fish being kept in fish tanks or ponds
-    right now.
+    There are <Number {...values.farmedFish} /> fish being kept in fish tanks or
+    ponds right now.
 </p>
 
 <EmojiBox count={values.farmedFish.value} emoji="🐟" />
@@ -1731,9 +1765,14 @@ EU: avg 10 t/year to heat
 <ContentNote
     t="Do you want to see more details about where exactly these bubbles come from?"
 >
-<p>Okay, sure! Here's a description of where these CO₂ bubbles come from.</p>
+    <p>
+        Okay, sure! Here's a description of where these CO₂ bubbles come from.
+    </p>
 
-<p>Note: We use the term "CO₂" as a shorthand for "CO₂-equivalent", which includes other greenhouse gases like methane.</p>
+    <p>
+        Note: We use the term "CO₂" as a shorthand for "CO₂-equivalent", which
+        includes other greenhouse gases like methane.
+    </p>
 
     {#each greenhouseGasEmissionsSectors as sector}
         <p>
@@ -1970,8 +2009,8 @@ EU: avg 10 t/year to heat
 </p>
 
 <p>
-    So let's do a couple of quick estimation exercises to get a better feeling for this
-    number!
+    So let's do a couple of quick estimation exercises to get a better feeling
+    for this number!
 </p>
 
 <QuestionButtons
@@ -2078,25 +2117,46 @@ EU: avg 10 t/year to heat
 
 <h2>🔁 Re-use our work!</h2>
 
-<p>This page is open source! You can find the code on <a
-        href="https://github.com/blinry/small-world" target="_blank">GitHub</a>.</p>
+<p>
+    This page is open source! You can find the code on <a
+        href="https://github.com/blinry/small-world"
+        target="_blank">GitHub</a
+    >.
+</p>
 
-<p>It's licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a> license, which means that you're free to <b>share</b> and <b>adapt</b> the works: You can copy and redistribute them in any medium or format. You can print them and hang them on your wall, include them in presentations or on flyers. You can also remix, modify, and build upon the material.</p>
+<p>
+    It's licensed under the <a
+        href="https://creativecommons.org/licenses/by/4.0/"
+        target="_blank">CC BY 4.0</a
+    >
+    license, which means that you're free to <b>share</b> and <b>adapt</b> the works:
+    You can copy and redistribute them in any medium or format. You can print them
+    and hang them on your wall, include them in presentations or on flyers. You can
+    also remix, modify, and build upon the material.
+</p>
 
-<p>The only condition is that you give appropriate credit. You need to include our names (bleeptrack & blinry), a link to this page, and a link to the license text on creativecommons.org.
-    </p>
+<p>
+    The only condition is that you give appropriate credit. You need to include
+    our names (bleeptrack & blinry), a link to this page, and a link to the
+    license text on creativecommons.org.
+</p>
 
 <h2>📚 Credits</h2>
 
 <ul>
-    <li>Thanks to <a href="https://www.openphilanthropy.org">Open Philanthropy</a> for
-    funding our work!</li>
-    <li>Many of the numbers come from <a href="https://ourworldindata.org">Our World in Data</a>.</li>
-    <li>Thanks to our beta testers for their feedback:
-    Winnie Hellmann,
-    Piko,
-    Wolfgang Morr,
-    Winston Smith.
+    <li>
+        Thanks to <a href="https://www.openphilanthropy.org"
+            >Open Philanthropy</a
+        > for funding our work!
+    </li>
+    <li>
+        Many of the numbers come from <a href="https://ourworldindata.org"
+            >Our World in Data</a
+        >.
+    </li>
+    <li>
+        Thanks to our beta testers for their feedback: Winnie Hellmann, Piko,
+        Wolfgang Morr, Winston Smith.
     </li>
 </ul>
 
