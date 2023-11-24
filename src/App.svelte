@@ -491,20 +491,20 @@
             emoji: "✈️",
         },
         {
-            name: "Rail",
-            description: "",
+            name: "Rail travel",
+            description: "emissions from passenger and freight rail travel",
             percent: 0.4,
             emoji: "🚆",
         },
         {
-            name: "Pipeline",
-            description: "",
+            name: "Pipelines",
+            description: "from energy use in the transport of oil and gas through pipelines",
             percent: 0.3,
             emoji: "🚰",
         },
         {
-            name: "Ship",
-            description: "",
+            name: "Shipping",
+            description: "from the burning of fuel on passenger and freight boats",
             percent: 1.7,
             emoji: "🚢",
         },
@@ -522,13 +522,13 @@
         },
         {
             name: "Machinery",
-            description: "",
+            description: "as energy-related emissions from the production of machinery",
             percent: 0.5,
             emoji: "🔧",
         },
         {
-            name: "Paper, pulp & printing",
-            description: "",
+            name: "Paper & pulp",
+            description: "as energy-related emissions from the conversion of wood into paper and pulp",
             percent: 0.6,
             emoji: "📄",
         },
@@ -539,8 +539,8 @@
             emoji: "🏭",
         },
         {
-            name: "Energy in Agri & Fishing",
-            description: "",
+            name: "Energy use in agriculture & fishing",
+            description: "from fuel used to power farm machinery or fishing vessels",
             percent: 1.7,
             emoji: "🐄🐟",
         },
@@ -551,26 +551,26 @@
             emoji: "🔥",
         },
         {
-            name: "Coal",
-            description: "",
+            name: "Fugitive emission from coal",
+            description: "from the accidental leakage of methane during coal mining",
             percent: 1.9,
             emoji: "🏭",
         },
         {
-            name: "Oil & Natural Gas",
-            description: "",
+            name: "Fugitive emissions from oil & natural gas",
+            description: "from the often-accidental leakage of methane to the atmosphere",
             percent: 3.9,
             emoji: "🛢️",
         },
         {
             name: "Cement",
-            description: "",
+            description: "as a byproduct of a chemical conversion process used in the production of clinker, a component of cement",
             percent: 3,
             emoji: "🏗️",
         },
         {
             name: "Chemical & petrochemical (industrial)",
-            description: "",
+            description: "as byproducts from chemical processes",
             percent: 2.2,
             emoji: "🧪",
         },
@@ -582,49 +582,49 @@
         },
         {
             name: "Rice Cultivation",
-            description: "",
+            description: "on flooded rice paddies, microbes in the soil produce methane as a by-product",
             percent: 1.3,
             emoji: "🌾",
         },
         {
             name: "Agricultural Soils",
-            description: "",
+            description: "from the addition of synthetic nitrogen fertilizers to soils",
             percent: 4.1,
             emoji: "🌾",
         },
         {
             name: "Crop Burning",
-            description: "",
+            description: "from the burning of agricultural residues",
             percent: 3.5,
             emoji: "🌾🔥",
         },
         {
-            name: "Forest Land",
-            description: "",
+            name: "Deforestation",
+            description: "as the net emissions of carbon dioxide from changes in forestry cover",
             percent: 2.2,
             emoji: "🌳",
         },
         {
             name: "Cropland",
-            description: "",
+            description: "emitted when croplands are degraded",
             percent: 1.4,
             emoji: "🌾",
         },
         {
             name: "Grassland",
-            description: "",
+            description: "emitted when grasslands are degraded",
             percent: 0.1,
             emoji: "🌾",
         },
         {
             name: "Landfills",
-            description: "",
+            description: "produced when organic matter decomposes in low-oxygen conditions",
             percent: 1.9,
             emoji: "🗑️",
         },
         {
             name: "Wastewater",
-            description: "",
+            description: "from the decomposition of organic matter in wastewater treatment plants",
             percent: 1.3,
             emoji: "🚽",
         },
@@ -1047,7 +1047,7 @@
 <h2>💯 How does this relate to the real Earth?</h2>
 
 <p>
-    Have you played with miniature scale models? For examle, model trains use a
+    Have you played with miniature scale models? For example, model trains use a
     1:87 scale, which means that real trains are 87 times larger than the
     models!
 </p>
@@ -1057,7 +1057,7 @@
     it is:
 </p>
 
-<p class="wow">{humanReadable($defaultScale)}</p>
+<p class="wow">1:{humanReadable($defaultScale)}</p>
 
 <p>
     Quite a number, right? That means that instead of <Number
@@ -1174,7 +1174,7 @@ source="https://ourworldindata.org/grapher/population-regions-with-projections"
     And <Number {...values.extremePoverty} /> live in extreme poverty, on less than
     $1.90 per day
 </p>
-<EmojiBox count={values.extremePoverty.value} emoji="🥺" />
+<EmojiBox count={values.extremePoverty.value} emoji="poverty" />
 
 <p><Number {...values.illiterate} /> people cannot read.</p>
 <EmojiBox count={values.illiterate.value} />
@@ -1417,7 +1417,7 @@ source="https://ourworldindata.org/grapher/population-regions-with-projections"
     far, and <Number {...values.covidDeaths} /> died from it.
 </p>
 
-<EmojiBox count={values.covidCases.value} emoji="🦠" />
+<EmojiBox count={values.covidCases.value} emoji="😷" />
 <EmojiBox count={values.covidDeaths.value} emoji="☠️" />
 
 <!--
@@ -1512,7 +1512,7 @@ source="https://ourworldindata.org/grapher/population-regions-with-projections"
 
 <p>
     About <Number {...values.trainTravelers2015} /> train rides are registered per
-    year and <Number {...values.goodsonrails} /> of goodes are transported my trains
+    year and <Number {...values.goodsonrails} /> of goods are transported by trains
     per year.
 </p>
 
@@ -1955,7 +1955,7 @@ EU: avg 10 t/year to heat
 </p>
 
 <p>
-    So let's do a couple of quick exercises to get a better feeling for this
+    So let's do a couple of quick estimation exercises to get a better feeling for this
     number!
 </p>
 
@@ -2061,12 +2061,29 @@ EU: avg 10 t/year to heat
 
 <!--<h2>🎬 What do you want to do now?</h2>-->
 
+<h2>🔁 Re-use our work!</h2>
+
+<p>This page is open source! You can find the code on <a
+        href="https://github.com/blinry/small-world" target="_blank">GitHub</a>.</p>
+
+<p>It's licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a> license, which means that you're free to <b>share</b> and <b>adapt</b> the works: You can copy and redistribute them in any medium or format. You can print them and hang them on your wall, include them in presentations or on flyers. You can also remix, modify, and build upon the material.</p>
+
+<p>The only condition is that you give appropriate credit. You need to include our names (bleeptrack & blinry), a link to this page, and a link to the license text on creativecommons.org.
+    </p>
+
 <h2>📚 Credits</h2>
 
-<p>
-    Thanks to <a href="https://www.openphilanthropy.org">Open Philanthropy</a> for
-    funding this work!
-</p>
+<ul>
+    <li>Thanks to <a href="https://www.openphilanthropy.org">Open Philanthropy</a> for
+    funding our work!</li>
+    <li>Many of the numbers come from <a href="https://ourworldindata.org">Our World in Data</a>.</li>
+    <li>Thanks to our beta testers for their feedback:
+    Winnie Hellmann,
+    Piko,
+    Wolfgang Morr,
+    Winston Smith.
+    </li>
+</ul>
 
 <style>
     /* text that pops out! centered! shadow! colorful gradient! */

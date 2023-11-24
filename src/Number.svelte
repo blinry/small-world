@@ -30,10 +30,3 @@
 <b>
     <UnscaledNumber value={scaledValue} {unit} {factor} {comment} {source} />
 </b>
-
-<style>
-    a {
-        color: inherit;
-        text-decoration: none;
-    }
-</style>

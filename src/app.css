@@ -76,6 +76,10 @@ input {
     bottom: 0.05em;
 }
 
+li {
+    margin-bottom: 0.5em;
+}
+
 /* when screen is wider than 80em */
 @media (min-width: 85em) {
     h2 {

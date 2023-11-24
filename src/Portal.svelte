@@ -21,6 +21,4 @@
   })
 </script>
 
-<div bind:this={ref}>
-  <slot />
-</div>
+<div bind:this={ref}><slot /></div>
