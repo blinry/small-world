@@ -708,61 +708,73 @@
             cause: "Cardiovascular disease",
             deathShare: 32.84,
             emoji: "💔",
+            description: "heart attacks, hypertension, ...",
         },
         {
             cause: "Cancer",
             deathShare: 17.83,
             emoji: "cancer-ribbon",
+            description: "lung cancer, breast cancer, ...",
         },
         {
             cause: "Respiratory disease",
             deathShare: 7.03,
             emoji: "🫁",
+            description: "asthma, bronchitis, ...",
         },
         {
             cause: "Digestive disease",
             deathShare: 4.52,
             emoji: "intestines",
+            description: "gastroenteritis, ...",
         },
         {
             cause: "Lower respiratory infection",
             deathShare: 4.41,
             emoji: "🦠",
+            description: "pseumonia, ..."
         },
         {
             cause: "Neonatal death",
             deathShare: 3.33,
             emoji: "👶",
+            description: "death a few weeks after birth"
         },
         {
             cause: "Enteric infection",
             deathShare: 3.09,
             emoji: "🦠",
+            description: "typhoid fever, cholera, ..."
         },
         {
             cause: "Alzheimer's disease",
             deathShare: 2.87,
             emoji: "🧠",
+            description: "a type of dementia"
         },
         {
             cause: "Diabetes mellitus",
             deathShare: 2.74,
             emoji: "sugar-cube",
+            description: "type 1 and type 2 diabetes"
         },
         {
             cause: "Diarrheal disease",
             deathShare: 2.71,
             emoji: "💩",
+            description: "causes severe dehydration"
         },
         {
             cause: "Liver disease",
             deathShare: 2.6,
             emoji: "🍺",
+            description: "cirrhosis, alcoholic liver disease, ..."
         },
         {
             cause: "Kidney disease",
             deathShare: 2.53,
             emoji: "kidneys",
+            description: "chronic kidney disease, ..."
         },
         {
             cause: "Road incident",
@@ -773,11 +785,13 @@
             cause: "Tuberculosis",
             deathShare: 2.09,
             emoji: "🦠",
+            description: "a bacterial infection affecting the lungs"
         },
         {
             cause: "HIV/AIDS",
             deathShare: 1.53,
             emoji: "hiv-ribbon",
+            description: "a viral infection that destroys the immune system"
         },
         {
             cause: "Suicide",
@@ -1407,6 +1421,7 @@ source="https://ourworldindata.org/grapher/population-regions-with-projections"
         {
             emoji: cause.emoji,
             label: cause.cause,
+            description: cause.description,
         },
     ])}
     source="https://ourworldindata.org/grapher/share-of-deaths-by-cause?time=latest"
