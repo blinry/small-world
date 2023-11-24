@@ -2096,6 +2096,74 @@ EU: avg 10 t/year to heat
     </p>
 </ScrollBox>
 
+<h2>❓ Time for a quiz!</h2>
+
+<p>
+    Now you've read a lot about the Small World. Often, seeing numbers in this
+    format helps people remember them better! Let's see whether this also works
+    for you:
+</p>
+
+<Question q="How many people live in Europe in the Small World?">
+    <p>There are <Number value={humans[2023].europe} /> people in Europe.</p>
+
+    <EmojiBox count={humans[2023].europe} emoji="🧑" />
+
+    <Question q="So, how many people live in Europe on real Earth?">
+        <p>
+            There are <UnscaledNumber value={humans[2023].europe} /> people in Europe
+            on real Earth.
+        </p>
+    </Question>
+</Question>
+
+<Question q="How many cars are there in the Small World?">
+    <p>There are <Number {...values.cars} /> cars on the Small World.</p>
+    <EmojiBox count={values.cars.value} emoji="🚗" />
+
+    <Question q="So, how many cars are there on real Earth?">
+        <p>There are <UnscaledNumber {...values.cars} /> cars on real Earth.</p>
+    </Question>
+</Question>
+
+<Question q="What's the approximate share of people dying from heart disease?">
+    <p>
+        <UnscaledNumber value={deathCauses[0].deathShare} unit="%" /> of the people
+        die from heart disease.
+    </p>
+</Question>
+
+<p>Now let's try some questions that relate to the real world directly!</p>
+
+<Question q="How many galaxies are there in the real world?">
+    <p>
+        There are <UnscaledNumber {...values.galaxiesInUniverse} /> galaxies in the
+        universe.
+    </p>
+</Question>
+
+<Question q="How much gold has been mined in the real world?">
+    <p>
+        There are <UnscaledNumber {...values.goldAboveGround} /> of gold that have
+        been mined so far.
+    </p>
+</Question>
+
+<Question q="How many websites are there on the real world?">
+    <p>
+        There are <UnscaledNumber {...values.websites} /> websites on the real world.
+    </p>
+</Question>
+
+<Question q="How many chickens are held in intensive farming systems?">
+    <p>
+        There are <UnscaledNumber
+            {...values.chickens}
+            factor={values.shareOfChickensRaisedInIntensiveFarming.value}
+        /> chickens in intensive farming systems.
+    </p>
+</Question>
+
 <h2>🙋 What are you curious about?</h2>
 
 <p>
