@@ -1,5 +1,7 @@
 <script>
     import Number from "./Number.svelte"
+    import EmojiPicker from "./EmojiPicker.svelte"
+    import EmojiBox from "./EmojiBox.svelte"
 
     import {parseValue} from "./helpers.js"
 
@@ -24,8 +26,14 @@
 
     let error
 
+    let emoji = ""
+
     function encode(question) {
         return encodeURIComponent(question)
+    }
+
+    function emojiChanged(e) {
+        emoji = e.detail.emoji
     }
 </script>
 
@@ -41,7 +49,7 @@
 <h3>Step 2: Research the number for the real world!</h3>
 
 <p>
-    Press one or more of these buttons to do an internet search for your
+    Press one or more of these buttons to do an Internet search for your
     question:
 </p>
 
@@ -56,17 +64,27 @@
 {/each}
 
 <p>
-    If you have found an answer that seems plausible to you, enter it here! If
-    the value has a unit like "kg", "$" or "light years", also enter it into the
-    box!
+    If you have found an answer that seems plausible to you, enter it in the box
+    below! Some examples:
 </p>
 
-<input bind:value={answer} />
+<ul>
+    <li>1 billion pumpkins</li>
+    <li>14900000000 USD</li>
+    <li>2.5e8 kg</li>
+</ul>
+
+<input type="text" bind:value={answer} />
+
+<EmojiPicker on:change={emojiChanged} />
+{emoji}
 
 <h3>Step 3: See the converted value</h3>
 
 {#if answer}
-    In the small world, that would be: <Number {...parseValue(answer)} />
+    <p>In the small world, there are <Number {...parseValue(answer)} />!</p>
+
+    <EmojiBox {emoji} count={parseValue(answer).value} />
 {/if}
 
 {#if error}
@@ -82,5 +100,10 @@
         border-radius: 0.5em;
         text-decoration: none;
         color: #000;
+    }
+    input[type="text"] {
+        width: 70%;
+        font-size: 1.1em;
+        padding: 0.5em;
     }
 </style>

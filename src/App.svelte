@@ -2167,21 +2167,28 @@ EU: avg 10 t/year to heat
 <h2>🙋 What are you curious about?</h2>
 
 <p>
-    Maybe after reading all this, you have some questions about our small world.
-    For example:
+    Maybe after reading all this, you have some questions about our small world,
+    which we didn't cover! For example:
 </p>
 
 <ul>
-    <li>How many people live in democracies?</li>
-    <li>How many soldiers are there?</li>
-    <li>How many bananas are eaten per day?</li>
+    <li>How many people live in democracies in the world?</li>
+    <li>How many smartphones are there in the world?</li>
+    <li>How many bananas are eaten per year in the world?</li>
 </ul>
 
 <p>Let's practice finding answers to questions like this!</p>
 
 <ConversionPractice />
 
-<!--<h2>🎬 What do you want to do now?</h2>-->
+<p>
+    If you find an interesting number that's missing from this article, send us
+    an email to <b
+        ><span><span title="ihate@spam.com</span>">b</span>b</span>&#64;blinry<i
+            title="</i>mailto">.</i
+        >org</b
+    >, and we might include it!
+</p>
 
 <h2>🔁 Re-use our work!</h2>
 
@@ -2245,6 +2252,12 @@ EU: avg 10 t/year to heat
         font-size: 7em;
         margin-top: 1em;
     }
+
+    h2::first-letter {
+        margin-right: 0.3em;
+        font-size: 150%;
+    }
+
     #subtitle,
     #subtitle a {
         text-align: center;
