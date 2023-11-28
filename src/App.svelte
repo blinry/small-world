@@ -1200,13 +1200,17 @@
 </p>
 
 <p>
-    <Number {...values.onlyOverweight} /> are overweight, and <Number
-        {...values.obese}
+    <Number data={values.onlyOverweight} /> are overweight, and <Number
+        data={values.obese}
     /> are obese.
 </p>
 
 <EmojiBox count={values.onlyOverweight.value} emoji="overweight" />
-<EmojiBox count={values.obese.value} emoji="obese" />
+<EmojiBox
+    count={values.obese.value}
+    shrinkApplied={values.obese.shrinkApplied}
+    emoji="obese"
+/>
 
 <p>
     And <Number {...values.extremePoverty} /> live in extreme poverty, on less than

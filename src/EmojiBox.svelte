@@ -4,7 +4,7 @@
 
     let limit = 2000
 
-    export let count = 0
+    export let count
     export let scale
     export let factor = 1
     export let unscaled = false

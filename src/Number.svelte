@@ -1,13 +1,19 @@
 <script>
     import UnscaledNumber from "./UnscaledNumber.svelte"
+    import UnscaledRoundedNumber from "./UnscaledRoundedNumber.svelte"
     import {defaultScale} from "./stores.js"
     import {humanReadable, humanReadableSmall} from "./helpers.js"
 
-    export let value
-    export let unit = null
+    export let data = {}
+
+    export let value = data.value
+    export let unit = data.unit
+    export let source = data.unit
+
     export let factor = 1
-    export let source = null
     export let inverse = false
+
+    let shrinkApplied = false
 
     let scaledValue
     let comment
@@ -25,8 +31,32 @@
             }
         }
     }
+
+    function clicked() {
+        shrinkApplied = true
+        data.shrinkApplied = true
+        data = data
+    }
 </script>
 
-<b>
-    <UnscaledNumber value={scaledValue} {unit} {factor} {comment} {source} />
-</b>
+{#if shrinkApplied}
+    <b>
+        <UnscaledRoundedNumber
+            value={scaledValue}
+            {unit}
+            {factor}
+            {comment}
+            {source}
+        />
+    </b>
+{:else}
+    <span on:click={clicked}>
+        <UnscaledNumber {value} {unit} {factor} />
+    </span>
+{/if}
+
+<style>
+    span {
+        cursor: pointer;
+    }
+</style>
