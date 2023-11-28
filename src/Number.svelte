@@ -77,6 +77,9 @@
 
 <style>
     span {
+        cursor:
+            url("/images/wand.svg") 0 0,
+            pointer;
         cursor: pointer;
         font-size: 83%;
         background-color: #ddd;
