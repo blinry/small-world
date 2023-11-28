@@ -16,6 +16,8 @@
 
     let shrinkApplied = false
 
+    const audioPop = new Audio("pop.wav")
+
     let scaledValue
     let comment
     $: {
@@ -45,6 +47,8 @@
                 },
             })
         }
+        audioPop.playbackRate = 1 + Math.random() * 0.4 - 0.2
+        audioPop.play()
     }
 </script>
 
