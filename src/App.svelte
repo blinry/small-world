@@ -34,6 +34,7 @@
             value: HUMANS,
             year: 2023,
             source: "https://ourworldindata.org/grapher/population-by-age-group-with-projections",
+            emoji: "🧑",
         },
         humansBornPerYear: {
             value: 133.97e6,
@@ -49,6 +50,7 @@
             value: 456.39e6,
             year: 1300,
             source: "https://ourworldindata.org/grapher/population",
+            emoji: "🧑",
         },
         humans2086: {
             value: 10.43e9,
@@ -68,11 +70,13 @@
             value: 0.0844 * HUMANS,
             year: 2019,
             source: "https://ourworldindata.org/explorers/poverty-explorer",
+            emoji: "poverty",
         },
         illiterate: {
             value: 0.1375 * HUMANS,
             year: 2016,
             source: "https://ourworldindata.org/grapher/literate-and-illiterate-world-population",
+            emoji: "❓",
         },
         surfaceOfEarth: {
             value: 510e6,
@@ -155,6 +159,7 @@
         cats: {
             value: 700e6,
             source: "https://en.wikipedia.org/wiki/Cat",
+            emoji: "🐈",
         },
         ownedDogs: {
             value: 900e6 * 0.2,
@@ -167,6 +172,7 @@
         dogs: {
             value: 900e6,
             source: "https://en.wikipedia.org/wiki/Free-ranging_dog",
+            emoji: "🐕",
         },
         humansKilledByBlackDeath: {
             value: 75e6,
@@ -180,11 +186,13 @@
             value: 6.95e6,
             source: "https://ourworldindata.org/covid-deaths",
             year: 2023,
+            emoji: "☠️",
         },
         covidCases: {
             value: 767e6,
             source: "https://ourworldindata.org/covid-cases",
             year: 2023,
+            emoji: "😷",
         },
         motorcycles: {
             value: 708e6,
@@ -193,6 +201,7 @@
         cars: {
             value: 1083528e3,
             source: "https://en.wikipedia.org/wiki/Motor_vehicle",
+            emoji: "🚗",
         },
         trucksAndBuses: {
             value: 406770e3,
@@ -230,11 +239,13 @@
         noAccessToSafeDrinkingWater: {
             value: 2071265000,
             source: "https://ourworldindata.org/water-access",
+            emoji: "🚱",
         },
         noAccessToElectricity: {
             value: 760e6,
             source: "https://ourworldindata.org/energy-access",
             year: 2019,
+            emoji: "🪫",
         },
         companies: {
             value: 334e6,
@@ -243,6 +254,7 @@
         visualImpairment: {
             value: 253e6,
             source: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5820628/",
+            emoji: "🦯",
         },
         chickens: {
             value: 33e9,
@@ -268,6 +280,7 @@
             value: 280e6,
             year: 2019,
             source: "https://www.who.int/news-room/fact-sheets/detail/depression",
+            emoji: "😔",
         },
         overweightOrObese: {
             value: 1.9e9 + 340e6 + 38e6,
@@ -278,11 +291,13 @@
             value: 650e6,
             year: 2016,
             source: "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight",
+            emoji: "obese",
         },
         onlyOverweight: {
             value: 1.9e9 + 340e6 + 38e6 - 650e6,
             year: 2016,
             source: "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight",
+            emoji: "overweight",
         },
         bikes: {
             value: 1e9,
@@ -1064,19 +1079,13 @@
     is you!
 </p>
 
-<EmojiBox count={values.humans.value} emoji="🧑" />
-
 <p>Together, the people have <Number {...values.cars} /> cars.</p>
-<EmojiBox count={values.cars.value} emoji="🚗" />
 
 <p>
     And there are <Number {...values.cats} /> cats and <Number
         {...values.dogs}
     /> dogs (including undomesticated ones).
 </p>
-
-<EmojiBox count={values.cats.value} emoji="🐈" />
-<EmojiBox count={values.dogs.value} emoji="🐕" />
 
 <h2>💯 How does this relate to the real Earth?</h2>
 
@@ -1160,8 +1169,6 @@
     Every three years, <Number {...values.humansDiePerYear} factor={3} /> die.
 </p>-->
 
-<EmojiBox count={values.humans.value} emoji="🧑" />
-
 <p>This is where they live. Where do you live?</p>
 
 <ContinentMap
@@ -1200,32 +1207,22 @@
 </p>
 
 <p>
-    <Number data={values.onlyOverweight} /> are overweight, and <Number
-        data={values.obese}
+    <Number {...values.onlyOverweight} /> are overweight, and <Number
+        {...values.obese}
     /> are obese.
 </p>
-
-<EmojiBox count={values.onlyOverweight.value} emoji="overweight" />
-<EmojiBox
-    count={values.obese.value}
-    shrinkApplied={values.obese.shrinkApplied}
-    emoji="obese"
-/>
 
 <p>
     And <Number {...values.extremePoverty} /> live in extreme poverty, on less than
     $1.90 per day
 </p>
-<EmojiBox count={values.extremePoverty.value} emoji="poverty" />
 
 <p><Number {...values.illiterate} /> people cannot read.</p>
-<EmojiBox count={values.illiterate.value} />
 
 <p>
     <Number {...values.noAccessToSafeDrinkingWater} /> have no access to safe drinking
     water.
 </p>
-<EmojiBox count={values.noAccessToSafeDrinkingWater.value} emoji="🚱" />
 
 <QuestionButtons
     q="Time for another conversion practice! How many people have no access to safe drinking water on the real Earth?"
@@ -1253,19 +1250,16 @@
 <p>
     <Number {...values.noAccessToElectricity} /> don't have access to electricity.
 </p>
-<EmojiBox count={values.noAccessToElectricity.value} emoji="🪫" />
 
 <p>
     <Number {...values.depression} /> of our <Number {...values.humans} /> people
     suffer from depression.
 </p>
-<EmojiBox count={values.depression.value} emoji="😔" />
 
 <p>
     <Number {...values.visualImpairment} /> people are blind, or have a moderate
     to severe visual impairment.
 </p>
-<EmojiBox count={values.visualImpairment.value} emoji="🦯" />
 
 <h2>🌍 Planet</h2>
 
@@ -1470,9 +1464,6 @@
     far, and <Number {...values.covidDeaths} /> died from it.
 </p>
 
-<EmojiBox count={values.covidCases.value} emoji="😷" />
-<EmojiBox count={values.covidDeaths.value} emoji="☠️" />
-
 <!--
     {#each deathCauses as cause}
         <p>
@@ -1492,8 +1483,6 @@
     In the 14th century, there were <Number {...values.humans1300} /> humans in the
     world.
 </p>
-
-<EmojiBox count={values.humans1300.value} emoji="🧑" />
 
 <p>
     <Number {...values.humansKilledByBlackDeath} /> one of them died from the Black

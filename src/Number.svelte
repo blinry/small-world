@@ -1,14 +1,15 @@
 <script>
     import UnscaledNumber from "./UnscaledNumber.svelte"
     import UnscaledRoundedNumber from "./UnscaledRoundedNumber.svelte"
+    import EmojiBox from "./EmojiBox.svelte"
     import {defaultScale} from "./stores.js"
     import {humanReadable, humanReadableSmall} from "./helpers.js"
 
-    export let data = {}
-
-    export let value = data.value
-    export let unit = data.unit
-    export let source = data.unit
+    //entered via spreading
+    export let value
+    export let unit
+    export let source
+    export let emoji
 
     export let factor = 1
     export let inverse = false
@@ -34,8 +35,16 @@
 
     function clicked() {
         shrinkApplied = true
-        data.shrinkApplied = true
-        data = data
+
+        if (emoji) {
+            new EmojiBox({
+                target: this.parentElement,
+                props: {
+                    count: value,
+                    emoji: emoji,
+                },
+            })
+        }
     }
 </script>
 
