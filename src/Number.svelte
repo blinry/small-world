@@ -70,6 +70,8 @@
 
 <style>
     span {
-        cursor: pointer;
+        cursor:
+            url("/images/wand.svg") 0 0,
+            pointer;
     }
 </style>
