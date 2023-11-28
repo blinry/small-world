@@ -2100,7 +2100,10 @@ EU: avg 10 t/year to heat
 </p>
 
 <Question q="How many people live in Europe in the Small World?">
-    <p>There are <Number value={humans[2023].europe} /> people in Europe.</p>
+    <p>
+        There are <Number value={humans[2023].europe} shrunk={true} /> people in
+        Europe.
+    </p>
 
     <EmojiBox count={humans[2023].europe} emoji="🧑" />
 
@@ -2113,7 +2116,9 @@ EU: avg 10 t/year to heat
 </Question>
 
 <Question q="How many cars are there in the Small World?">
-    <p>There are <Number {...values.cars} /> cars on the Small World.</p>
+    <p>
+        There are <Number {...values.cars} shrunk={true} /> cars on the Small World.
+    </p>
 
     <EmojiBox count={values.cars.value} emoji="🚗" />
 
