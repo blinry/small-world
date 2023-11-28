@@ -80,7 +80,6 @@
         cursor:
             url("/images/wand.svg") 0 0,
             pointer;
-        cursor: pointer;
         font-size: 83%;
         background-color: #ddd;
         padding: 0.1em 0.2em;
