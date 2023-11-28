@@ -171,10 +171,12 @@
         humansKilledByBlackDeath: {
             value: 75e6,
             source: "https://www.abc.net.au/science/articles/2008/01/29/2149185.htm",
+            emoji: "💀",
         },
         humansKilledInWorldWar2: {
             value: 85e6,
             source: "https://en.wikipedia.org/wiki/World_War_II_casualties",
+            emoji: "💀",
         },
         covidDeaths: {
             value: 6.95e6,
@@ -189,14 +191,17 @@
         motorcycles: {
             value: 708e6,
             source: "https://www.riders-share.com/blog/article/number-motorcycles-world-top-countries",
+            emoji: "🏍️",
         },
         cars: {
             value: 1083528e3,
             source: "https://en.wikipedia.org/wiki/Motor_vehicle",
+            emoji: "🚗",
         },
         trucksAndBuses: {
             value: 406770e3,
             source: "https://en.wikipedia.org/wiki/Motor_vehicle",
+            emoji: "🚚",
         },
         railwayNetworkLength: {
             value: 1.148e6,
@@ -239,6 +244,7 @@
         companies: {
             value: 334e6,
             source: "https://www.businessdit.com/how-many-businesses-are-there-in-the-world/",
+            emoji: "🏢",
         },
         visualImpairment: {
             value: 253e6,
@@ -257,6 +263,7 @@
             value: 111.3e9,
             year: 2019,
             source: "https://www.sentienceinstitute.org/global-animal-farming-estimates",
+            emoji: "🐟",
         },
         co2eqEmissionsPerYear: {
             value: 54.59e9,
@@ -290,6 +297,7 @@
             source: "https://www.worldometers.info/bicycles/",
             comment:
                 "This number is a broad estimation from numbers collected between 1982-2000 and might be very outdated.",
+            emoji: "🚲",
         },
         flightsPerYear: {
             value: 38.9e6,
@@ -300,6 +308,7 @@
             value: 70e9,
             year: 2020,
             source: "https://faunalytics.org/global-animal-slaughter-statistics-charts-2022-update/",
+            emoji: "🍗",
         },
         cattleKilledPerYear: {
             value: 296e6,
@@ -325,26 +334,31 @@
             value: 1.5e9,
             year: 2021,
             source: "https://ourworldindata.org/grapher/cattle-livestock-count-heads?tab=table",
+            emoji: "🐄",
         },
         pigAlive: {
             value: 1e9,
             year: 2021,
             source: "https://ourworldindata.org/grapher/pig-livestock-count-heads?tab=table",
+            emoji: "🐖",
         },
         sheepAlive: {
             value: 1.2e9,
             year: 2020,
             source: "http://data.un.org/Data.aspx?d=FAO&f=itemCode%3A976#FAO",
+            emoji: "🐑",
         },
         goatAlive: {
             value: 1e9,
             year: 2021,
             source: "https://www.frontiersin.org/articles/10.3389/fvets.2021.648500/full",
+            emoji: "🐐",
         },
         farms: {
             value: 656e6,
             year: 2020,
             source: "https://journals.sagepub.com/doi/full/10.1177/00307270211025539",
+            emoji: "🏡",
         },
         surfaceOfCentralPark: {
             value: 3.41,
@@ -393,11 +407,13 @@
             year: 2015,
             source: "https://asd.gsfc.nasa.gov/blueshift/index.php/2015/07/22/how-many-stars-in-the-milky-way/",
             comment: "estimate ranges from 100-400e9",
+            emoji: "⭐",
         },
         galaxiesInUniverse: {
             value: 200e9,
             year: 2021,
             source: "https://en.wikipedia.org/wiki/Galaxy",
+            emoji: "🌌",
         },
         co2CarPerKM: {
             value: 0.2,
@@ -437,11 +453,13 @@
             value: 1085e6,
             year: 2023,
             source: "https://www.netcraft.com/blog/september-2023-web-server-survey/",
+            emoji: "🌐",
         },
         internetUsers: {
             value: 5.3e9,
             year: 2022,
             source: "https://www.itu.int/en/ITU-D/Statistics/Pages/facts/default.aspx",
+            emoji: "🧑‍💻",
         },
     }
 
@@ -1493,14 +1511,10 @@
     world.
 </p>
 
-<EmojiBox count={values.humans1300.value} emoji="🧑" />
-
 <p>
     <Number {...values.humansKilledByBlackDeath} /> one of them died from the Black
     Death.
 </p>
-
-<EmojiBox count={values.humansKilledByBlackDeath.value} emoji="☠️" />
 
 <p>
     During World War II, the deadliest military conflict in history, <Number
@@ -1508,22 +1522,18 @@
     /> human died.
 </p>
 
-<EmojiBox count={values.humansKilledInWorldWar2.value} emoji="☠️" />
-
 <h2>🛐 Religion</h2>
 
 {#each religions as religion}
     <p>
-        <Number value={(religion.percent / 100) * values.humans.value} /> of the
-        people
+        <Number
+            value={(religion.percent / 100) * values.humans.value}
+            emoji={religion.emoji}
+        /> of the people
         {#if religion.description}
             <b>{religion.description}</b>{:else}
             follow <b>{religion.name}</b>{/if}.
     </p>
-    <EmojiBox
-        count={(religion.percent / 100) * values.humans.value}
-        emoji={religion.emoji}
-    />
 {/each}
 
 <h2>🛤️ Transport</h2>
@@ -1535,14 +1545,6 @@
         {...values.motorcycles}
     /> motorcycles.
 </p>
-
-<EmojiBox count={values.bikes.value} emoji="🚲" />
-
-<EmojiBox count={values.cars.value} emoji="🚗" />
-
-<EmojiBox count={values.trucksAndBuses.value} emoji="🚚" />
-
-<EmojiBox count={values.motorcycles.value} emoji="🏍️" />
 
 <p>
     There are <Number {...values.flightsPerYear} /> flights per year.
@@ -1578,20 +1580,12 @@
     used for livestock.-->
 </p>
 
-<EmojiBox count={values.farms.value} emoji="🏡" />
-
 <p>
     There are <Number {...values.cattleAlive} /> cattle, <Number
         {...values.sheepAlive}
     /> sheep,
     <Number {...values.goatAlive} /> goats, and <Number {...values.pigAlive} /> pigs
     alive right now.
-</p>
-<p>
-    <EmojiBox count={values.cattleAlive.value} emoji="🐄" />
-    <EmojiBox count={values.sheepAlive.value} emoji="🐑" />
-    <EmojiBox count={values.goatAlive.value} emoji="🐐" />
-    <EmojiBox count={values.pigAlive.value} emoji="🐖" />
 </p>
 <Question
     q="What do you think: How many chickens are alive right now (in the small world)?"
@@ -1602,8 +1596,6 @@
             factor={values.shareOfChickensRaisedInIntensiveFarming.value}
         /> of them are raised in intensive industrial farming systems.
     </p>
-
-    <EmojiBox count={values.chickens.value} emoji="🐔" />
 
     <p>
         <Number {...values.chickensKilledPerYear} /> chickens are killed every year
@@ -1616,8 +1608,6 @@
     There are <Number {...values.farmedFish} /> fish being kept in fish tanks or
     ponds right now.
 </p>
-
-<EmojiBox count={values.farmedFish.value} emoji="🐟" />
 
 <!--
 <p>
@@ -1961,8 +1951,6 @@ EU: avg 10 t/year to heat
     There are <Number {...values.companies} /> companies in the world.
 </p>
 
-<EmojiBox count={values.companies.value} emoji="🏢" />
-
 <p>
     This is how much the adult people on our small world earn per month (after
     tax). The numbers are already adjusted for price differences between
@@ -2123,6 +2111,7 @@ EU: avg 10 t/year to heat
 
 <Question q="How many cars are there in the Small World?">
     <p>There are <Number {...values.cars} /> cars on the Small World.</p>
+
     <EmojiBox count={values.cars.value} emoji="🚗" />
 
     <Question q="So, how many cars are there on real Earth?">
