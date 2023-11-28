@@ -17,9 +17,6 @@
 
 <style>
     span {
-        font-size: 100%;
-        background-color: #ddd;
-        padding: 0.1em 0.2em;
-        border-radius: 0.3em;
+        font-size: 120%;
     }
 </style>

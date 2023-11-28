@@ -15,19 +15,19 @@
 
     let clusterDefinitions = {
         europe: {
-            center: [0.5, 0.13],
+            center: [0.5, 0.22],
         },
         asia: {
-            center: [0.7, 0.28],
+            center: [0.7, 0.35],
         },
         northamerica: {
-            center: [0.17, 0.2],
+            center: [0.17, 0.25],
         },
         southamerica: {
             center: [0.27, 0.65],
         },
         africa: {
-            center: [0.5, 0.45],
+            center: [0.5, 0.5],
         },
         oceania: {
             center: [0.84, 0.75],
@@ -78,12 +78,7 @@
                 top: {cluster.center[1] * 100}%;
             "
         >
-            <span class="number"><Number value={cluster.count} {source} /></span
-            >
-            <hr />
-            {#each Array(cluster.scaledCount) as _}
-                <span class="emoji">{emoji}</span>
-            {/each}
+            <Number value={cluster.count} {source} emoji="🧑" circular={true} />
         </div>
     {/each}
 </div>
@@ -99,24 +94,23 @@
         color: black;
     }
     .number {
-        background: rgba(255, 255, 255, 0.8);
-        border-radius: 50%;
-        width: 2rem;
+        width: 100%;
         height: 2rem;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
     }
     .cluster {
         position: absolute;
         transform: translate(-50%, -50%);
-        width: 200px;
+        width: 180px;
         height: 50px;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        flex-wrap: wrap;
-        font-size: 140%;
+        font-size: 70%;
     }
     hr {
         width: 100%;
