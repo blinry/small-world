@@ -26,7 +26,19 @@
 
     let error
 
-    let emoji = ""
+    let emoji = "🌍"
+
+    let parsedData = {}
+    $: {
+        if (answer && answer !== "") {
+            try {
+                parsedData = parseValue(answer)
+                error = ""
+            } catch (e) {
+                error = e.message
+            }
+        }
+    }
 
     function encode(question) {
         return encodeURIComponent(question)
@@ -82,9 +94,7 @@
 <h3>Step 3: See the converted value</h3>
 
 {#if answer}
-    <p>In the small world, there are <Number {...parseValue(answer)} />!</p>
-
-    <EmojiBox {emoji} count={parseValue(answer).value} />
+    <p>In the small world, there are <Number {...parsedData} {emoji} />!</p>
 {/if}
 
 {#if error}
