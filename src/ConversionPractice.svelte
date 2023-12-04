@@ -3,6 +3,8 @@
     import EmojiPicker from "./EmojiPicker.svelte"
     import EmojiBox from "./EmojiBox.svelte"
     import html2canvas from "html2canvas"
+    //import * as htmlToImage from 'html-to-image';
+    //import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 
     import {parseQuantity as parseValue} from "./helpers.js"
 
@@ -58,6 +60,22 @@
                 link.click()
             },
         )
+
+        /*htmlToImage.toSvg(document.getElementById('futureImage'))
+        .then(function (dataUrl) {
+            //download(dataUrl, 'my-node.png');
+            var link = document.createElement("a")
+                link.download = "smallworld.svg"
+                link.href = dataUrl
+                link.click()
+                
+                var img = new Image();
+                img.src = dataUrl;
+                document.body.appendChild(img);
+        }).catch(function (error) {
+            console.error('oops, something went wrong!', error);
+        })
+        */
     }
 </script>
 
