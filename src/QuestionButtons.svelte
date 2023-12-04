@@ -75,6 +75,7 @@
         flex-grow: 1;
         width: 40%;
         color: black;
+        font-size: 150%;
     }
 
     .correct {
