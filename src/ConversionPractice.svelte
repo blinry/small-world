@@ -2,6 +2,7 @@
     import Number from "./Number.svelte"
     import EmojiPicker from "./EmojiPicker.svelte"
     import EmojiBox from "./EmojiBox.svelte"
+    import html2canvas from "html2canvas"
 
     import {parseValue} from "./helpers.js"
 
@@ -46,6 +47,17 @@
 
     function emojiChanged(e) {
         emoji = e.detail.emoji
+    }
+
+    function saveInfo() {
+        html2canvas(document.getElementById("futureImage")).then(
+            function (canvas) {
+                var link = document.createElement("a")
+                link.download = "smallworld.png"
+                link.href = canvas.toDataURL()
+                link.click()
+            },
+        )
     }
 </script>
 
@@ -101,6 +113,21 @@
     <p>{error}</p>
 {/if}
 
+<button on:click={saveInfo}>Save my Result</button>
+
+<div id="futureImage">
+    <h3>{question}</h3>
+    <p>
+        In the small world, there are <Number
+            {...parsedData}
+            {emoji}
+            shrunk={true}
+        />!
+    </p>
+    <EmojiBox count={parsedData.value} {emoji}></EmojiBox>
+    <p>Want to know more? Visit Small World at XXXXXXX.com!</p>
+</div>
+
 <style>
     .button {
         display: inline-block;
@@ -115,5 +142,9 @@
         width: 70%;
         font-size: 1.1em;
         padding: 0.5em;
+    }
+    #futureImage {
+        padding: 0.5em;
+        position: fixed;
     }
 </style>
