@@ -1122,6 +1122,7 @@
 <p>
     Quite a number, right? That means that instead of <Number
         {...values.cats}
+        shrunk={true}
     /> cats, there are 7 × 100 million = <UnscaledNumber {...values.cats} /> cats
     on the real Earth!
 </p>
@@ -1129,8 +1130,8 @@
 <p>
     And the cool thing is: As you learn more about the small world, you will be
     able to convert everything back to real numbers! For example, if you know
-    that there are <Number {...values.dogs} /> dogs on our small world, you can convert
-    back to the actual number!
+    that there are <Number {...values.dogs} shrunk={true} /> dogs on our small world,
+    you can convert back to the actual number!
 </p>
 
 <QuestionButtons
@@ -1143,21 +1144,26 @@
     ]}
 >
     <p>
-        There are <UnscaledNumber {...values.dogs} /> dogs on the real Earth.
+        There are <UnscaledNumber {...values.dogs} shrunk={true} /> dogs on the real
+        Earth.
     </p>
 
     <p>
-        You get that value by multiplying <Number {...values.dogs} /> (the number
-        of dogs on the small world), with our factor of {humanReadable(
+        You get that value by multiplying <Number
+            {...values.dogs}
+            shrunk={true}
+        /> (the number of dogs on the small world), with our factor of {humanReadable(
             $defaultScale,
         )}.
     </p>
 </QuestionButtons>
 
 <p>
-    Each time you see a bold number (like in "<Number {...values.cats} /> cats"),
-    it will be a number scaled down to the small world. You can hover over it to
-    see the real number, or click on it to see the source.
+    Each time you see a bold number (like in "<Number
+        {...values.cats}
+        shrunk={true}
+    /> cats"), it will be a number scaled down to the small world. You can hover
+    over it to see the real number, or click on it to see the source.
 </p>
 
 <p>
@@ -2066,14 +2072,21 @@ EU: avg 10 t/year to heat
         For example, when we said that <Number
             {...values.chickensKilledPerYear}
             factor={1 / 365}
+            shrunk={true}
         /> chickens are killed every day, the number on the real world is actually
-        <Number {...values.chickensKilledPerYear} factor={1 / 365} /> times the number
-        of dots you just saw.
+        <Number
+            {...values.chickensKilledPerYear}
+            factor={1 / 365}
+            shrunk={true}
+        /> times the number of dots you just saw.
     </p>
     <p>
-        And when we said that <Number {...values.extremePoverty} /> people live in
-        extreme poverty, on the real world, it's <Number
+        And when we said that <Number
             {...values.extremePoverty}
+            shrunk={true}
+        /> people live in extreme poverty, on the real world, it's <Number
+            {...values.extremePoverty}
+            shrunk={true}
         /> times the number of dots you just scrolled through.
     </p>
 </ScrollBox>

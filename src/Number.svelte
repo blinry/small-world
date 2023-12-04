@@ -14,7 +14,8 @@
     export let factor = 1
     export let inverse = false
 
-    let shrinkApplied = false
+    export let shrunk = false
+    export let circular = false
 
     const audioPop = new Audio("pop.wav")
 
@@ -36,7 +37,7 @@
     }
 
     function clicked() {
-        shrinkApplied = true
+        shrunk = true
 
         if (emoji) {
             new EmojiBox({
@@ -52,8 +53,8 @@
     }
 </script>
 
-{#if shrinkApplied}
-    <b>
+{#if shrunk}
+    <b class:circular>
         <UnscaledRoundedNumber
             value={scaledValue}
             {unit}
@@ -64,7 +65,13 @@
     </b>
 {:else}
     <span on:click={clicked}>
-        <UnscaledNumber {value} {unit} {factor} />
+        {#if inverse}
+            <span style="font-size:120%"
+                >{humanReadableSmall((1.0 * factor) / value, "months")}</span
+            >
+        {:else}
+            <UnscaledNumber {value} {unit} {factor} />
+        {/if}
     </span>
 {/if}
 
@@ -73,5 +80,18 @@
         cursor:
             url("/images/wand.svg") 0 0,
             pointer;
+        font-size: 83%;
+        background-color: #ddd;
+        padding: 0.1em 0.2em;
+        border-radius: 0.3em;
+    }
+    .circular {
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 50%;
+        padding: 1em;
+        width: 1.5em;
+        height: 1.5em;
+        text-align: center;
+        margin-bottom: -1em;
     }
 </style>
