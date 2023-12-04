@@ -17,7 +17,24 @@
     export let shrunk = false
     export let circular = false
 
-    const audioPop = new Audio("pop.wav")
+    let context = new window.AudioContext()
+
+    function loadSample(url) {
+        return fetch(url)
+            .then((response) => response.arrayBuffer())
+            .then((buffer) => context.decodeAudioData(buffer))
+    }
+
+    function playSample(sample) {
+        console.log(sample)
+        const source = context.createBufferSource()
+        source.buffer = sample
+        source.playbackRate.value = 0.8 + Math.random() * 0.4
+        source.connect(context.destination)
+        source.start(0)
+    }
+
+    let samplePromise = loadSample("pop.wav")
 
     let scaledValue
     let comment
@@ -36,7 +53,7 @@
         }
     }
 
-    function clicked() {
+    async function clicked() {
         shrunk = true
 
         if (emoji) {
@@ -48,8 +65,8 @@
                 },
             })
         }
-        audioPop.playbackRate = 1 + Math.random() * 0.4 - 0.2
-        audioPop.play()
+        let sample = await samplePromise
+        playSample(sample)
     }
 </script>
 
