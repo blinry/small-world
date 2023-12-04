@@ -1,6 +1,5 @@
 <script>
     import UnscaledNumber from "./UnscaledNumber.svelte"
-    import UnscaledRoundedNumber from "./UnscaledRoundedNumber.svelte"
     import EmojiBox from "./EmojiBox.svelte"
     import {defaultScale} from "./stores.js"
     import {humanReadable, humanReadableSmall} from "./helpers.js"
@@ -72,7 +71,7 @@
 
 {#if shrunk}
     <b class:circular>
-        <UnscaledRoundedNumber
+        <UnscaledNumber
             value={scaledValue}
             {unit}
             {factor}

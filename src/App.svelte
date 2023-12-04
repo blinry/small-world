@@ -19,6 +19,7 @@
     import ScrollBar from "./ScrollBar.svelte"
     import Dots from "./Dots.svelte"
     import ScrollBox from "./ScrollBox.svelte"
+    import UnitSwitcher from "./UnitSwitcher.svelte"
 
     import {ageDistribution} from "./AgeData.js"
     import {postTaxIncomeDistribution} from "./IncomeData.js"
@@ -1063,6 +1064,7 @@
 </script>
 
 <ScrollBar />
+<UnitSwitcher />
 
 <h1>Small World</h1>
 <div id="subtitle">
@@ -1646,8 +1648,9 @@
 
 <p>
     We're going to imagine a big, black bubble that contains
-    {weightOfCO2ball} kg of CO₂. Conveniently, it has a diameter of almost precisely
-    {Math.round(diameterOfCO2ball)} meters! Here it is:
+    <UnscaledNumber value={weightOfCO2ball} unit={"kg"} /> of CO₂. Conveniently,
+    it has a diameter of almost precisely
+    <UnscaledNumber value={diameterOfCO2ball} unit={"m"} />! Here it is:
 </p>
 
 <p style="text-align: center;">
@@ -1661,7 +1664,10 @@
 </p>
 
 <p>
-    Burning one liter of gasoline produces <UnscaledNumber value={2.3} /> kg of CO₂.
+    Burning one liter of gasoline produces <UnscaledNumber
+        value={2.3}
+        unit={"kg"}
+    /> of CO₂.
 </p>
 
 <div style="font-size: 200%; text-align: center; margin: 1rem 0;">
@@ -1669,14 +1675,19 @@
 </div>
 
 <p>
-    Burning 1 kg of black coal produces <UnscaledNumber value={3.3} /> kg of CO₂.
+    Burning 1 kg of black coal produces <UnscaledNumber
+        value={3.3}
+        unit={"kg"}
+    /> of CO₂.
 </p>
 
 <div style="font-size: 200%; text-align: center; margin: 1rem 0;">
     🪨 = ⚫⚫⚫
 </div>
 
-<p>Burning 1 kg of wood produces <UnscaledNumber value={1.7} /> kg of CO₂.</p>
+<p>
+    Burning 1 kg of wood produces <UnscaledNumber value={1.7} unit={"kg"} /> of CO₂.
+</p>
 
 <div style="font-size: 200%; text-align: center; margin: 1rem 0;">
     🪵 = ⚫⚫
@@ -1989,7 +2000,9 @@ EU: avg 10 t/year to heat
     /> galaxies.
 </p>
 
-<h2>💯 What does this factor of {humanReadable($defaultScale)} mean?</h2>
+<h2>
+    💯 What does this factor of {humanReadable($defaultScale)} mean?
+</h2>
 
 <p>
     It's very important that we don't forget that all numbers on our small world

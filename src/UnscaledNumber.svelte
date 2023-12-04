@@ -1,19 +1,19 @@
 <script>
+    import {useMetric} from "./stores.js"
+    import {humanReadable} from "./helpers.js"
+
     export let value
     export let unit = null
     export let comment = "This is the actual value on the real Earth."
     export let factor = 1
 
-    $: factoredValue = value * factor
-
-    function numberWithCommas(x) {
-        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    $: quantity = {
+        value: value * factor,
+        unit: unit,
     }
 </script>
 
-<span title={comment}
-    >{numberWithCommas(factoredValue)}{#if unit}{" " + unit}{/if}</span
->
+<span title={comment}>{humanReadable(quantity, $useMetric)}</span>
 
 <style>
     span {

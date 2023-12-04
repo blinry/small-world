@@ -3,7 +3,7 @@
     import EmojiPicker from "./EmojiPicker.svelte"
     import EmojiBox from "./EmojiBox.svelte"
 
-    import {parseValue} from "./helpers.js"
+    import {parseQuantity as parseValue} from "./helpers.js"
 
     const searchEngines = [
         {
