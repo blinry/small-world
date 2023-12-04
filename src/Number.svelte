@@ -9,6 +9,7 @@
     export let unit
     export let source
     export let emoji
+    export let dialog = []
 
     export let factor = 1
     export let inverse = false
@@ -61,6 +62,7 @@
                 props: {
                     count: value,
                     emoji: emoji,
+                    dialog: dialog,
                 },
             })
         }

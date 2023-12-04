@@ -1,6 +1,6 @@
 <script>
     import {defaultScale} from "./stores.js"
-    import {renderEmoji} from "./helpers.js"
+    import Emoji from "./Emoji.svelte"
 
     let limit = 2000
 
@@ -8,6 +8,7 @@
     export let scale
     export let factor = 1
     export let unscaled = false
+    export let dialog = []
 
     let scaledCount
     let zeroesAfterDecimal
@@ -50,6 +51,12 @@
                 } else {
                     newInstance.emoji = emoji
                 }
+
+                if (dialog.length) {
+                    newInstance.speech =
+                        dialog[Math.floor(Math.random() * dialog.length)]
+                }
+
                 instances.push(newInstance)
             }
         }
@@ -66,7 +73,7 @@
                 class="emoji"
                 style="position: relative; left: {instance.offsetX}px; top: {instance.offsetY}px;"
             >
-                {@html renderEmoji(instance.emoji)}
+                <Emoji emoji={instance.emoji} speech={instance.speech} />
                 {#if instance.value}
                     <span>
                         {Math.round(instance.value)}

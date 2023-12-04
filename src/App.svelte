@@ -20,6 +20,7 @@
     import Dots from "./Dots.svelte"
     import ScrollBox from "./ScrollBox.svelte"
     import UnitSwitcher from "./UnitSwitcher.svelte"
+    import Emoji from "./Emoji.svelte"
 
     import {ageDistribution} from "./AgeData.js"
     import {postTaxIncomeDistribution} from "./IncomeData.js"
@@ -174,6 +175,7 @@
             value: 900e6,
             source: "https://en.wikipedia.org/wiki/Free-ranging_dog",
             emoji: "🐕",
+            dialog: ["Woof!", "Pet me!", "Woof woof"],
         },
         humansKilledByBlackDeath: {
             value: 75e6,
@@ -305,6 +307,7 @@
             year: 2016,
             source: "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight",
             emoji: "overweight",
+            dialog: ["My health is bad :("],
         },
         bikes: {
             value: 1e9,
@@ -1072,14 +1075,25 @@
     <a href="https://blinry.org">blinry</a>, last updated 2023
 </div>
 
+<p><Emoji emoji="🐕" speech="!" /></p>
+
 <p>
     The Earth is big. Really, <i>really</i> big. So unimaginable big that it can
     be hard to wrap our heads around it.
 </p>
 
+<p><Emoji emoji="🐈" speech="I am a cat! I make meow alll day long." /></p>
+
 <p>
     To make it easier to grasp, let's scale it down! Imagine a really tiny
     world, so tiny that you can see its big buildings from space:
+</p>
+
+<p>
+    <Emoji
+        emoji="🦊"
+        speech="I am a fox! What do I say? Nobody knows! It will remain a mystery forever.<br>And I just keep talking a bit more."
+    />
 </p>
 
 <p
