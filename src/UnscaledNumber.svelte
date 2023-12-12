@@ -6,6 +6,7 @@
     export let unit = null
     export let comment = "This is the actual value on the real Earth."
     export let factor = 1
+    export let rounded = true
 
     $: quantity = {
         value: value * factor,
@@ -13,7 +14,7 @@
     }
 </script>
 
-<span title={comment}>{humanReadable(quantity, $useMetric)}</span>
+<span title={comment}>{humanReadable(quantity, $useMetric, rounded)}</span>
 
 <style>
     span {

@@ -21,6 +21,7 @@
     import ScrollBox from "./ScrollBox.svelte"
     import UnitSwitcher from "./UnitSwitcher.svelte"
     import Emoji from "./Emoji.svelte"
+    import Box from "./Box.svelte"
 
     import {ageDistribution} from "./AgeData.js"
     import {postTaxIncomeDistribution} from "./IncomeData.js"
@@ -1069,7 +1070,7 @@
 <ScrollBar />
 <UnitSwitcher />
 
-<h1>Small World</h1>
+<h1>🌍 Small World</h1>
 <div id="subtitle">
     by <a href="https://bleeptrack.de">bleeptrack</a> &
     <a href="https://blinry.org">blinry</a>, last updated 2023
@@ -1106,11 +1107,28 @@
     <i>The numbers of the "Small World" are much easier to imagine, right?</i>
 </p>
 
+<Box>
+    <p>By reading this page, you will:</p>
+
+    <ul>
+        <li>
+            ✨ Learn to "magically" remember a lot of facts about the Earth!
+        </li>
+        <li>
+            💡 Get a better intuition for how things on Earth relate to each
+            other!
+        </li>
+        <li>🤔 Discover some misconceptions you might have about the world!</li>
+    </ul>
+
+    <p>Let's get started!</p>
+</Box>
+
 <h2><Emoji emoji="wand" /> How does the magic wand work?</h2>
 
 <p>
     Did you ever play with toy trains? Many miniature trains use a 1:87 scale,
-    which means that toy trains are 87 smaller than in real life.
+    which means that the toy trains are 87 times smaller than in real life.
 </p>
 
 <p>
@@ -1160,11 +1178,8 @@
 </QuestionButtons>
 
 <p>
-    After you've scaled down a number (like in "<Number
-        {...values.cats}
-        shrunk={true}
-    /> cats"), you can still hover over it to see the real number, or click on it
-    to see the source.
+    After you've scaled down a number, you can still hover over it to see the
+    real number, or click on it to see the source.
 </p>
 
 <h2>🧑 Demographics</h2>

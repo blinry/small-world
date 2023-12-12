@@ -20,7 +20,7 @@ export function metricToImperial(quantity) {
 }
 
 // Format a quantity nicely, and return it as a string.
-export function humanReadable(quantity, useMetric = true) {
+export function humanReadable(quantity, useMetric = true, rounded = true) {
     let resultingQuantity
 
     if (typeof quantity === "number") {
@@ -42,35 +42,39 @@ export function humanReadable(quantity, useMetric = true) {
 
     let result = ""
 
-    if (resultingQuantity.value < 0.05) {
-        result = "0"
-    } else if (resultingQuantity.value < 2) {
-        result = Math.round(resultingQuantity.value * 10) / 10
-    } else if (resultingQuantity.value < 10000) {
-        result = `${Math.round(resultingQuantity.value)}`
-    } else if (resultingQuantity.value < 1e6) {
-        result = Math.round(resultingQuantity.value / 1000) + " thousand"
-    } else if (resultingQuantity.value < 1e9) {
-        result = Math.round(resultingQuantity.value / 1e6) + " million"
-    } else if (resultingQuantity.value < 1e12) {
-        result = Math.round(resultingQuantity.value / 1e9) + " billion"
-    } else if (resultingQuantity.value < 1e15) {
-        result =
-            Math.round(resultingQuantity.value / 1e12) +
-            " trillion" +
-            scientificNotation
-    } else if (resultingQuantity.value < 1e18) {
-        result =
-            Math.round(resultingQuantity.value / 1e15) +
-            " quadrillion" +
-            scientificNotation
-    } else if (resultingQuantity.value < 1e21) {
-        result =
-            Math.round(resultingQuantity.value / 1e18) +
-            " quintillion" +
-            scientificNotation
+    if (rounded) {
+        if (resultingQuantity.value < 0.05) {
+            result = "0"
+        } else if (resultingQuantity.value < 2) {
+            result = Math.round(resultingQuantity.value * 10) / 10
+        } else if (resultingQuantity.value < 10000) {
+            result = `${Math.round(resultingQuantity.value)}`
+        } else if (resultingQuantity.value < 1e6) {
+            result = Math.round(resultingQuantity.value / 1000) + " thousand"
+        } else if (resultingQuantity.value < 1e9) {
+            result = Math.round(resultingQuantity.value / 1e6) + " million"
+        } else if (resultingQuantity.value < 1e12) {
+            result = Math.round(resultingQuantity.value / 1e9) + " billion"
+        } else if (resultingQuantity.value < 1e15) {
+            result =
+                Math.round(resultingQuantity.value / 1e12) +
+                " trillion" +
+                scientificNotation
+        } else if (resultingQuantity.value < 1e18) {
+            result =
+                Math.round(resultingQuantity.value / 1e15) +
+                " quadrillion" +
+                scientificNotation
+        } else if (resultingQuantity.value < 1e21) {
+            result =
+                Math.round(resultingQuantity.value / 1e18) +
+                " quintillion" +
+                scientificNotation
+        } else {
+            result = Math.round(resultingQuantity.value) + scientificNotation
+        }
     } else {
-        result = Math.round(resultingQuantity.value) + scientificNotation
+        result = resultingQuantity.value
     }
 
     if (resultingQuantity.unit) {

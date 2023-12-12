@@ -1,6 +1,7 @@
 <script>
     import UnscaledNumber from "./UnscaledNumber.svelte"
     import EmojiBox from "./EmojiBox.svelte"
+    import Popup from "./Popup.svelte"
     import {defaultScale} from "./stores.js"
     import {humanReadable, humanReadableSmall} from "./helpers.js"
 
@@ -73,13 +74,24 @@
 
 {#if shrunk}
     <b class:circular>
-        <UnscaledNumber
-            value={scaledValue}
-            {unit}
-            {factor}
-            {comment}
-            {source}
-        />
+        <Popup>
+            <UnscaledNumber
+                value={scaledValue}
+                {unit}
+                {factor}
+                {comment}
+                {source}
+            />
+
+            <div slot="popup">
+                <p id="comment">{comment}</p>
+                {#if source}
+                    <p>
+                        Source: <a href={source} target="_blank">{source}</a>
+                    </p>
+                {/if}
+            </div>
+        </Popup>
     </b>
 {:else}
     <span on:click={clicked}>
@@ -88,7 +100,7 @@
                 >{humanReadableSmall((1.0 * factor) / value, "months")}</span
             >
         {:else}
-            <UnscaledNumber {value} {unit} {factor} />
+            <UnscaledNumber {value} {unit} {factor} rounded={true} />
         {/if}
     </span>
 {/if}
