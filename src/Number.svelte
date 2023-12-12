@@ -54,7 +54,8 @@
         }
     }
 
-    async function clicked() {
+    async function clicked(e) {
+        e.stopPropagation()
         shrunk = true
 
         if (emoji) {

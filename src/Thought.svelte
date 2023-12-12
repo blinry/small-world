@@ -7,9 +7,7 @@
 <div on:click={() => (answerShown = !answerShown)}>
     💭 <b>{t}</b>
 
-    {#if answerShown}
-        <div><slot /></div>
-    {/if}
+    <div class:hidden={!answerShown}><slot /></div>
 </div>
 
 <style>
@@ -19,5 +17,8 @@
         padding: 1rem;
         margin: 1rem 0;
         cursor: pointer;
+    }
+    .hidden {
+        display: none;
     }
 </style>

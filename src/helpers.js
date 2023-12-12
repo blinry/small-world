@@ -45,7 +45,11 @@ export function humanReadable(quantity, useMetric = true, rounded = true) {
     if (rounded) {
         if (resultingQuantity.value < 0.05) {
             result = "0"
-        } else if (resultingQuantity.value < 2) {
+        } else if (resultingQuantity.value < 0.7) {
+            result = Math.round(resultingQuantity.value * 10) / 10
+        } else if (resultingQuantity.value < 1.35) {
+            result = Math.round(resultingQuantity.value)
+        } else if (resultingQuantity.value < 1.8) {
             result = Math.round(resultingQuantity.value * 10) / 10
         } else if (resultingQuantity.value < 10000) {
             result = `${Math.round(resultingQuantity.value)}`
