@@ -2218,6 +2218,18 @@ EU: avg 10 t/year to heat
     >, and we might include it!
 </p>
 
+<h2>✏️ Leave us some feedback</h2>
+
+<iframe
+    src="https://docs.google.com/forms/d/e/1FAIpQLScvQBVwB_QgwLJofXIQyT8IrhXw3XXmCW54zYg4fM6Cu9lvfg/viewform?embedded=true"
+    width="100%"
+    height="1156"
+    frameborder="0"
+    marginheight="0"
+    marginwidth="0"
+    scrolling="no">Wird geladen…</iframe
+>
+
 <h2>🔁 Re-use our work!</h2>
 
 <p>
