@@ -31,6 +31,7 @@
                             spread: 70,
                             origin: {y: 0.6},
                         })
+                        audioCorrect.volume = 0.2
                         audioCorrect.play()
                     } else {
                         audioFail.play()
