@@ -1075,41 +1075,23 @@
     <a href="https://blinry.org">blinry</a>, last updated 2023
 </div>
 
-<p><Emoji emoji="🐕" speech="!" /></p>
-
 <p>
     The Earth is big. Really, <i>really</i> big. So unimaginable big that it can
     be hard to wrap our heads around it.
 </p>
 
-<p><Emoji emoji="🐈" speech="I am a cat! I make meow alll day long." /></p>
-
 <p>
-    To make it easier to grasp, let's scale it down! Imagine a really tiny
-    world, so tiny that you can see its big buildings from space:
+    Let's make it easier to grasp! Here, take this magical wand – you can use it
+    to scale the Earth and its big numbers down!
 </p>
 
-<p>
-    <Emoji
-        emoji="🦊"
-        speech="I am a fox! What do I say? Nobody knows! It will remain a mystery forever.<br>And I just keep talking a bit more."
-    />
-</p>
-
-<p
-    style="font-size: 4rem; text-align: center; margin-top: 2rem; margin-bottom: -0.9rem;"
->
-    🗼
-</p>
-<p
-    style="font-size: 12rem; text-align: center; margin-bottom: 2rem; margin-top: 0;"
->
-    🌏
+<p style="text-align: center;">
+    <img src="custom-emoji/wand.svg" alt="A magical wand" style="width: 8em;" />
 </p>
 
 <p>
-    On this small world, there are <Number {...values.humans} /> humans! One of them
-    is you!
+    For example, there are <Number {...values.humans} /> humans on Earth!
+    <i>(Try clicking the grey number to scale it down!)</i>
 </p>
 
 <p>Together, the people have <Number {...values.cars} /> cars.</p>
@@ -1117,15 +1099,18 @@
 <p>
     And there are <Number {...values.cats} /> cats and <Number
         {...values.dogs}
-    /> dogs (including undomesticated ones).
+    /> dogs.
 </p>
 
-<h2>💯 How does this relate to the real Earth?</h2>
+<p>
+    <i>The numbers of the "Small World" are much easier to imagine, right?</i>
+</p>
+
+<h2><Emoji emoji="wand" /> How does the magic wand work?</h2>
 
 <p>
-    Have you played with miniature scale models? For example, model trains use a
-    1:87 scale, which means that real trains are 87 times larger than the
-    models!
+    Did you ever play with toy trains? Many miniature trains use a 1:87 scale,
+    which means that toy trains are 87 smaller than in real life.
 </p>
 
 <p>
@@ -1136,17 +1121,17 @@
 <p class="wow">1:{humanReadable($defaultScale)}</p>
 
 <p>
-    Quite a number, right? That means that instead of <Number
+    Quite a number, right? That means that instead of 7 × 100 million = <UnscaledNumber
         {...values.cats}
-        shrunk={true}
-    /> cats, there are 7 × 100 million = <UnscaledNumber {...values.cats} /> cats
-    on the real Earth!
+    /> cats, there are <Number {...values.cats} shrunk={true} /> cats on the scaled-down
+    Small World! We picked this factor because it gives us nice numbers for facts
+    about the Earth.
 </p>
 
 <p>
-    And the cool thing is: As you learn more about the small world, you will be
+    And the cool thing is: As you learn more about the Small World, you will be
     able to convert everything back to real numbers! For example, if you know
-    that there are <Number {...values.dogs} shrunk={true} /> dogs on our small world,
+    that there are <Number {...values.dogs} shrunk={true} /> dogs on our Small World,
     you can convert back to the actual number!
 </p>
 
@@ -1175,16 +1160,11 @@
 </QuestionButtons>
 
 <p>
-    Each time you see a bold number (like in "<Number
+    After you've scaled down a number (like in "<Number
         {...values.cats}
         shrunk={true}
-    /> cats"), it will be a number scaled down to the small world. You can hover
-    over it to see the real number, or click on it to see the source.
-</p>
-
-<p>
-    Spend some time on our small world, and get a better understanding of the
-    real Earth!
+    /> cats"), you can still hover over it to see the real number, or click on it
+    to see the source.
 </p>
 
 <h2>🧑 Demographics</h2>

@@ -96,7 +96,7 @@
 <style>
     span {
         cursor:
-            url("/images/wand.svg") 0 0,
+            url("/custom-emoji/wand.svg") 0 0,
             pointer;
         font-size: 83%;
         background-color: #ddd;
