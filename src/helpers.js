@@ -33,6 +33,11 @@ export function humanReadable(quantity, useMetric = true, rounded = true) {
         resultingQuantity = metricToImperial(quantity)
     }
 
+    if (quantity.unit === "tonnes" && quantity.value < 1) {
+        resultingQuantity.unit = "kg"
+        resultingQuantity.value *= 1000
+    }
+
     // Convertes big values into something like 120 million or 41 thousand
     // or 1.2 billion.
 
