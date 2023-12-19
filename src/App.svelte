@@ -1240,7 +1240,11 @@
             return "🧓"
         }
     }}
+<<<<<<< HEAD
     bucketLabel={{Toddler: 2, Children: 14, Youth: 24, Adult: 70, Senior: 150}}
+=======
+    bucketLabel={{Children: 14, Youth: 24, Adult: 70, Senior: 150}}
+>>>>>>> main
     distribution={ageDistribution}
     source="https://population.un.org/wpp/Download/Files/1_Indicators%20(Standard)/CSV_FILES/WPP2022_PopulationBySingleAgeSex_Medium_Percentage_2022-2100.zip"
 />
