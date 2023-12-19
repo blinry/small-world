@@ -1220,9 +1220,11 @@
     source="https://ourworldindata.org/grapher/population-regions-with-projections"
 />
 
+<br />
 <p>
-    And this is how old they are. Again, can you find yourself? Can you find
-    other members of your family?
+    And this is how old all <Number {...values.humans} shrunk="true" /> small world
+    humans are. Again, can you find yourself? Can you find other members of your
+    family?
 </p>
 
 <EmojiHistogram
@@ -1238,7 +1240,7 @@
             return "🧓"
         }
     }}
-    bucketSize={10}
+    bucketLabel={{Toddler: 2, Children: 14, Youth: 24, Adult: 70, Senior: 150}}
     distribution={ageDistribution}
     source="https://population.un.org/wpp/Download/Files/1_Indicators%20(Standard)/CSV_FILES/WPP2022_PopulationBySingleAgeSex_Medium_Percentage_2022-2100.zip"
 />
