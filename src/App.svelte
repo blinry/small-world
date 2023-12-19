@@ -1095,7 +1095,7 @@
     <i>(Try clicking the grey number to scale it down!)</i>
 </p>
 
-<p>Together, the people have <Number {...values.cars} /> cars.</p>
+<p>For example, together, the people have <Number {...values.cars} /> cars.</p>
 
 <p>
     And there are <Number {...values.cats} /> cats and <Number
@@ -1186,6 +1186,14 @@
 
 <p>
     There are <Number {...values.humans} /> humans on the small world.
+</p>
+
+<p>
+    Always keep these people in mind, when you read this article – we will learn
+    a lot about what life is like for them!
+</p>
+
+<p>
     <Number {...values.humansBornPerYear} /> is born every year, and every
     <Number
         value={values.humansDiePerYear.value}
@@ -1276,6 +1284,7 @@
     <p>
         You get that value by multiplying <Number
             {...values.noAccessToSafeDrinkingWater}
+            shrunk={true}
         /> (the number of people without access to safe drinking water on the small
         world), with our factor of {humanReadable($defaultScale)}.
     </p></QuestionButtons
@@ -1598,17 +1607,26 @@
     q="What do you think: How many chickens are alive right now (in the small world)?"
 >
     <p>
-        There are <Number {...values.chickens} /> chickens alive right now. <Number
+        There are <Number {...values.chickens} shrunk={true} /> chickens alive right
+        now. <Number
             {...values.chickens}
             factor={values.shareOfChickensRaisedInIntensiveFarming.value}
+            shrunk={true}
         /> of them are raised in intensive industrial farming systems.
     </p>
 
+    <EmojiBox count={values.chickens.value} emoji="🐔" />
+
     <p>
-        <Number {...values.chickensKilledPerYear} /> chickens are killed every year
-        (<Number value={values.chickensKilledPerYear.value / 365} />
+        <Number {...values.chickensKilledPerYear} shrunk={true} /> chickens are killed
+        every year (<Number
+            value={values.chickensKilledPerYear.value / 365}
+            shrunk={true}
+        />
         per day).
     </p>
+
+    <EmojiBox count={values.chickensKilledPerYear.value} emoji="🍗" />
 </Question>
 
 <p>
@@ -2065,16 +2083,13 @@ EU: avg 10 t/year to heat
     </p>
 </QuestionButtons>
 
-<p>
-    Finally, let's really look at the number! Here's 100 dots (you might need to
-    zoom in a bit to see them): <Dots n={100} />
-</p>
+<p>Finally, let's really look at the number! Here's 100 dots:</p>
+
+<Dots n={100} />
 
 <p>Here's 100 thousand dots:</p>
 
-<ScrollBox>
-    <Dots n={100000} />
-</ScrollBox>
+<Dots n={100000} />
 
 <p>
     And here's 100 million dots! Come on, let's scroll through them together!
@@ -2178,12 +2193,9 @@ EU: avg 10 t/year to heat
     </p>
 </Question>
 
-<Question q="How many chickens are held in intensive farming systems?">
+<Question q="How many chickens are currently alive in the real world?">
     <p>
-        There are <UnscaledNumber
-            {...values.chickens}
-            factor={values.shareOfChickensRaisedInIntensiveFarming.value}
-        /> chickens in intensive farming systems.
+        There are <UnscaledNumber {...values.chickens} /> chickens alive right now.
     </p>
 </Question>
 

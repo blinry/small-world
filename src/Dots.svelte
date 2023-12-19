@@ -5,12 +5,17 @@
     let canvas
 
     onMount(() => {
+        let displayScale = 1
+        if (n < 10000) {
+            displayScale = 2
+        }
+
         let width = 2 * Math.sqrt(n)
         let height = width
-        canvas.width = width
-        canvas.height = height
-        canvas.style.width = width + "px"
-        canvas.style.height = height + "px"
+        canvas.width = width * displayScale
+        canvas.height = height * displayScale
+        canvas.style.width = width * displayScale + "px"
+        canvas.style.height = height * displayScale + "px"
         if (n == 100_000) {
             // load from 100-thousand.png
             let img = new Image()
@@ -26,7 +31,12 @@
             ctx.fillStyle = "black"
             for (let x = 0; x < width; x += 2) {
                 for (let y = 0; y < height; y += 2) {
-                    ctx.fillRect(x, y, 1, 1)
+                    ctx.fillRect(
+                        x * displayScale,
+                        y * displayScale,
+                        1 * displayScale,
+                        1 * displayScale,
+                    )
                 }
             }
         }

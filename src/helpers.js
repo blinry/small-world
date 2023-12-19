@@ -37,7 +37,9 @@ export function humanReadable(quantity, useMetric = true, rounded = true) {
     // or 1.2 billion.
 
     let exponent = Math.floor(Math.log10(resultingQuantity.value))
-    let mantissa = resultingQuantity.value / Math.pow(10, exponent)
+    let mantissa =
+        Math.floor((100 * resultingQuantity.value) / Math.pow(10, exponent)) /
+        100
     let scientificNotation = " (= " + mantissa + "*10^" + exponent + ")"
 
     let result = ""
@@ -54,24 +56,25 @@ export function humanReadable(quantity, useMetric = true, rounded = true) {
         } else if (resultingQuantity.value < 10000) {
             result = `${Math.round(resultingQuantity.value)}`
         } else if (resultingQuantity.value < 1e6) {
-            result = Math.round(resultingQuantity.value / 1000) + " thousand"
+            result =
+                Math.round(resultingQuantity.value / 100) / 10 + " thousand"
         } else if (resultingQuantity.value < 1e9) {
-            result = Math.round(resultingQuantity.value / 1e6) + " million"
+            result = Math.round(resultingQuantity.value / 1e5) / 10 + " million"
         } else if (resultingQuantity.value < 1e12) {
-            result = Math.round(resultingQuantity.value / 1e9) + " billion"
+            result = Math.round(resultingQuantity.value / 1e8) / 10 + " billion"
         } else if (resultingQuantity.value < 1e15) {
             result =
-                Math.round(resultingQuantity.value / 1e12) +
+                Math.round(resultingQuantity.value / 1e11) / 10 +
                 " trillion" +
                 scientificNotation
         } else if (resultingQuantity.value < 1e18) {
             result =
-                Math.round(resultingQuantity.value / 1e15) +
+                Math.round(resultingQuantity.value / 1e14) / 10 +
                 " quadrillion" +
                 scientificNotation
         } else if (resultingQuantity.value < 1e21) {
             result =
-                Math.round(resultingQuantity.value / 1e18) +
+                Math.round(resultingQuantity.value / 1e17) / 10 +
                 " quintillion" +
                 scientificNotation
         } else {
