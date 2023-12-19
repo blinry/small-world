@@ -8,16 +8,17 @@
         const height = scrollHeight - clientHeight
         scroll = scrollTop / height
 
-        sections = [...document.querySelectorAll("h2")].map((h2) => {
+        sections = [...document.querySelectorAll("#app > h2")].map((h2) => {
             const {offsetTop, offsetHeight} = h2
             const progress = Math.max(
                 0,
                 Math.min(1, (offsetTop - clientHeight / 2) / height),
             )
-            const emoji = h2.textContent.replaceAll(
-                /[^\p{Extended_Pictographic}]/gu,
-                "",
-            )
+            //const emoji = h2.textContent.replaceAll(
+            //    /[^\p{Extended_Pictographic}]/gu,
+            //    "",
+            //)
+            const emoji = h2.textContent.split(" ")[0]
             return {name: h2.textContent, emoji, progress}
         })
     }
