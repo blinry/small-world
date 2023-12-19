@@ -2,7 +2,7 @@
     import {defaultScale} from "./stores.js"
     import Emoji from "./Emoji.svelte"
 
-    let limit = 2000
+    let limit = 2500
 
     export let count
     export let scale

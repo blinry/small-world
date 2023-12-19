@@ -473,6 +473,7 @@
             year: 2023,
             source: "https://www.netcraft.com/blog/september-2023-web-server-survey/",
             emoji: "🌐",
+            dialog: ["What kind of website would I be?"],
         },
         internetUsers: {
             value: 5.3e9,
@@ -1298,11 +1299,6 @@
 <h2>🌍 Planet</h2>
 
 <p>
-    The planet has a diameter of <Length {...values.diameterOfEarth} />, and a
-    circumference of <Length {...values.circumferenceOfEarth} />.
-</p>
-
-<p>
     The surface of our small world is <Number {...values.surfaceOfEarth} /> (that's
     roughly
     <Number
@@ -1310,6 +1306,11 @@
     /> times the area of Central Park in New York City). <Number
         {...values.oceanSurface}
     /> of that is ocean.
+</p>
+
+<p>
+    This results in a diameter of <Length {...values.diameterOfEarth} /> and a circumference
+    of <Length {...values.circumferenceOfEarth} /> for our small world.
 </p>
 
 <p style="font-size: 12rem; text-align: center; margin: 2rem 0;">🌏</p>
@@ -1519,8 +1520,7 @@
 </p>
 
 <p>
-    <Number {...values.humansKilledByBlackDeath} /> one of them died from the Black
-    Death.
+    <Number {...values.humansKilledByBlackDeath} /> of them died from the Black Death.
 </p>
 
 <p>
@@ -1539,7 +1539,11 @@
         /> of the people
         {#if religion.description}
             <b>{religion.description}</b>{:else}
-            follow <b>{religion.name}</b>{/if}.
+            follow <b>{religion.name}</b>
+        {/if}
+        {#if religion.name == "Other religions"}
+            (Including Judaism and various Folk religions)
+        {/if}.
     </p>
 {/each}
 
@@ -1970,8 +1974,8 @@ EU: avg 10 t/year to heat
 <p>
     This is how much the adult people on our small world earn per month (after
     tax). The numbers are already adjusted for price differences between
-    countries. (Note that these values are not scaled down, because they're
-    per-person numbers. They translate directly to real Earth.)
+    countries. (Note that these values are per-person numbers. They translate
+    directly to real Earth. You don't need to scale these down.)
 </p>
 
 <EmojiGraph
@@ -2156,7 +2160,10 @@ EU: avg 10 t/year to heat
     </p>
 </Question>
 
-<p>Now let's try some questions that relate to the real world directly!</p>
+<p>
+    ------- Now let's try some questions that relate to <b>the real world</b> directly!
+    -------
+</p>
 
 <Question q="How many galaxies are there in the real world?">
     <p>
@@ -2218,7 +2225,7 @@ EU: avg 10 t/year to heat
 <iframe
     src="https://docs.google.com/forms/d/e/1FAIpQLScvQBVwB_QgwLJofXIQyT8IrhXw3XXmCW54zYg4fM6Cu9lvfg/viewform?embedded=true"
     width="100%"
-    height="1156"
+    height="1400"
     frameborder="0"
     marginheight="0"
     marginwidth="0"
