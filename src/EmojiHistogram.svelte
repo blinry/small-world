@@ -8,7 +8,8 @@
 
     export let count = 0
     export let scale
-    export let bucketSize
+    export let bucketSize = 10
+    export let bucketLabel
     export let source
 
     let scaledCount
@@ -29,6 +30,7 @@
     }
 
     let buckets
+    let labeledBuckets
     let lastValue = 0
     $: {
         buckets = [[]]
@@ -59,6 +61,23 @@
                 lastValue = newInstance.value
             }
         }
+
+        console.log(bucketLabel)
+        if (bucketLabel) {
+            buckets = buckets.flat(Infinity)
+            labeledBuckets = []
+            for (let [label, value] of Object.entries(bucketLabel)) {
+                labeledBuckets.push(
+                    buckets.filter(
+                        (e) =>
+                            e.value <= value &&
+                            !labeledBuckets.flat().includes(e),
+                    ),
+                )
+            }
+        }
+
+        console.log("labeled", labeledBuckets)
     }
 </script>
 
@@ -67,6 +86,24 @@
         {#if scaledCount > limit}
             (A lot of {emoji}s, which I won't render, because it would crash
             your browser.)
+        {:else if labeledBuckets}
+            {#each labeledBuckets as bucket, index}
+                <h3>{Object.keys(bucketLabel)[index]}:</h3>
+                {#each bucket as instance}
+                    <span
+                        class="emoji"
+                        style="position: relative; left: {instance.offsetX}px; top: {instance.offsetY}px;"
+                    >
+                        {@html renderEmoji(instance.emoji)}
+                    </span>
+                    {#if instance.value !== undefined}
+                        <span>
+                            {Math.floor(instance.value)}
+                        </span>
+                    {/if}
+                {/each}
+                <br />
+            {/each}
         {:else}
             {#each buckets as bucket}
                 {#each bucket as instance}
