@@ -91,7 +91,6 @@
             a.download = "smallworld.png"
             document.body.appendChild(a)
             a.click()
-            document.getElementById("canvtest").appendChild(canvas)
         }
         img.src = `data:image/svg+xml;base64,${encodedData}`
         console.log(`data:image/svg+xml;base64,${encodedData}`)
