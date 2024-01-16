@@ -22,6 +22,7 @@
     import UnitSwitcher from "./UnitSwitcher.svelte"
     import Emoji from "./Emoji.svelte"
     import Box from "./Box.svelte"
+    import CO2Bubbles from "./CO2Bubbles.svelte"
 
     import {ageDistribution} from "./AgeData.js"
     import {postTaxIncomeDistribution} from "./IncomeData.js"
@@ -590,7 +591,7 @@
             description:
                 "from fuel used to power farm machinery or fishing vessels",
             percent: 1.7,
-            emoji: "🐄🐟",
+            emoji: "🚜",
         },
         {
             name: "Unallocated fuel combustion",
@@ -604,21 +605,21 @@
             description:
                 "from the accidental leakage of methane during coal mining",
             percent: 1.9,
-            emoji: "🏭",
+            emoji: "⛏️",
         },
         {
             name: "Fugitive emissions from oil & natural gas",
             description:
                 "from the often-accidental leakage of methane to the atmosphere",
             percent: 3.9,
-            emoji: "🛢️",
+            emoji: "💨",
         },
         {
             name: "Cement",
             description:
                 "as a byproduct of a chemical conversion process used in the production of clinker, a component of cement",
             percent: 3,
-            emoji: "🏗️",
+            emoji: "🧱",
         },
         {
             name: "Chemical & petrochemical (industrial)",
@@ -638,14 +639,14 @@
             description:
                 "on flooded rice paddies, microbes in the soil produce methane as a by-product",
             percent: 1.3,
-            emoji: "🌾",
+            emoji: "🍚",
         },
         {
             name: "Agricultural Soils",
             description:
                 "from the addition of synthetic nitrogen fertilizers to soils",
             percent: 4.1,
-            emoji: "🌾",
+            emoji: "🌱",
         },
         {
             name: "Crop Burning",
@@ -658,7 +659,7 @@
             description:
                 "as the net emissions of carbon dioxide from changes in forestry cover",
             percent: 2.2,
-            emoji: "🌳",
+            emoji: "🪓",
         },
         {
             name: "Cropland",
@@ -706,6 +707,11 @@
 
     // Sort sectors by share.
     greenhouseGasEmissionsSectors.sort((a, b) => b.percent - a.percent)
+    // Add the source.
+    greenhouseGasEmissionsSectors.forEach((sector) => {
+        sector.source =
+            "https://ourworldindata.org/grapher/greenhouse-gas-emissions-by-sector"
+    })
 
     // Source: https://www.pewresearch.org/religion/interactives/religious-composition-by-country-2010-2050/
     // Year: 2020
@@ -1692,11 +1698,6 @@
 </p>
 
 <p>
-    For comparison, you breathe out enough CO₂ to fill one of these bubbles
-    every day.
-</p>
-
-<p>
     Burning one liter of gasoline produces <UnscaledNumber
         value={2.3}
         unit={"kg"}
@@ -1785,46 +1786,16 @@ EU: avg 10 t/year to heat
         {...values.co2eqEmissionsPerYear}
         factor={1000 * (1 / 365 / 24)}
         unit="kg"
-    /> of CO₂ <b>per hour</b>.
+    /> of CO₂ <b>per hour</b>. This is where they come from:
 </p>
 
 <!--<EmojiRate {...values.co2eqEmissionsPerYear} factor={1000} emoji="⚫" />-->
 
-<EmojiBox
-    count={values.co2eqEmissionsPerYear.value}
-    factor={1000 * (1 / 365 / 24)}
-    emoji="⚫"
+<CO2Bubbles
+    sectors={greenhouseGasEmissionsSectors}
+    count={(values.co2eqEmissionsPerYear.value * (1000 / 365 / 24)) /
+        $defaultScale}
 />
-
-<ContentNote
-    t="Do you want to see more details about where exactly these bubbles come from?"
->
-    <p>
-        Okay, sure! Here's a description of where these CO₂ bubbles come from.
-    </p>
-
-    <p>
-        Note: We use the term "CO₂" as a shorthand for "CO₂-equivalent", which
-        includes other greenhouse gases like methane.
-    </p>
-
-    {#each greenhouseGasEmissionsSectors as sector}
-        <p>
-            <Number
-                value={(sector.percent / 100) *
-                    values.co2eqEmissionsPerYear.value}
-                factor={(1 / 365 / 24) * 1000}
-                unit="kg"
-            /> of CO₂ are produced every hour by
-            {sector.emoji} <strong>{sector.name}</strong>, {sector.description}.
-        </p>
-        <EmojiBox
-            count={(sector.percent / 100) * values.co2eqEmissionsPerYear.value}
-            factor={1000 * (1 / 365 / 24)}
-            emoji="⚫"
-        />
-    {/each}
-</ContentNote>
 
 <!--
 <p>
@@ -2142,7 +2113,7 @@ EU: avg 10 t/year to heat
     for you:
 </p>
 
-<Question q="How many people live in Europe in the Small World?">
+<Question q="How many people live in Europe in the Small World?" log={true}>
     <p>
         There are <Number value={humans[2023].europe} shrunk={true} /> people in
         Europe.
@@ -2150,7 +2121,10 @@ EU: avg 10 t/year to heat
 
     <EmojiBox count={humans[2023].europe} emoji="🧑" />
 
-    <Question q="So, how many people live in Europe on real Earth?">
+    <Question
+        q="So, how many people live in Europe on real Earth?"
+        dropdown={true}
+    >
         <p>
             There are <UnscaledNumber value={humans[2023].europe} /> people in Europe
             on real Earth.
@@ -2165,7 +2139,7 @@ EU: avg 10 t/year to heat
 
     <EmojiBox count={values.cars.value} emoji="🚗" />
 
-    <Question q="So, how many cars are there on real Earth?">
+    <Question q="So, how many cars are there on real Earth?" dropdown={true}>
         <p>There are <UnscaledNumber {...values.cars} /> cars on real Earth.</p>
     </Question>
 </Question>
@@ -2182,27 +2156,30 @@ EU: avg 10 t/year to heat
     -------
 </p>
 
-<Question q="How many galaxies are there in the real world?">
+<Question q="How many galaxies are there in the real world?" dropdown={true}>
     <p>
         There are <UnscaledNumber {...values.galaxiesInUniverse} /> galaxies in the
         universe.
     </p>
 </Question>
 
-<Question q="How much gold has been mined in the real world?">
+<Question q="How much gold has been mined in the real world?" dropdown={true}>
     <p>
         There are <UnscaledNumber {...values.goldAboveGround} /> of gold that have
         been mined so far.
     </p>
 </Question>
 
-<Question q="How many websites are there on the real world?">
+<Question q="How many websites are there on the real world?" dropdown={true}>
     <p>
         There are <UnscaledNumber {...values.websites} /> websites on the real world.
     </p>
 </Question>
 
-<Question q="How many chickens are currently alive in the real world?">
+<Question
+    q="How many chickens are currently alive in the real world?"
+    dropdown={true}
+>
     <p>
         There are <UnscaledNumber {...values.chickens} /> chickens alive right now.
     </p>
