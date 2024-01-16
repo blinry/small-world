@@ -1,5 +1,8 @@
 <script>
+    import BigNumberInput from "./BigNumberInput.svelte"
+
     export let q
+    export let dropdown = false
 
     let answerShown = false
     let userAnswer
@@ -7,11 +10,15 @@
 
 <div>
     <b>{q}</b>
-    <input
-        type="text"
-        bind:value={userAnswer}
-        on:keypress={(e) => e.key === "Enter" && (answerShown = true)}
-    />
+    {#if dropdown}
+        <BigNumberInput />
+    {:else}
+        <input
+            type="text"
+            bind:value={userAnswer}
+            on:keypress={(e) => e.key === "Enter" && (answerShown = true)}
+        />
+    {/if}
 
     {#if answerShown}
         <slot />

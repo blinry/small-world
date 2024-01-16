@@ -2142,7 +2142,7 @@ EU: avg 10 t/year to heat
     for you:
 </p>
 
-<Question q="How many people live in Europe in the Small World?">
+<Question q="How many people live in Europe in the Small World?" log={true}>
     <p>
         There are <Number value={humans[2023].europe} shrunk={true} /> people in
         Europe.
@@ -2150,7 +2150,10 @@ EU: avg 10 t/year to heat
 
     <EmojiBox count={humans[2023].europe} emoji="🧑" />
 
-    <Question q="So, how many people live in Europe on real Earth?">
+    <Question
+        q="So, how many people live in Europe on real Earth?"
+        dropdown={true}
+    >
         <p>
             There are <UnscaledNumber value={humans[2023].europe} /> people in Europe
             on real Earth.
@@ -2165,7 +2168,7 @@ EU: avg 10 t/year to heat
 
     <EmojiBox count={values.cars.value} emoji="🚗" />
 
-    <Question q="So, how many cars are there on real Earth?">
+    <Question q="So, how many cars are there on real Earth?" dropdown={true}>
         <p>There are <UnscaledNumber {...values.cars} /> cars on real Earth.</p>
     </Question>
 </Question>
@@ -2182,27 +2185,30 @@ EU: avg 10 t/year to heat
     -------
 </p>
 
-<Question q="How many galaxies are there in the real world?">
+<Question q="How many galaxies are there in the real world?" dropdown={true}>
     <p>
         There are <UnscaledNumber {...values.galaxiesInUniverse} /> galaxies in the
         universe.
     </p>
 </Question>
 
-<Question q="How much gold has been mined in the real world?">
+<Question q="How much gold has been mined in the real world?" dropdown={true}>
     <p>
         There are <UnscaledNumber {...values.goldAboveGround} /> of gold that have
         been mined so far.
     </p>
 </Question>
 
-<Question q="How many websites are there on the real world?">
+<Question q="How many websites are there on the real world?" dropdown={true}>
     <p>
         There are <UnscaledNumber {...values.websites} /> websites on the real world.
     </p>
 </Question>
 
-<Question q="How many chickens are currently alive in the real world?">
+<Question
+    q="How many chickens are currently alive in the real world?"
+    dropdown={true}
+>
     <p>
         There are <UnscaledNumber {...values.chickens} /> chickens alive right now.
     </p>
