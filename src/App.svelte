@@ -310,7 +310,6 @@
             year: 2016,
             source: "https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight",
             emoji: "overweight",
-            dialog: ["My health is bad :("],
         },
         bikes: {
             value: 1e9,

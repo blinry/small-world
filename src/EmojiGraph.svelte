@@ -60,6 +60,19 @@
             }
         }
     }
+
+    // Take an integer, and add thousand separators (commas).
+    function addThousandSeparators(number) {
+        let string = String(number)
+        let result = ""
+        for (let i = 0; i < string.length; i++) {
+            if (i % 3 == 0 && i != 0) {
+                result = "," + result
+            }
+            result = string[string.length - i - 1] + result
+        }
+        return result
+    }
 </script>
 
 <Popup>
@@ -71,7 +84,7 @@
             {#each instances as instance}
                 <div>
                     {@html renderEmoji(emoji)}
-                    {Math.round(instance.value)}
+                    {addThousandSeparators(Math.round(instance.value))}
                     {unit}
                     {instance.bar}
                 </div>

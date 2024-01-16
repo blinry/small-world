@@ -15,6 +15,9 @@ export function metricToImperial(quantity) {
     } else if (quantity.unit == "kg") {
         result.unit = "lbs"
         result.value = quantity.value * 2.205
+    } else if (quantity.unit == "g") {
+        result.unit = "oz"
+        result.value = quantity.value * 0.035274
     }
     return result
 }
@@ -29,16 +32,16 @@ export function humanReadable(quantity, useMetric = true, rounded = true) {
         resultingQuantity = {...quantity}
     }
 
-    if (!useMetric) {
-        resultingQuantity = metricToImperial(quantity)
+    if (quantity.unit === "tonnes" && quantity.value < 0.001) {
+        quantity.unit = "g"
+        quantity.value *= 1_000_000
+    } else if (quantity.unit === "tonnes" && quantity.value < 1) {
+        quantity.unit = "kg"
+        quantity.value *= 1000
     }
 
-    if (quantity.unit === "tonnes" && quantity.value < 0.001) {
-        resultingQuantity.unit = "g"
-        resultingQuantity.value *= 1_000_000
-    } else if (quantity.unit === "tonnes" && quantity.value < 1) {
-        resultingQuantity.unit = "kg"
-        resultingQuantity.value *= 1000
+    if (!useMetric) {
+        resultingQuantity = metricToImperial(quantity)
     }
 
     // Convertes big values into something like 120 million or 41 thousand
