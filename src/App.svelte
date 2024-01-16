@@ -2353,10 +2353,9 @@ EU: avg 10 t/year to heat
     </p>
 </Question>
 
-<p>
-    ------- Now let's try some questions that relate to <b>the real world</b> directly!
-    -------
-</p>
+<Warning>
+    ⚠️ Now let's try some questions that relate to <b>the real world</b> directly!
+</Warning>
 
 <Question q="How many galaxies are there in the real world?" dropdown={true}>
     <p>
