@@ -2,9 +2,6 @@
     import Number from "./Number.svelte"
     import EmojiPicker from "./EmojiPicker.svelte"
     import EmojiBox from "./EmojiBox.svelte"
-    import html2canvas from "html2canvas"
-    //import * as htmlToImage from 'html-to-image';
-    //import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 
     import {parseQuantity as parseValue} from "./helpers.js"
 
@@ -25,7 +22,7 @@
 
     let question
 
-    let answer
+    let answer = ""
 
     let error
 
@@ -51,31 +48,42 @@
         emoji = e.detail.emoji
     }
 
-    function saveInfo() {
-        html2canvas(document.getElementById("futureImage")).then(
-            function (canvas) {
-                var link = document.createElement("a")
-                link.download = "smallworld.png"
-                link.href = canvas.toDataURL()
-                link.click()
-            },
-        )
+    function calcFontSize(value) {
+        let smallValue = value / 100000000
+        if (smallValue <= 10) return 2
+        if (smallValue <= 100) return 1.8
+        if (smallValue <= 200) return 1.35
+        if (smallValue <= 600) return 1
+        return 0.6
+    }
 
-        /*htmlToImage.toSvg(document.getElementById('futureImage'))
-        .then(function (dataUrl) {
-            //download(dataUrl, 'my-node.png');
-            var link = document.createElement("a")
-                link.download = "smallworld.svg"
-                link.href = dataUrl
-                link.click()
-                
-                var img = new Image();
-                img.src = dataUrl;
-                document.body.appendChild(img);
-        }).catch(function (error) {
-            console.error('oops, something went wrong!', error);
-        })
-        */
+    function saveInfo() {
+        var s = new XMLSerializer().serializeToString(
+            document.getElementById("exportsvg"),
+        )
+        var encodedData = btoa(unescape(encodeURIComponent(s)))
+
+        let img = new Image()
+        let canvas = document.createElement("canvas")
+        canvas.width = 1180
+        canvas.height = 820
+
+        img.onload = function () {
+            let ctx = canvas.getContext("2d")
+            ctx.rect(0, 0, 1180, 820)
+            ctx.fillStyle = "white"
+            ctx.fill()
+            ctx.drawImage(img, 50, 50)
+            var dataURL = canvas.toDataURL("image/png", 1.0)
+            var a = document.createElement("a")
+            a.href = dataURL
+            a.download = "smallworld.png"
+            document.body.appendChild(a)
+            a.click()
+            document.getElementById("canvtest").appendChild(canvas)
+        }
+        img.src = `data:image/svg+xml;base64,${encodedData}`
+        console.log(`data:image/svg+xml;base64,${encodedData}`)
     }
 </script>
 
@@ -123,28 +131,43 @@
 
 <h3>Step 3: See the converted value</h3>
 
-{#if answer}
-    <p>In the small world, there are <Number {...parsedData} {emoji} />!</p>
-{/if}
-
 {#if error}
     <p>{error}</p>
 {/if}
 
-<button on:click={saveInfo}>Save my Result</button>
+{#if question != undefined && parsedData.value > 0}
+    <svg width="1080" height="720" id="exportsvg">
+        <foreignObject x="0" y="0" width="1080" height="720">
+            <style>
+                #futureImage {
+                    font-family: sans-serif;
+                }
+            </style>
 
-<div id="futureImage">
-    <h3>{question}</h3>
-    <p>
-        In the small world, there are <Number
-            {...parsedData}
-            {emoji}
-            shrunk={true}
-        />!
-    </p>
-    <EmojiBox count={parsedData.value} {emoji}></EmojiBox>
-    <p>Want to know more? Visit Small World at XXXXXXX.com!</p>
-</div>
+            <div
+                id="futureImage"
+                style="font-size: {calcFontSize(parsedData.value)}em;"
+            >
+                <h3>{question}</h3>
+                <p>
+                    In the small world, there are <Number
+                        {...parsedData}
+                        {emoji}
+                        shrunk={true}
+                    />!
+                </p>
+                <EmojiBox count={parsedData.value} {emoji}></EmojiBox>
+                <p>Want to know more? Visit Small World at XXXXXXX.com!</p>
+            </div>
+        </foreignObject>
+    </svg>
+
+    {#if parsedData.value > 100000000 && parsedData.value < 200000000000}
+        <button on:click={saveInfo}>Save my Result</button>
+    {/if}
+{/if}
+
+<div id="canvtest"></div>
 
 <style>
     .button {
@@ -162,7 +185,9 @@
         padding: 0.5em;
     }
     #futureImage {
-        padding: 0.5em;
-        position: fixed;
+        display: flex;
+        flex-direction: column;
+
+        height: 100%;
     }
 </style>
