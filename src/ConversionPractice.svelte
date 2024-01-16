@@ -28,12 +28,23 @@
 
     let emoji = "🌍"
 
+    let svgScale = 1
+
     let parsedData = {}
     $: {
         if (answer && answer !== "") {
             try {
                 parsedData = parseValue(answer)
                 error = ""
+
+                let currentBodyWidth = document.body.clientWidth
+                svgScale = currentBodyWidth / 1180
+
+                if (svgScale < 1) {
+                    document
+                        .getElementById("exportsvg")
+                        .classList.add("spaceRemover")
+                }
             } catch (e) {
                 error = e.message
             }
@@ -80,7 +91,6 @@
             a.download = "smallworld.png"
             document.body.appendChild(a)
             a.click()
-            document.getElementById("canvtest").appendChild(canvas)
         }
         img.src = `data:image/svg+xml;base64,${encodedData}`
         console.log(`data:image/svg+xml;base64,${encodedData}`)
@@ -136,7 +146,7 @@
 {/if}
 
 {#if question != undefined && parsedData.value > 0}
-    <svg width="1080" height="720" id="exportsvg">
+    <svg width="1080" height="720" id="exportsvg" style="--scale: {svgScale}">
         <foreignObject x="0" y="0" width="1080" height="720">
             <style>
                 #futureImage {
@@ -144,10 +154,7 @@
                 }
             </style>
 
-            <div
-                id="futureImage"
-                style="font-size: {calcFontSize(parsedData.value)}em;"
-            >
+            <div id="futureImage" style="font-size: 2rem;">
                 <h3>{question}</h3>
                 <p>
                     In the small world, there are <Number
@@ -156,7 +163,9 @@
                         shrunk={true}
                     />!
                 </p>
-                <EmojiBox count={parsedData.value} {emoji}></EmojiBox>
+                <div style="font-size: {calcFontSize(parsedData.value)}rem;">
+                    <EmojiBox count={parsedData.value} {emoji}></EmojiBox>
+                </div>
                 <p>Want to know more? Visit Small World at XXXXXXX.com!</p>
             </div>
         </foreignObject>
@@ -189,5 +198,12 @@
         flex-direction: column;
 
         height: 100%;
+    }
+    .spaceRemover {
+        margin-bottom: calc(-720px * var(--scale));
+    }
+    svg {
+        transform: scale(var(--scale));
+        transform-origin: top left;
     }
 </style>
