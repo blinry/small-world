@@ -13,6 +13,7 @@
     import Question from "./Question.svelte"
     import QuestionButtons from "./QuestionButtons.svelte"
     import Thought from "./Thought.svelte"
+    import Warning from "./Warning.svelte"
     import ContentNote from "./ContentNote.svelte"
     import ContinentMap from "./ContinentMap.svelte"
     import ConversionPractice from "./ConversionPractice.svelte"
@@ -1102,7 +1103,7 @@
     <i>(Try clicking the grey number to scale it down!)</i>
 </p>
 
-<p>For example, together, the people have <Number {...values.cars} /> cars.</p>
+<p>Together, the people have <Number {...values.cars} /> cars.</p>
 
 <p>
     And there are <Number {...values.cats} /> cats and <Number
@@ -1195,6 +1196,13 @@
     There are <Number {...values.humans} /> humans on the small world.
 </p>
 
+<Warning>
+    <p>
+        ⚠️ You can click on all numbers with grey backround to scale them down
+        to our small world!
+    </p>
+</Warning>
+
 <p>
     Always keep these people in mind, when you read this article – we will learn
     a lot about what life is like for them!
@@ -1246,7 +1254,13 @@
             return "🧓"
         }
     }}
-    bucketLabel={{Toddler: 2, Children: 14, Youth: 24, Adult: 70, Senior: 150}}
+    bucketLabel={{
+        Toddlers: 2,
+        Children: 14,
+        Youth: 24,
+        Adults: 70,
+        Seniors: 150,
+    }}
     distribution={ageDistribution}
     source="https://population.un.org/wpp/Download/Files/1_Indicators%20(Standard)/CSV_FILES/WPP2022_PopulationBySingleAgeSex_Medium_Percentage_2022-2100.zip"
 />
