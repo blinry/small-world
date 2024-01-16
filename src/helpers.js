@@ -33,7 +33,10 @@ export function humanReadable(quantity, useMetric = true, rounded = true) {
         resultingQuantity = metricToImperial(quantity)
     }
 
-    if (quantity.unit === "tonnes" && quantity.value < 1) {
+    if (quantity.unit === "tonnes" && quantity.value < 0.001) {
+        resultingQuantity.unit = "g"
+        resultingQuantity.value *= 1_000_000
+    } else if (quantity.unit === "tonnes" && quantity.value < 1) {
         resultingQuantity.unit = "kg"
         resultingQuantity.value *= 1000
     }
