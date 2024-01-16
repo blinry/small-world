@@ -483,6 +483,55 @@
             source: "https://www.itu.int/en/ITU-D/Statistics/Pages/facts/default.aspx",
             emoji: "🧑‍💻",
         },
+        grainProduction: {
+            value: 2250e6,
+            unit: "tonnes",
+            year: 2023,
+            source: "https://www.statista.com/statistics/271943/total-world-grain-production-since-2008-2009/",
+            emoji: "🌾",
+        },
+        freshFruitProduction: {
+            value: 909e6,
+            unit: "tonnes",
+            year: 2021,
+            source: "https://www.statista.com/statistics/262266/global-production-of-fresh-fruit/",
+            emoji: "🍎",
+        },
+        vegetableProduction: {
+            value: 1154e6,
+            unit: "tonnes",
+            year: 2021,
+            source: "https://www.statista.com/statistics/264059/production-volume-of-vegetables-and-melons-worldwide-since-1990/",
+            emoji: "🥕",
+        },
+        meatProduction: {
+            value: 350e6,
+            unit: "tonnes",
+            year: 2023,
+            source: "https://www.statista.com/statistics/237644/global-meat-production-since-1990/",
+            emoji: "🥩",
+        },
+        milkProduction: {
+            value: 949.9e6,
+            unit: "tonnes",
+            year: 2023,
+            source: "https://www.fao.org/3/cc8589en/cc8589en_milk.pdf",
+            emoji: "🥛",
+        },
+        seafoodProduction: {
+            value: 213e6,
+            unit: "tonnes",
+            year: 2021,
+            source: "https://ourworldindata.org/fish-and-overfishing",
+            emoji: "🐟",
+        },
+        eggProduction: {
+            value: 92e6,
+            unit: "tonnes",
+            year: 2021,
+            source: "https://ourworldindata.org/grapher/egg-production-thousand-tonnes",
+            emoji: "🥚",
+        },
     }
 
     //co2PerBitcoinTransaction: 398.86, //kg https://digiconomist.net/bitcoin-energy-consumption
@@ -1687,6 +1736,145 @@
 
     <EmojiBox count={values.insects.value} emoji="🪰" />
 </p>-->
+
+<h2>🍽️ Food production</h2>
+
+<p>
+    This is the amount of food the world produces every day, <b>per person</b>.
+</p>
+
+<ul>
+    <li>
+        <UnscaledNumber
+            value={values.grainProduction.value / HUMANS}
+            unit={values.grainProduction.unit}
+            factor={1 / 365}
+        /> of grain. That's <UnscaledNumber
+            value={(values.grainProduction.value * 1_000_000) / HUMANS / 200}
+            factor={1 / 365}
+        /> bowls of rice. Note that only half of that is meant for human consumption,
+        the rest is used as animal feed or to manufacture biodiesel. <EmojiBox
+            count={(values.grainProduction.value * 1_000_000) / HUMANS / 200}
+            factor={1 / 365}
+            unscaled={true}
+            emoji="🍚"
+        />
+    </li>
+
+    <li>
+        <UnscaledNumber
+            value={values.vegetableProduction.value / HUMANS}
+            unit={values.vegetableProduction.unit}
+            factor={1 / 365}
+        /> of vegetables. That's equivalent to <UnscaledNumber
+            value={(values.vegetableProduction.value * 1_000_000) /
+                HUMANS /
+                123}
+            factor={1 / 365}
+        /> tomatos. <EmojiBox
+            count={(values.vegetableProduction.value * 1_000_000) /
+                HUMANS /
+                123}
+            factor={1 / 365}
+            unscaled={true}
+            emoji="🍅"
+        />
+    </li>
+
+    <li>
+        <UnscaledNumber
+            value={values.freshFruitProduction.value / HUMANS}
+            unit={values.freshFruitProduction.unit}
+            factor={1 / 365}
+        /> of fresh fruit. That's like <UnscaledNumber
+            value={(values.freshFruitProduction.value * 1_000_000) /
+                HUMANS /
+                118}
+            factor={1 / 365}
+        /> bananas. <EmojiBox
+            count={(values.freshFruitProduction.value * 1_000_000) /
+                HUMANS /
+                118}
+            factor={1 / 365}
+            unscaled={true}
+            emoji="🍌"
+        />
+    </li>
+
+    <li>
+        <UnscaledNumber
+            value={values.meatProduction.value / HUMANS}
+            unit={values.meatProduction.unit}
+            factor={1 / 365}
+        /> of meat. That's the weight of <UnscaledNumber
+            value={(values.meatProduction.value * 1_000_000) / HUMANS / 200}
+            factor={1 / 365}
+        /> steaks. <EmojiBox
+            count={(values.meatProduction.value * 1_000_000) / HUMANS / 200}
+            factor={1 / 365}
+            unscaled={true}
+            emoji="🥩"
+        />
+    </li>
+
+    <li>
+        <UnscaledNumber
+            value={values.seafoodProduction.value / HUMANS}
+            unit={values.seafoodProduction.unit}
+            factor={1 / 365}
+        /> of fish and seafood. That's approximately half a portion of fish.
+        <EmojiBox
+            count={(values.seafoodProduction.value * 1_000_000) / HUMANS / 140}
+            factor={1 / 365}
+            unscaled={true}
+            emoji="🐟"
+        />
+    </li>
+
+    <li>
+        <UnscaledNumber
+            value={values.eggProduction.value / HUMANS}
+            unit={values.eggProduction.unit}
+            factor={1 / 365}
+        /> of eggs. That's <UnscaledNumber
+            value={(values.eggProduction.value * 1_000_000) / HUMANS / 44}
+            factor={1 / 365}
+        /> egg. <EmojiBox
+            count={(values.eggProduction.value * 1_000_000) / HUMANS / 44}
+            factor={1 / 365}
+            unscaled={true}
+            emoji="🥚"
+        />
+    </li>
+
+    <li>
+        <UnscaledNumber
+            value={values.milkProduction.value / HUMANS}
+            unit={values.milkProduction.unit}
+            factor={1 / 365}
+        /> of milk. That's like <UnscaledNumber
+            value={(values.milkProduction.value * 1_000_000) / HUMANS / 200}
+            factor={1 / 365}
+        /> glasses. <EmojiBox
+            count={(values.milkProduction.value * 1_000_000) / HUMANS / 200}
+            factor={1 / 365}
+            unscaled={true}
+            emoji="🥛"
+        />
+    </li>
+</ul>
+
+<Thought t="How are those average amounts distributed over the planet?">
+    <p>
+        Quite unevenly. You can get a better sense for that using the Our World
+        In Data articles <a
+            href="https://ourworldindata.org/agricultural-production"
+            >Agricultural Production</a
+        >and
+        <a href="https://ourworldindata.org/meat-production">Meat Production</a
+        >.
+    </p>
+</Thought>
 
 <h2>🌐 Technology</h2>
 
