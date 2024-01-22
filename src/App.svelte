@@ -1430,7 +1430,10 @@
     /> is barren land.
 </p>-->
 
-<p>Here's how the land is used! Click on the squares to learn what they are!</p>
+<p>
+    Here's how the land is used! Click on the squares to learn what they are!
+    For comparison, on the right, you can see Central Park.
+</p>
 
 <Squares
     total={{

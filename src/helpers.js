@@ -27,9 +27,9 @@ export function humanReadable(quantity, useMetric = true, rounded = true) {
     let resultingQuantity
 
     if (typeof quantity === "number") {
-        resultingQuantity = {value: quantity}
+        quantity = {value: quantity}
     } else {
-        resultingQuantity = {...quantity}
+        quantity = {...quantity}
     }
 
     if (quantity.unit === "tonnes" && quantity.value < 0.001) {
@@ -42,6 +42,8 @@ export function humanReadable(quantity, useMetric = true, rounded = true) {
 
     if (!useMetric) {
         resultingQuantity = metricToImperial(quantity)
+    } else {
+        resultingQuantity = quantity
     }
 
     // Convertes big values into something like 120 million or 41 thousand
