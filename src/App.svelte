@@ -1865,12 +1865,14 @@
 
 <Thought t="How are those average amounts distributed over the planet?">
     <p>
-        Quite unevenly. You can get a better sense for that using the Our World
+        Very unevenly. You can get a better sense for that using the Our World
         In Data articles <a
             href="https://ourworldindata.org/agricultural-production"
-            >Agricultural Production</a
-        >and
-        <a href="https://ourworldindata.org/meat-production">Meat Production</a
+            target="_blank">Agricultural Production</a
+        >
+        and
+        <a href="https://ourworldindata.org/meat-production" target="_blank"
+            >Meat Production</a
         >.
     </p>
 </Thought>
@@ -2464,12 +2466,11 @@ EU: avg 10 t/year to heat
     </li>
     <li>
         Thanks to our beta testers for their feedback: Winnie Hellmann, Piko,
-        Wolfgang Morr, Winston Smith.
+        Wolfgang Morr, Winston Smith, Mirabellensaft, and Hanno Sternberg.
     </li>
 </ul>
 
 <style>
-    /* text that pops out! centered! shadow! colorful gradient! */
     .wow {
         margin: 2rem 0;
         font-size: 500%;
