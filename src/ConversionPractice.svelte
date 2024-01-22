@@ -43,7 +43,7 @@
                 if (svgScale < 1) {
                     document
                         .getElementById("exportsvg")
-                        .classList.add("spaceRemover")
+                        ?.classList.add("spaceRemover")
                 }
             } catch (e) {
                 error = e.message
@@ -131,7 +131,7 @@
 <ul>
     <li>1 billion pumpkins</li>
     <li>14900000000 USD</li>
-    <li>2.5e8 kg</li>
+    <li>2.5e8 kg of jelly</li>
 </ul>
 
 <input type="text" bind:value={answer} />
@@ -145,35 +145,54 @@
     <p>{error}</p>
 {/if}
 
-{#if question != undefined && parsedData.value > 0}
-    <svg width="1080" height="720" id="exportsvg" style="--scale: {svgScale}">
-        <foreignObject x="0" y="0" width="1080" height="720">
-            <style>
-                #futureImage {
-                    font-family: sans-serif;
-                }
-            </style>
+{#if parsedData.value > 0}
+    <div id="frame">
+        <svg
+            width="1080"
+            height="720"
+            id="exportsvg"
+            style="--scale: {svgScale}"
+        >
+            <foreignObject x="0" y="0" width="1080" height="720">
+                <style>
+                    #futureImage {
+                        font-family: sans-serif;
+                    }
+                </style>
 
-            <div id="futureImage" style="font-size: 2rem;">
-                <h3>{question}</h3>
-                <p>
-                    In the small world, there are <Number
-                        {...parsedData}
-                        {emoji}
-                        shrunk={true}
-                    />!
-                </p>
-                <div style="font-size: {calcFontSize(parsedData.value)}rem;">
-                    <EmojiBox count={parsedData.value} {emoji}></EmojiBox>
+                <div id="futureImage" style="font-size: 2rem;">
+                    {#if question}<h3>{question}</h3>
+
+                        <p>
+                            In a small world with 81 humans, the answer is: <Number
+                                {...parsedData}
+                                {emoji}
+                                shrunk={true}
+                            />
+                        </p>
+                    {:else}
+                        <p>
+                            In a small world with 81 humans, there are <Number
+                                {...parsedData}
+                                {emoji}
+                                shrunk={true}
+                            />
+                        </p>
+                    {/if}
+                    <div
+                        style="font-size: {calcFontSize(parsedData.value)}rem;"
+                    >
+                        <EmojiBox count={parsedData.value} {emoji}></EmojiBox>
+                    </div>
+                    <p>
+                        Want to know more? Visit <b>smallworld.blinry.org!</b>
+                    </p>
                 </div>
-                <p>Want to know more? Visit Small World at XXXXXXX.com!</p>
-            </div>
-        </foreignObject>
-    </svg>
+            </foreignObject>
+        </svg>
+    </div>
 
-    {#if parsedData.value > 100000000 && parsedData.value < 200000000000}
-        <button on:click={saveInfo}>Save my Result</button>
-    {/if}
+    <button on:click={saveInfo}>📥 Download this image</button>
 {/if}
 
 <div id="canvtest"></div>
@@ -187,6 +206,21 @@
         border-radius: 0.5em;
         text-decoration: none;
         color: #000;
+    }
+    .button:hover {
+        background-color: #ccc;
+    }
+    button {
+        font-size: 120%;
+        cursor: pointer;
+        padding: 0.5em 1em !important;
+        border: none;
+        background: #2867c4;
+        color: white;
+        border-radius: 0.5em;
+    }
+    button:hover {
+        background: #1f4f9f;
     }
     input[type="text"] {
         width: 70%;
@@ -205,5 +239,10 @@
     svg {
         transform: scale(var(--scale));
         transform-origin: top left;
+    }
+    #frame {
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
+        padding: 2em;
+        margin-bottom: 2em;
     }
 </style>
