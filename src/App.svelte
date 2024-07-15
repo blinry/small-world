@@ -1143,7 +1143,7 @@
 </p>
 
 <p style="text-align: center;">
-    <img src="custom-emoji/wand.svg" alt="A magical wand" style="width: 8em;" />
+    <img src="images/wand.svg" alt="A magical wand" style="width: 8em;" />
 </p>
 
 <p>
