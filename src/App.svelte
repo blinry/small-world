@@ -32,7 +32,7 @@
     import {defaultScale} from "./stores.js"
     import {humanReadable} from "./helpers.js"
 
-    const HUMANS = 8.05e9
+    const HUMANS = 8.09e9
 
     const values = {
         humans: {
@@ -42,13 +42,13 @@
             emoji: "🧑",
         },
         humansBornPerYear: {
-            value: 133.97e6,
-            year: 2021,
+            value: 132.11e6,
+            year: 2023,
             source: "https://ourworldindata.org/grapher/births-and-deaths-projected-to-2100",
         },
         humansDiePerYear: {
-            value: 69.25e6,
-            year: 2021,
+            value: 61.65e6,
+            year: 2023,
             source: "https://ourworldindata.org/grapher/births-and-deaths-projected-to-2100",
         },
         humans1300: {
@@ -58,7 +58,7 @@
             emoji: "🧑",
         },
         humans2086: {
-            value: 10.43e9,
+            value: 10.29e9,
             year: 2086,
             source: "https://ourworldindata.org/grapher/population",
         },
@@ -72,14 +72,14 @@
             year: 2023,
         },
         extremePoverty: {
-            value: 0.0844 * HUMANS,
-            year: 2019,
+            value: 0.0898 * HUMANS,
+            year: 2023,
             source: "https://ourworldindata.org/explorers/poverty-explorer",
             emoji: "poverty",
         },
         illiterate: {
-            value: 0.1375 * HUMANS,
-            year: 2016,
+            value: 0.1299 * HUMANS,
+            year: 2023,
             source: "https://ourworldindata.org/grapher/literate-and-illiterate-world-population",
             emoji: "❓",
         },
@@ -191,15 +191,15 @@
             emoji: "💀",
         },
         covidDeaths: {
-            value: 6.95e6,
+            value: 7.05e6,
             source: "https://ourworldindata.org/covid-deaths",
-            year: 2023,
+            year: 2024,
             emoji: "☠️",
         },
         covidCases: {
-            value: 767e6,
+            value: 777e6,
             source: "https://ourworldindata.org/covid-cases",
-            year: 2023,
+            year: 2024,
             emoji: "😷",
         },
         motorcycles: {
@@ -1079,6 +1079,7 @@
     ]
 
     // Source: https://ourworldindata.org/grapher/population-regions-with-projections
+
     const humans = {
         1900: {
             europe: 406e6,
@@ -1129,7 +1130,7 @@
 <h1>🌍 Small World</h1>
 <div id="subtitle">
     by <a href="https://bleeptrack.de">bleeptrack</a> &
-    <a href="https://blinry.org">blinry</a>, last updated 2023
+    <a href="https://blinry.org">blinry</a>, last updated 2024
 </div>
 
 <p>
