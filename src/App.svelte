@@ -283,9 +283,9 @@
             emoji: "🐟",
         },
         co2eqEmissionsPerYear: {
-            value: 54.59e9,
+            value: 53.85e9,
             unit: "tonnes",
-            year: 2021,
+            year: 2022,
             source: "https://ourworldindata.org/explorers/co2?facet=none&country=~OWID_WRL&Gas+or+Warming=All+GHGs+%28CO%E2%82%82eq%29&Accounting=Production-based&Fuel+or+Land+Use+Change=All+fossil+emissions&Count=Per+country&Relative+to+world+total=false",
         },
         depression: {
@@ -352,13 +352,13 @@
         },
         cattleAlive: {
             value: 1.5e9,
-            year: 2021,
+            year: 2022,
             source: "https://ourworldindata.org/grapher/cattle-livestock-count-heads?tab=table",
             emoji: "🐄",
         },
         pigAlive: {
             value: 1e9,
-            year: 2021,
+            year: 2022,
             source: "https://ourworldindata.org/grapher/pig-livestock-count-heads?tab=table",
             emoji: "🐖",
         },
@@ -387,9 +387,9 @@
             source: "https://en.wikipedia.org/wiki/Central_Park",
         },
         energyPerYear: {
-            value: 178899e9,
+            value: 183230e9,
             unit: "kWh",
-            year: 2022,
+            year: 2023,
             source: "https://ourworldindata.org/energy-production-consumption",
         },
         banknotesAndCoinsInCirulation: {
@@ -405,9 +405,9 @@
             source: "https://www.gold.org/goldhub/data/how-much-gold",
         },
         goldPrice: {
-            value: 61.96,
+            value: 77.5,
             unit: "USD/g",
-            year: 2023,
+            year: 2024,
             source: "https://goldprice.org",
         },
         allMoney: {
@@ -417,7 +417,7 @@
             source: "https://www.gobankingrates.com/money/economy/how-much-money-is-in-the-world/",
         },
         grossWorldProduct: {
-            value: 100.56e12,
+            value: 105.44e12,
             unit: "USD",
             year: 2022,
             source: "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=1W",
@@ -477,8 +477,8 @@
             dialog: ["What kind of website would I be?"],
         },
         internetUsers: {
-            value: 5.3e9,
-            year: 2022,
+            value: 5.4e9,
+            year: 2023,
             source: "https://www.itu.int/en/ITU-D/Statistics/Pages/facts/default.aspx",
             emoji: "🧑‍💻",
         },
@@ -490,16 +490,16 @@
             emoji: "🌾",
         },
         freshFruitProduction: {
-            value: 909e6,
+            value: 933e6,
             unit: "tonnes",
-            year: 2021,
+            year: 2022,
             source: "https://www.statista.com/statistics/262266/global-production-of-fresh-fruit/",
             emoji: "🍎",
         },
         vegetableProduction: {
-            value: 1154e6,
+            value: 1173e6,
             unit: "tonnes",
-            year: 2021,
+            year: 2022,
             source: "https://www.statista.com/statistics/264059/production-volume-of-vegetables-and-melons-worldwide-since-1990/",
             emoji: "🥕",
         },
@@ -525,9 +525,9 @@
             emoji: "🐟",
         },
         eggProduction: {
-            value: 92e6,
+            value: 93e6,
             unit: "tonnes",
-            year: 2021,
+            year: 2022,
             source: "https://ourworldindata.org/grapher/egg-production-thousand-tonnes",
             emoji: "🥚",
         },
