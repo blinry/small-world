@@ -18,6 +18,15 @@ Fonts:
 -   Roboto
 -   Fira Sans
 
+## Development
+
+To build this project, run:
+
+```
+npm i
+npx vite
+```
+
 ## License
 
 This work is released under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) license, which means that you're free to share and adapt the works: You can copy and redistribute them in any medium or format. You can print them and hang them on your wall, include them in presentations or on flyers. You can also remix, modify, and build upon the material.
